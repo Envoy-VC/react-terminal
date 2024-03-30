@@ -1,29 +1,43 @@
 {
-	"name": "@envoy1084/react-terminal",
-	"version": "0.0.0",
-	"main": "./dist/index.js",
-	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
-	"sideEffects": false,
-	"license": "MIT",
-	"files": [
-		"dist/**"
-	],
-	"scripts": {
-		"build": "tsup src/index.tsx --format esm,cjs --dts --external react",
-		"dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
-		"lint": "eslint \"src/**/*.ts*\"",
-		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
-	},
-	"devDependencies": {
-		"@types/react": "^18.2.61",
-		"@types/react-dom": "^18.2.19",
-		"eslint": "^8.57.0",
-		"react": "^18.2.0",
-		"tsup": "^8.0.2",
-		"typescript": "^5.3.3"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@envoy1084/react-terminal",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "format": "prettier . --write --cache"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "react": "^18.2.0",
+    "tailwindcss": "^3.4.3",
+    "tm-themes": "^1.3.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "dexie": "^4.0.1",
+    "dexie-react-hooks": "^1.1.7",
+    "lucide-react": "^0.363.0",
+    "tailwind-merge": "^2.2.2"
+  }
 }

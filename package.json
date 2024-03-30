@@ -5,7 +5,7 @@
 		"dev": "turbo dev",
 		"lint": "turbo lint",
 		"clean": "turbo clean && rm -rf node_modules",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"format": "prettier --write \"**/*.{ts,tsx,md, mdx}\"",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"release": "turbo build --filter=docs^... && changeset publish"
