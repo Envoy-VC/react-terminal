@@ -8,36 +8,28 @@ import TitleBar from '~/components/TitleBar';
 import { TerminalProps } from '~/types';
 
 const Terminal: React.FC<TerminalProps> = ({
-  welcomeMessage,
-  commands,
-  prompt,
-  showTitleBar = true,
-  className,
   theme = poimandres,
+  showTitleBar = true,
+  titleBar,
+  className,
   ...props
 }) => {
   React.useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty(
-      '--terminal-background',
-      theme['terminal.background']
-    );
-    root.style.setProperty('--terminal-border', theme['terminal.border']);
-    root.style.setProperty(
-      '--terminal-foreground',
-      theme['terminal.foreground']
-    );
+    Object.entries(theme).forEach(([key, value]) => {
+      root.style.setProperty(key, value);
+    });
   }, [theme]);
 
   return (
     <div
       {...props}
       className={cn(
-        'flex rounded-lg w-full bg-background text-foreground',
+        'flex rounded-[10px] w-full bg-background text-foreground',
         className
       )}
     >
-      {showTitleBar && <TitleBar />}
+      {showTitleBar && <TitleBar {...titleBar} />}
     </div>
   );
 };

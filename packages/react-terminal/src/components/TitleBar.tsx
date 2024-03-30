@@ -1,15 +1,7 @@
 import React from 'react';
 
-import { ChevronsUpDown, Plus, X } from 'lucide-react';
-import { Awaitable } from '~/types';
-
-interface TitleBarProps {
-  title?: React.ReactNode;
-  closeHandler?: Awaitable<void>;
-  minimizeHandler?: Awaitable<void>;
-  maximizeHandler?: Awaitable<void>;
-  extraContent?: React.ReactNode;
-}
+import { ChevronsUpDown, Minus, X } from 'lucide-react';
+import { Awaitable, TitleBarProps } from '~/types';
 
 const actionButtons = [
   {
@@ -20,7 +12,7 @@ const actionButtons = [
   {
     name: 'minimize',
     color: '#ffcc00',
-    Icon: Plus,
+    Icon: Minus,
   },
   {
     name: 'maximize',
@@ -38,7 +30,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
 }) => {
   return (
     <div className='border-b w-full border-border h-fit px-4 flex flex-row items-center justify-between py-1'>
-      <div className='flex flex-row gap-1 items-center group'>
+      <div className='flex flex-row gap-[6px] items-center group'>
         {actionButtons.map((action) => {
           const { Icon, color, name } = action;
           let handler: Awaitable<void>;
