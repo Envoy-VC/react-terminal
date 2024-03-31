@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 
+import { defaultPrompt } from '~/lib/helpers';
 import {
   TerminalStore,
   createTerminalStore,
@@ -12,9 +13,13 @@ import TerminalContainer from './TerminalContainer';
 export const TerminalContext = createContext<TerminalStore | null>(null);
 
 const Terminal = (props: TerminalProps) => {
-  const { commands, waitForExecution, defaultHandler } = props;
+  const { commands, defaultHandler, inputBox } = props;
   const store = React.useRef(
-    createTerminalStore({ commands, waitForExecution, defaultHandler })
+    createTerminalStore({
+      commands: commands ?? [],
+      defaultHandler,
+      prompt: inputBox?.prompt ?? defaultPrompt,
+    })
   ).current;
 
   return (

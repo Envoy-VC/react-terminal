@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { useTerminal } from '~/lib/hooks';
 import { themes } from '~/lib/themes';
 import { cn } from '~/lib/utils';
 
 import { useEventListener } from 'usehooks-ts';
-import { InputBox, TitleBar } from '~/components';
+import { ExecutingLoader, InputBox, Output, TitleBar } from '~/components';
 import { TerminalProps } from '~/types';
 
 const TerminalContainer = ({
@@ -16,6 +17,8 @@ const TerminalContainer = ({
   className,
   ...props
 }: TerminalProps) => {
+  const { isExecuting } = useTerminal();
+
   const terminalRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -26,7 +29,13 @@ const TerminalContainer = ({
     });
   }, [theme]);
 
-  useEventListener('click', () => inputRef.current?.focus(), terminalRef);
+  useEventListener(
+    'click',
+    () => {
+      if (!isExecuting) inputRef.current?.focus();
+    },
+    terminalRef
+  );
 
   return (
     <div
@@ -38,7 +47,9 @@ const TerminalContainer = ({
       {...props}
     >
       {showTitleBar && <TitleBar {...titleBar} />}
+      <Output />
       <InputBox ref={inputRef} {...inputBox} />
+      <ExecutingLoader />
     </div>
   );
 };

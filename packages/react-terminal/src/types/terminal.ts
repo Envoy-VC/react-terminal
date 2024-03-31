@@ -40,6 +40,7 @@ export interface Command {
   description?: string;
   usage?: string;
   args?: string[];
+  waitForExecution?: boolean;
   handler: CommandHandler;
 }
 
@@ -49,6 +50,5 @@ export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
   titleBar?: TitleBarProps;
   inputBox?: InputBoxProps;
   commands?: Command[];
-  waitForExecution?: boolean;
   defaultHandler?: DefaultHandler;
 }

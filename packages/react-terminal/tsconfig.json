@@ -3,7 +3,7 @@
   "display": "React Library",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": ["dom", "ES2017"],
+    "lib": ["dom", "ES2017", "ES2022"],
     "module": "ESNext",
     "strict": true,
     "target": "es6",

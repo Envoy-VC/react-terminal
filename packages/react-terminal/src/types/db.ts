@@ -1,4 +1,5 @@
 export type TerminalCommand = {
+  id?: number;
   type: 'command';
   value: string;
 };
@@ -11,6 +12,7 @@ export type TerminalOutputValue =
     };
 
 export type TerminalOutput = {
+  id?: number;
   type: 'output';
   value: TerminalOutputValue;
 };

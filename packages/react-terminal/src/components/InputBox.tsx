@@ -5,8 +5,7 @@ import {
   defaultPrompt,
   getCursor,
 } from '~/lib/helpers';
-import { useCopyRef } from '~/lib/hooks';
-import { useTerminalContext } from '~/lib/hooks';
+import { useCopyRef, useTerminal } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { InputBoxProps } from '~/types';
@@ -20,7 +19,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     const textareaRef = useCopyRef(ref);
     const mirrorRef = React.useRef<HTMLDivElement>(null);
 
-    const { text, setText } = useTerminalContext();
+    const { text, setText, handler, isExecuting, reFocus } = useTerminal();
 
     const [beforeText, setBeforeText] = React.useState<string>('');
     const [afterText, setAfterText] = React.useState<string>('');
@@ -37,21 +36,20 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
       setText(event.target.value);
     };
 
-    const handleSelectionChange = React.useCallback(() => {
-      console.log('selection change');
+    const handleSelectionChange = () => {
       const textarea = textareaRef.current;
       const mirrorEle = mirrorRef.current;
 
       if (!mirrorEle) {
         return;
       }
-      const cursorPos = textarea.selectionStart;
+      const cursorPos = textarea.selectionStart ?? 0;
       const textBeforeCursor = textarea.value.substring(0, cursorPos);
       const textAfterCursor = textarea.value.substring(cursorPos);
 
       setAfterText(textAfterCursor);
       setBeforeText(textBeforeCursor);
-    }, [textareaRef, mirrorRef]);
+    };
 
     const handleFocus = () => {
       setIsFocussed(true);
@@ -61,8 +59,44 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
       setIsFocussed(false);
     };
 
+    React.useEffect(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+      }
+    }, [reFocus]);
+
+    React.useEffect(() => {
+      if (isFocused) {
+        handleSelectionChange();
+      }
+    }, [isFocused]);
+
+    const handleKeyPress = async (
+      event: React.KeyboardEvent<HTMLTextAreaElement>
+    ) => {
+      if (
+        event.key === 'Enter' &&
+        !event.shiftKey &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.metaKey
+      ) {
+        event.preventDefault();
+        textareaRef.current?.blur();
+        await handler();
+      } else if (event.key === 'Enter' && event.shiftKey) {
+        const newText = text + '\n';
+        setText(newText);
+        event.preventDefault();
+        // now handle arrow up and down events
+      } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        // TODO: handle arrow up and down events
+      }
+    };
+
     return (
-      <div className='flex flex-row justify-start gap-1 p-2 text-base items-start leading-5'>
+      <div className='flex flex-row justify-start gap-1 px-2 text-base items-start leading-5'>
         {prompt}
         <div
           className='relative w-full'
@@ -80,12 +114,14 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
             </div>
           )}
           <textarea
+            disabled={isExecuting}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onSeeking={handleSelectionChange}
             onSelect={handleSelectionChange}
             ref={textareaRef}
             autoFocus
+            onKeyDown={handleKeyPress}
             value={text}
             onChange={handleTextChange}
             spellCheck={false}

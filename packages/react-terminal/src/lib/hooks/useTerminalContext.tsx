@@ -3,16 +3,16 @@ import { useContext } from 'react';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand';
 import { Command, DefaultHandler } from '~/types';
-import '~/types';
 
 import { TerminalContext } from '../../components/Terminal';
+import { defaultPrompt } from '../helpers';
 
 type TerminalState = {
   text: string;
   commands: Command[];
-  waitForExecution: boolean;
   isExecuting: boolean;
   defaultHandler?: DefaultHandler;
+  prompt: React.ReactNode;
 };
 
 type TerminalActions = {
@@ -29,8 +29,8 @@ export const createTerminalStore = (
   const DEFAULT_PROPS: TerminalState = {
     text: '',
     commands: [],
-    waitForExecution: true,
     isExecuting: false,
+    prompt: defaultPrompt,
   };
   return createStore<TerminalStoreProps>()((set) => ({
     ...DEFAULT_PROPS,
