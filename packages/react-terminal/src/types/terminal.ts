@@ -4,6 +4,15 @@ import { TerminalOutputValue } from './db';
 
 export type Awaitable<T> = () => Promise<T> | T;
 
+export type CommandHandler = (
+  args: string[],
+  command: string
+) => Promise<TerminalOutputValue> | TerminalOutputValue;
+
+export type DefaultHandler = (
+  command: string
+) => Promise<TerminalOutputValue> | TerminalOutputValue;
+
 export interface Theme extends Record<string, string> {
   '--terminal-border': string;
   '--terminal-foreground': string;
@@ -31,7 +40,7 @@ export interface Command {
   description?: string;
   usage?: string;
   args?: string[];
-  handler: Awaitable<TerminalOutputValue>;
+  handler: CommandHandler;
 }
 
 export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -40,4 +49,6 @@ export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
   titleBar?: TitleBarProps;
   inputBox?: InputBoxProps;
   commands?: Command[];
+  waitForExecution?: boolean;
+  defaultHandler?: DefaultHandler;
 }

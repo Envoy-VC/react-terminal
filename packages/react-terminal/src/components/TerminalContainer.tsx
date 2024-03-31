@@ -12,6 +12,7 @@ const TerminalContainer = ({
   showTitleBar = true,
   titleBar,
   inputBox,
+  commands,
   className,
   ...props
 }: TerminalProps) => {

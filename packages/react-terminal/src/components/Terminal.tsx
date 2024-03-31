@@ -12,8 +12,10 @@ import TerminalContainer from './TerminalContainer';
 export const TerminalContext = createContext<TerminalStore | null>(null);
 
 const Terminal = (props: TerminalProps) => {
-  const {} = props;
-  const store = React.useRef(createTerminalStore()).current;
+  const { commands, waitForExecution, defaultHandler } = props;
+  const store = React.useRef(
+    createTerminalStore({ commands, waitForExecution, defaultHandler })
+  ).current;
 
   return (
     <TerminalContext.Provider value={store}>
