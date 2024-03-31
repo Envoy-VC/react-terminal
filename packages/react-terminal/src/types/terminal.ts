@@ -19,9 +19,12 @@ export interface TitleBarProps {
 export interface InputBoxProps
   extends React.ComponentPropsWithoutRef<'textarea'> {
   prompt?: React.ReactNode;
+  cursor?: 'underscore' | 'block' | 'bar' | React.ReactNode;
 }
+
 export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
   theme?: Theme;
   showTitleBar?: boolean;
   titleBar?: TitleBarProps;
+  inputBox?: InputBoxProps;
 }

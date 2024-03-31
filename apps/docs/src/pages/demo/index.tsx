@@ -6,7 +6,9 @@ const Demo = () => {
   return (
     <div className='flex py-12 justify-center items-center mx-auto'>
       <Terminal
-        commands={[]}
+        inputBox={{
+          cursor: 'block',
+        }}
         className='!aspect-video max-w-screen-lg w-full'
       />
     </div>

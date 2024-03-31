@@ -7,13 +7,14 @@ import { useEventListener } from 'usehooks-ts';
 import { InputBox, TitleBar } from '~/components';
 import { TerminalProps } from '~/types';
 
-const Terminal: React.FC<TerminalProps> = ({
+const Terminal = ({
   theme = poimandres,
   showTitleBar = true,
   titleBar,
+  inputBox,
   className,
   ...props
-}) => {
+}: TerminalProps) => {
   const terminalRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -36,7 +37,7 @@ const Terminal: React.FC<TerminalProps> = ({
       {...props}
     >
       {showTitleBar && <TitleBar {...titleBar} />}
-      <InputBox ref={inputRef} />
+      <InputBox ref={inputRef} {...inputBox} />
     </div>
   );
 };
