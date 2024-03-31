@@ -1,3 +1,4 @@
 import useCopyRef from './useCopyRef';
+import { useTerminalContext } from './useTerminalContext';
 
-export { useCopyRef };
+export { useCopyRef, useTerminalContext };

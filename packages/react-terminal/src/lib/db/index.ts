@@ -1,12 +1,14 @@
 import Dexie, { Table } from 'dexie';
 
+import { TerminalHistory } from '~/types/db';
+
 export class Database extends Dexie {
-  friends!: Table<string>;
+  history!: Table<TerminalHistory>;
 
   constructor() {
     super('TerminalDB');
     this.version(1).stores({
-      friends: '++id',
+      history: '++id, type',
     });
   }
 }

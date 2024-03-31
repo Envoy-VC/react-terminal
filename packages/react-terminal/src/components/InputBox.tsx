@@ -1,27 +1,15 @@
 import React from 'react';
 
-import { calculateTextAreaHeight } from '~/lib/helpers';
+import {
+  calculateTextAreaHeight,
+  defaultPrompt,
+  getCursor,
+} from '~/lib/helpers';
 import { useCopyRef } from '~/lib/hooks';
+import { useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { InputBoxProps } from '~/types';
-
-export const defaultPrompt = (
-  <span className='text-sky-500 font-medium'>$</span>
-);
-
-export const getCursor = (type: InputBoxProps['cursor']) => {
-  switch (type) {
-    case 'block':
-      return <span className='!text-foreground animate-blink'>▊</span>;
-    case 'bar':
-      return <span className='!text-foreground animate-blink'>|</span>;
-    case 'underscore':
-      return <span className='!text-foreground animate-blink'>_</span>;
-    default:
-      return type;
-  }
-};
 
 const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
   (
@@ -32,7 +20,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     const textareaRef = useCopyRef(ref);
     const mirrorRef = React.useRef<HTMLDivElement>(null);
 
-    const [text, setText] = React.useState<string>('');
+    const { text, setText } = useTerminalContext();
 
     const [beforeText, setBeforeText] = React.useState<string>('');
     const [afterText, setAfterText] = React.useState<string>('');

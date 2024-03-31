@@ -9,7 +9,7 @@ module.exports = {
         border: 'var(--terminal-border)',
       },
       animation: {
-        blink: 'blink 0.8s steps(1) infinite',
+        blink: 'blink 0.95s steps(1) infinite',
       },
       keyframes: {
         blink: {

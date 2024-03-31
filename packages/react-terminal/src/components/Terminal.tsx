@@ -1,44 +1,24 @@
-import React from 'react';
+import React, { createContext } from 'react';
 
-import { poimandres } from '~/lib/themes';
-import { cn } from '~/lib/utils';
+import {
+  TerminalStore,
+  createTerminalStore,
+} from '~/lib/hooks/useTerminalContext';
 
-import { useEventListener } from 'usehooks-ts';
-import { InputBox, TitleBar } from '~/components';
 import { TerminalProps } from '~/types';
 
-const Terminal = ({
-  theme = poimandres,
-  showTitleBar = true,
-  titleBar,
-  inputBox,
-  className,
-  ...props
-}: TerminalProps) => {
-  const terminalRef = React.useRef<HTMLDivElement>(null);
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
+import TerminalContainer from './TerminalContainer';
 
-  React.useEffect(() => {
-    const terminalContainer = terminalRef.current;
-    Object.entries(theme).forEach(([key, value]) => {
-      terminalContainer?.style.setProperty(key, value);
-    });
-  }, [theme]);
+export const TerminalContext = createContext<TerminalStore | null>(null);
 
-  useEventListener('click', () => inputRef.current?.focus(), terminalRef);
+const Terminal = (props: TerminalProps) => {
+  const {} = props;
+  const store = React.useRef(createTerminalStore()).current;
 
   return (
-    <div
-      ref={terminalRef}
-      className={cn(
-        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar ',
-        className
-      )}
-      {...props}
-    >
-      {showTitleBar && <TitleBar {...titleBar} />}
-      <InputBox ref={inputRef} {...inputBox} />
-    </div>
+    <TerminalContext.Provider value={store}>
+      <TerminalContainer {...props} />
+    </TerminalContext.Provider>
   );
 };
 
