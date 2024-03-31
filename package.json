@@ -1,20 +1,26 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "turbo build",
+		"build": "turbo build --filter=@envoy1084/react-terminal",
 		"dev": "turbo dev",
 		"lint": "turbo lint",
 		"clean": "turbo clean && rm -rf node_modules",
 		"format": "prettier --write \"**/*.{ts,tsx,md, mdx}\"",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
-		"release": "turbo build --filter=docs^... && changeset publish"
+		"release": "pnpm build && changeset publish"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
+		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.57.0",
 		"prettier": "^3.2.5",
 		"turbo": "latest"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
 	},
 	"packageManager": "pnpm@8.9.0",
 	"engines": {
