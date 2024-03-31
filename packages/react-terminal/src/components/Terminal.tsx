@@ -19,9 +19,9 @@ const Terminal = ({
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
-    const root = document.documentElement;
+    const terminalContainer = terminalRef.current;
     Object.entries(theme).forEach(([key, value]) => {
-      root.style.setProperty(key, value);
+      terminalContainer?.style.setProperty(key, value);
     });
   }, [theme]);
 

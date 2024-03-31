@@ -9,12 +9,11 @@ module.exports = {
         border: 'var(--terminal-border)',
       },
       animation: {
-        blink: 'blink 1s step-end infinite',
+        blink: 'blink 0.8s steps(1) infinite',
       },
       keyframes: {
         blink: {
-          '0%, 100%': { opacity: '0' },
-          '50%': { opacity: '1' },
+          '50%': { opacity: '0' },
         },
       },
     },
