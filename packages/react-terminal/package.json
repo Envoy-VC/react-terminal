@@ -39,6 +39,7 @@
     "dexie": "^4.0.1",
     "dexie-react-hooks": "^1.1.7",
     "lucide-react": "^0.363.0",
-    "tailwind-merge": "^2.2.2"
+    "tailwind-merge": "^2.2.2",
+    "usehooks-ts": "^3.0.2"
   }
 }

@@ -29,7 +29,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
   extraContent,
 }) => {
   return (
-    <div className='border-b w-full border-border h-fit px-4 flex flex-row items-center justify-between py-1'>
+    <div className='sticky top-0 border-b w-full border-border h-fit px-4 flex flex-row items-center justify-between py-1 bg-background'>
       <div className='flex flex-row gap-[6px] items-center group'>
         {actionButtons.map((action) => {
           const { Icon, color, name } = action;

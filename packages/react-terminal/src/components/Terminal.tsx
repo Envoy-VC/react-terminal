@@ -3,8 +3,8 @@ import React from 'react';
 import { poimandres } from '~/lib/themes';
 import { cn } from '~/lib/utils';
 
-import TitleBar from '~/components/TitleBar';
-
+import { useEventListener } from 'usehooks-ts';
+import { InputBox, TitleBar } from '~/components';
 import { TerminalProps } from '~/types';
 
 const Terminal: React.FC<TerminalProps> = ({
@@ -14,6 +14,9 @@ const Terminal: React.FC<TerminalProps> = ({
   className,
   ...props
 }) => {
+  const terminalRef = React.useRef<HTMLDivElement>(null);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
+
   React.useEffect(() => {
     const root = document.documentElement;
     Object.entries(theme).forEach(([key, value]) => {
@@ -21,15 +24,19 @@ const Terminal: React.FC<TerminalProps> = ({
     });
   }, [theme]);
 
+  useEventListener('click', () => inputRef.current?.focus(), terminalRef);
+
   return (
     <div
-      {...props}
+      ref={terminalRef}
       className={cn(
-        'flex rounded-[10px] w-full bg-background text-foreground',
+        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar ',
         className
       )}
+      {...props}
     >
       {showTitleBar && <TitleBar {...titleBar} />}
+      <InputBox ref={inputRef} />
     </div>
   );
 };

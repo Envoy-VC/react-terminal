@@ -1,3 +1,5 @@
+import InputBox from './InputBox';
 import Terminal from './Terminal';
+import TitleBar from './TitleBar';
 
-export { Terminal };
+export { Terminal, TitleBar, InputBox };
