@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Command,
+  Loaders,
   Terminal,
   Theme,
   db,
@@ -88,6 +89,15 @@ const Demo = () => {
         inputBox={{
           cursor: 'block',
         }}
+        executingLoader={
+          <div className='flex flex-row gap-2'>
+            <Loaders.BlocksWave
+              className='text-foreground'
+              color='var(--terminal-foreground)'
+            />
+            Loading...
+          </div>
+        }
         theme={theme}
         commands={commands}
         className='!aspect-video max-w-screen-lg w-full'
