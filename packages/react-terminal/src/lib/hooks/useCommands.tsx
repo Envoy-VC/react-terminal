@@ -1,8 +1,9 @@
+import { db } from '~/lib/db';
+import { safeRenderToString } from '~/lib/helpers/rehype';
+import { useTerminalContext } from '~/lib/hooks';
+
 import { useLocalStorage } from 'usehooks-ts';
 import { Command } from '~/types';
-
-import { db } from '../db';
-import { useTerminalContext } from './useTerminalContext';
 
 const useCommands = () => {
   const {
@@ -86,7 +87,14 @@ const useCommands = () => {
           value: result,
         });
       } else if (typeof result === 'object') {
-        // TODO: Handle HTML Results
+        const jsx = result.html;
+        const htmlString = safeRenderToString(jsx);
+        await db.history.add({
+          type: 'output',
+          value: {
+            html: htmlString,
+          },
+        });
       }
 
       if (waitForExecution) {

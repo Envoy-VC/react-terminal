@@ -27,6 +27,25 @@ const Demo = () => {
       },
       waitForExecution: false,
     },
+    {
+      name: 'html',
+      handler: async () => {
+        return {
+          html: (
+            <div className='text-base font-medium text-orange-400'>
+              This is a custom HTML element
+              <a
+                href='https://google.com'
+                className='text-blue-400 underline ml-2'
+              >
+                Google
+              </a>
+            </div>
+          ),
+        };
+      },
+      waitForExecution: false,
+    },
   ];
 
   return (

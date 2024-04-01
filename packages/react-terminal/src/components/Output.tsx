@@ -1,9 +1,9 @@
-import React from 'react';
-
 import { db } from '~/lib/db';
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 
 import { useLiveQuery } from 'dexie-react-hooks';
+
+import JSXRenderer from './JSXRenderer';
 
 const Output = () => {
   const { prompt } = useTerminalContext();
@@ -29,6 +29,9 @@ const Output = () => {
           const content = message.value;
           if (typeof content === 'string') {
             return <div>{content}</div>;
+          } else if (typeof content === 'object') {
+            const htmlString = content.html;
+            return <JSXRenderer key={index} htmlString={htmlString} />;
           }
         }
       })}

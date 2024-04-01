@@ -11,6 +11,9 @@ const withNextra = nextra({
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  experimental: {
+    esmExternals: 'loose',
+  },
   i18n: {
     locales: ['en'],
     defaultLocale: 'en',
