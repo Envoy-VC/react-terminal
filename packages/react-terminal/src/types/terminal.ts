@@ -16,15 +16,14 @@ export interface Theme extends Record<string, string> {
 }
 
 export interface TitleBarProps {
-  title?: React.ReactNode;
+  header?: React.ReactNode;
   closeHandler?: Awaitable<void>;
   minimizeHandler?: Awaitable<void>;
   maximizeHandler?: Awaitable<void>;
   extraContent?: React.ReactNode;
 }
 
-export interface InputBoxProps
-  extends React.ComponentPropsWithoutRef<'textarea'> {
+export interface InputBoxProps {
   prompt?: React.ReactNode;
   cursor?: 'underscore' | 'block' | 'bar' | React.ReactNode;
 }
@@ -39,7 +38,7 @@ export interface Command {
   onError?: CommandHandler;
 }
 
-export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface TerminalProps {
   theme?: Theme;
   fontSize?: number;
   showTitleBar?: boolean;

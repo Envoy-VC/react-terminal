@@ -11,7 +11,9 @@ import { cn } from '~/lib/utils';
 
 import { InputBoxProps } from '~/types';
 
-const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
+type Props = InputBoxProps & React.ComponentPropsWithoutRef<'textarea'>;
+
+const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
   (
     { prompt = defaultPrompt, cursor = 'underscore', className, ...props },
     ref

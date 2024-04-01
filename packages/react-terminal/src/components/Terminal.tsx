@@ -12,6 +12,8 @@ import { TerminalProps } from '~/types';
 
 import { themes } from '..';
 
+type Props = TerminalProps & React.ComponentPropsWithoutRef<'div'>;
+
 const Terminal = ({
   theme: userTheme,
   fontSize,
@@ -23,7 +25,7 @@ const Terminal = ({
   commands,
   className,
   ...props
-}: TerminalProps) => {
+}: Props) => {
   const { isExecuting, theme, init } = useTerminalContext();
   const { lastCursor } = useCommands();
 
