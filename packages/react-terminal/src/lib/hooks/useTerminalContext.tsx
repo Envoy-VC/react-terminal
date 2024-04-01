@@ -11,6 +11,7 @@ type TerminalState = {
   text: string;
   commands: Command[];
   isExecuting: boolean;
+  executingLoader?: React.ReactNode;
   defaultHandler?: Command;
   prompt: React.ReactNode;
   refocus: boolean;
@@ -20,6 +21,8 @@ type TerminalActions = {
   setText: (text: string) => void;
   setIsExecuting: (isExecuting: boolean) => void;
   setRefocus: (refocus: boolean) => void;
+  addCommand: (command: Command) => void;
+  setCommands: (commands: Command[]) => void;
 };
 
 export type TerminalStoreProps = TerminalState & TerminalActions;
@@ -41,6 +44,9 @@ export const createTerminalStore = (
     setText: (text) => set({ text }),
     setIsExecuting: (isExecuting) => set({ isExecuting }),
     setRefocus: (refocus) => set({ refocus }),
+    addCommand: (command) =>
+      set((state) => ({ commands: [...state.commands, command] })),
+    setCommands: (commands) => set({ commands }),
   }));
 };
 

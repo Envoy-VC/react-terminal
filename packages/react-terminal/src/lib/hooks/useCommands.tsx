@@ -12,6 +12,8 @@ const useCommands = () => {
     setIsExecuting,
     setText,
     setRefocus,
+    addCommand,
+    setCommands,
   } = useTerminalContext();
 
   const [lastCursor, setLastCursor] = useLocalStorage('lastCursor', 0);
@@ -54,52 +56,68 @@ const useCommands = () => {
     const waitForExecution = command.waitForExecution ?? true;
     const args = commandValue.replace(command.name, '').split(' ').splice(1);
 
-    if (waitForExecution) {
-      setIsExecuting(true);
-    }
+    try {
+      if (waitForExecution) {
+        setIsExecuting(true);
+      }
 
-    if (!waitForExecution) {
-      await db.history.add({
-        type: 'command',
-        value: commandValue,
-      });
-      setText('');
-      setRefocus(!refocus);
-    }
+      if (!waitForExecution) {
+        await db.history.add({
+          type: 'command',
+          value: commandValue,
+        });
+        setText('');
+        setRefocus(!refocus);
+      }
 
-    const result = await command.handler(args, commandValue);
+      const result = await command.handler(args, commandValue);
 
-    if (waitForExecution) {
-      await db.history.add({
-        type: 'command',
-        value: commandValue,
-      });
-    }
+      if (waitForExecution) {
+        await db.history.add({
+          type: 'command',
+          value: commandValue,
+        });
+      }
 
-    // handle output
-    if (typeof result === 'string') {
-      await db.history.add({
-        type: 'output',
-        value: result,
-      });
-    } else if (typeof result === 'object') {
-      // TODO: Handle HTML Results
-    }
+      // handle output
+      if (typeof result === 'string') {
+        await db.history.add({
+          type: 'output',
+          value: result,
+        });
+      } else if (typeof result === 'object') {
+        // TODO: Handle HTML Results
+      }
 
-    if (waitForExecution) {
+      if (waitForExecution) {
+        setIsExecuting(false);
+        setText('');
+        setRefocus(!refocus);
+        setText('');
+      }
+    } catch (error) {
+      if (command.onError) {
+        await command.onError(args, commandValue);
+      } else {
+        await db.history.add({
+          type: 'output',
+          value: `Error: ${(error as Error).message}`,
+        });
+      }
       setIsExecuting(false);
       setText('');
       setRefocus(!refocus);
-      setText('');
     }
   };
   return {
+    lastCursor,
     defaultCommands,
+    setLastCursor,
     clearTerminal,
     executeCommand,
     getCommand,
-    lastCursor,
-    setLastCursor,
+    addCommand,
+    setCommands,
   };
 };
 

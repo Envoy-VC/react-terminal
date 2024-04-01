@@ -18,6 +18,15 @@ const Demo = () => {
       },
       waitForExecution: false,
     },
+    {
+      name: 'error',
+      handler: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        throw new Error('This is an error');
+        return `Time is ${new Date(new Date().getTime())}`;
+      },
+      waitForExecution: false,
+    },
   ];
 
   return (
@@ -26,6 +35,7 @@ const Demo = () => {
         inputBox={{
           cursor: 'underscore',
         }}
+        //executingLoader={<>loading...</>}
         commands={commands}
         className='!aspect-video max-w-screen-lg w-full'
       />

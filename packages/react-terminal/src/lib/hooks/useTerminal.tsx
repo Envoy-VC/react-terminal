@@ -6,12 +6,8 @@ const useTerminal = () => {
 
   const handler = async () => {
     if (text === '') return;
-    try {
-      const command = getCommand(text);
-      await executeCommand(text, command);
-    } catch (error) {
-      console.error(error);
-    }
+    const command = getCommand(text);
+    await executeCommand(text, command);
   };
 
   return { handler };
