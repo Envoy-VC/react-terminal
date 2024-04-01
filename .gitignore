@@ -12,6 +12,6 @@ server/dist
 public/dist
 .turbo
 
-packages/react-terminal/docs
+docs
 
 *storybook.log

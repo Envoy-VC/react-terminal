@@ -8,14 +8,16 @@
 		"format": "prettier --write \"**/*.{ts,tsx,md, mdx}\"",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
-		"release": "pnpm build && changeset publish"
+		"release": "pnpm build && changeset publish",
+		"typedoc": "typedoc"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.57.0",
 		"prettier": "^3.2.5",
-		"turbo": "latest"
+		"turbo": "latest",
+		"typedoc": "^0.25.12"
 	},
 	"config": {
 		"commitizen": {

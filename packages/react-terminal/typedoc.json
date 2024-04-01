@@ -1,0 +1,7 @@
+{
+  "tsconfig": "./tsconfig.json",
+  "extends": ["../../typedoc.base.json"],
+  "entryPoints": ["src/index.tsx"],
+  "readme": "./README.md",
+  "categorizeByGroup": true
+}

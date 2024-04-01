@@ -23,6 +23,9 @@ importers:
       turbo:
         specifier: latest
         version: 1.12.5
+      typedoc:
+        specifier: ^0.25.12
+        version: 0.25.12(typescript@5.4.3)
 
   apps/docs:
     dependencies:
@@ -178,9 +181,6 @@ importers:
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.3.3)
-      typedoc:
-        specifier: ^0.25.12
-        version: 0.25.12(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -8154,7 +8154,7 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: true
 
-  /typedoc@0.25.12(typescript@5.3.3):
+  /typedoc@0.25.12(typescript@5.4.3):
     resolution: {integrity: sha512-F+qhkK2VoTweDXd1c42GS/By2DvI2uDF4/EpG424dTexSHdtCH52C6IcAvMA6jR3DzAWZjHpUOW+E02kyPNUNw==}
     engines: {node: '>= 16'}
     hasBin: true
@@ -8165,7 +8165,7 @@ packages:
       marked: 4.3.0
       minimatch: 9.0.4
       shiki: 0.14.7
-      typescript: 5.3.3
+      typescript: 5.4.3
     dev: true
 
   /typescript@5.3.3:
