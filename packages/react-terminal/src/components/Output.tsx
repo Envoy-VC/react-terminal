@@ -1,26 +1,29 @@
-import { db } from '~/lib/db';
-import { useCommands, useTerminalContext } from '~/lib/hooks';
-
-import { useLiveQuery } from 'dexie-react-hooks';
+import { useTerminalContext } from '~/lib/hooks';
 
 import JSXRenderer from './JSXRenderer';
 
-const Output = () => {
-  const { prompt } = useTerminalContext();
-  const { lastCursor } = useCommands();
+import { TerminalHistory } from '~/types/db';
 
-  const output = useLiveQuery(async () => {
-    const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
-    return res;
-  }, [lastCursor]);
+interface Props {
+  output: TerminalHistory[];
+}
+
+const Output = ({ output }: Props) => {
+  const { prompt, fontSize } = useTerminalContext();
 
   return (
     <div className='flex flex-col px-2 gap-0'>
-      {(output ?? []).map((message, index) => {
+      {output.map((message, index) => {
         const type = message.type;
         if (type === 'command') {
           return (
-            <div key={index} className='flex flex-row gap-1'>
+            <div
+              key={index}
+              className='flex flex-row gap-1'
+              style={{
+                fontSize: fontSize,
+              }}
+            >
               {prompt}
               <div>{message.value}</div>
             </div>
@@ -28,7 +31,15 @@ const Output = () => {
         } else {
           const content = message.value;
           if (typeof content === 'string') {
-            return <div>{content}</div>;
+            return (
+              <div
+                style={{
+                  fontSize: fontSize,
+                }}
+              >
+                {content}
+              </div>
+            );
           } else if (typeof content === 'object') {
             const htmlString = content.html;
             return <JSXRenderer key={index} htmlString={htmlString} />;

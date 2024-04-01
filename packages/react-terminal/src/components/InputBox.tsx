@@ -27,6 +27,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
       refocus,
       setText,
       setCommandIndex,
+      fontSize,
     } = useTerminalContext();
     const { handler } = useTerminal();
 
@@ -35,7 +36,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     const [isFocused, setIsFocussed] = React.useState<boolean>(false);
 
     const textAreaHeight = React.useMemo(
-      () => calculateTextAreaHeight(text),
+      () => calculateTextAreaHeight(text, fontSize),
       [text]
     );
 
@@ -127,7 +128,12 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     };
 
     return (
-      <div className='flex flex-row justify-start gap-1 px-2 text-base items-start leading-5'>
+      <div
+        className='flex flex-row justify-start gap-1 px-2 text-base items-start leading-5'
+        style={{
+          fontSize: fontSize,
+        }}
+      >
         {prompt}
         <div
           className='relative w-full'

@@ -9,6 +9,7 @@ import { defaultPrompt } from '../helpers';
 
 type TerminalState = {
   text: string;
+  fontSize: number;
   commands: Command[];
   isExecuting: boolean;
   executingLoader?: React.ReactNode;
@@ -35,6 +36,7 @@ export const createTerminalStore = (
 ) => {
   const DEFAULT_PROPS: TerminalState = {
     text: '',
+    fontSize: 16,
     commands: [],
     isExecuting: false,
     prompt: defaultPrompt,

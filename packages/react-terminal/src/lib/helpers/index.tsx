@@ -6,10 +6,10 @@ export const defaultPrompt = (
   <span className='text-sky-500 font-medium'>$</span>
 );
 
-export const calculateTextAreaHeight = (text: string) => {
+export const calculateTextAreaHeight = (text: string, fontSize: number) => {
   const rows = text.split('\n').length;
-  const minHeight = 20;
-  const rowHeight = 20;
+  const minHeight = fontSize * 1.5;
+  const rowHeight = fontSize * 1.5;
   return `${Math.max(minHeight, rows * rowHeight)}px`;
 };
 

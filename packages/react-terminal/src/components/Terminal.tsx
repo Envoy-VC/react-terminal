@@ -13,7 +13,8 @@ import TerminalContainer from './TerminalContainer';
 export const TerminalContext = createContext<TerminalStore | null>(null);
 
 const Terminal = (props: TerminalProps) => {
-  const { commands, defaultHandler, inputBox, executingLoader } = props;
+  const { fontSize, commands, defaultHandler, inputBox, executingLoader } =
+    props;
 
   const store = React.useRef(
     createTerminalStore({
@@ -21,6 +22,7 @@ const Terminal = (props: TerminalProps) => {
       defaultHandler,
       prompt: inputBox?.prompt ?? defaultPrompt,
       executingLoader,
+      fontSize: fontSize ?? 16,
     })
   ).current;
 

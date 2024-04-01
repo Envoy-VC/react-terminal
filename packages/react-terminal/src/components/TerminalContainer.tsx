@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { useTerminalContext } from '~/lib/hooks';
+import { db } from '~/lib/db';
+import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { themes } from '~/lib/themes';
 import { cn } from '~/lib/utils';
 
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useEventListener } from 'usehooks-ts';
 import { ExecutingLoader, InputBox, Output, TitleBar } from '~/components';
 import { TerminalProps } from '~/types';
@@ -18,6 +20,12 @@ const TerminalContainer = ({
   ...props
 }: TerminalProps) => {
   const { isExecuting } = useTerminalContext();
+  const { lastCursor } = useCommands();
+
+  const messages = useLiveQuery(async () => {
+    const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
+    return res;
+  }, [lastCursor]);
 
   const terminalRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
@@ -37,17 +45,30 @@ const TerminalContainer = ({
     terminalRef
   );
 
+  React.useEffect(() => {
+    const container = terminalRef.current;
+    if (!container) return;
+
+    const scrollDifference = container.scrollHeight - container.clientHeight;
+    // Check if the user is near the bottom about 40% of the screen
+    const isNearBottom = container.scrollTop > scrollDifference * 0.6;
+
+    if (isNearBottom) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div
       ref={terminalRef}
       className={cn(
-        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar ',
+        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar',
         className
       )}
       {...props}
     >
       {showTitleBar && <TitleBar {...titleBar} />}
-      <Output />
+      <Output output={messages ?? []} />
       <InputBox ref={inputRef} {...inputBox} />
       <ExecutingLoader />
     </div>

@@ -43,6 +43,7 @@ export interface Command {
 
 export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
   theme?: Theme;
+  fontSize?: number;
   showTitleBar?: boolean;
   titleBar?: TitleBarProps;
   inputBox?: InputBoxProps;

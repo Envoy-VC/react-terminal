@@ -54,9 +54,8 @@ const Demo = () => {
     <div className='flex py-12 justify-center items-center mx-auto'>
       <Terminal
         inputBox={{
-          cursor: 'underscore',
+          cursor: 'bar',
         }}
-        //executingLoader={<>loading...</>}
         commands={commands}
         className='!aspect-video max-w-screen-lg w-full'
       />
