@@ -1,19 +1,18 @@
 import { TerminalProvider } from '@envoy1084/react-terminal';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import { type AppType } from 'next/app';
-import { Inter } from 'next/font/google';
+import { ThemeProvider } from '~/providers';
 import '~/styles/globals.css';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-});
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <main className={`font-sans ${inter.variable}`}>
-      <TerminalProvider>
-        <Component {...pageProps} />
-      </TerminalProvider>
+    <main className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+      <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+        <TerminalProvider>
+          <Component {...pageProps} />
+        </TerminalProvider>
+      </ThemeProvider>
     </main>
   );
 };

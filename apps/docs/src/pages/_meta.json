@@ -1,0 +1,16 @@
+{
+  "index": "Introduction",
+  "playground": {
+    "title": "Playground",
+    "type": "page",
+    "theme": {
+      "layout": "raw",
+      "breadcrumb": false,
+      "footer": false,
+      "sidebar": false,
+      "toc": true,
+      "pagination": false,
+      "navbar": true
+    }
+  }
+}

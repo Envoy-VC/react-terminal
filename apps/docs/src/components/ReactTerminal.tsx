@@ -1,16 +1,23 @@
 import React from 'react';
 
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
+
+import {
   Command,
-  Loaders,
   Terminal,
-  Theme,
-  db,
   themes,
   useTerminal,
 } from '@envoy1084/react-terminal';
 
-const Demo = () => {
+type ThemeValue = keyof typeof themes;
+
+const ReactTerminal = () => {
   const { theme, setTheme } = useTerminal();
   const commands: Command[] = [
     {
@@ -71,39 +78,30 @@ const Demo = () => {
   ];
 
   return (
-    <div className='flex py-12 justify-center items-center mx-auto flex-col gap-8'>
-      <select
-        name='theme'
-        id='theme'
-        onChange={(e) => {
-          setTheme(themes[e.target.value as keyof typeof themes]);
-        }}
-      >
-        {Object.keys(themes).map((themeName) => (
-          <option key={themeName} value={themeName}>
-            {themeName}
-          </option>
-        ))}
-      </select>
+    <div className='!mx-auto flex !max-w-screen-lg flex-col items-center justify-center gap-8 py-12 w-full'>
+      <div className='flex flex-row items-center gap-3 w-full'>
+        <div>Theme: </div>
+        <Select
+          onValueChange={(v) => setTheme(themes[v as ThemeValue])}
+          defaultValue='poimandres'
+        >
+          <SelectTrigger className='w-[20rem]'>
+            <SelectValue placeholder='Theme' />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.keys(themes).map((t) => (
+              <SelectItem value={t}>{t}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <Terminal
-        inputBox={{
-          cursor: 'block',
-        }}
-        executingLoader={
-          <div className='flex flex-row gap-2'>
-            <Loaders.BlocksWave
-              className='text-foreground'
-              color='var(--terminal-foreground)'
-            />
-            Loading...
-          </div>
-        }
         theme={theme}
         commands={commands}
-        className='!aspect-video max-w-screen-lg w-full'
+        className='!aspect-video max-w-screen-lg w-full border-none'
       />
     </div>
   );
 };
 
-export default Demo;
+export default ReactTerminal;
