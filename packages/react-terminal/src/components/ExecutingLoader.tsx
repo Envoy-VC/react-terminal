@@ -1,9 +1,9 @@
 import { ThreeDotsMoving } from 'react-svg-spinners';
 
-import { useTerminal } from '~/lib/hooks';
+import { useTerminalContext } from '~/lib/hooks';
 
 const ExecutingLoader = () => {
-  const { isExecuting } = useTerminal();
+  const { isExecuting } = useTerminalContext();
   return (
     <>
       {isExecuting && (

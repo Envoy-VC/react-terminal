@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { db } from '~/lib/db';
-import { useTerminal } from '~/lib/hooks';
+import { useCommands, useTerminalContext } from '~/lib/hooks';
 
 import { useLiveQuery } from 'dexie-react-hooks';
 
 const Output = () => {
-  const { prompt, lastCursor } = useTerminal();
+  const { prompt } = useTerminalContext();
+  const { lastCursor } = useCommands();
 
   const output = useLiveQuery(async () => {
     const res = await db.history.filter((x) => x.id! > lastCursor).toArray();

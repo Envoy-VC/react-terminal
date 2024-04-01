@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ChevronsUpDown, Minus, X } from 'lucide-react';
 import { Awaitable, TitleBarProps } from '~/types';
 

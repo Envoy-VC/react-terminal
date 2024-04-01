@@ -9,10 +9,6 @@ export type CommandHandler = (
   command: string
 ) => Promise<TerminalOutputValue> | TerminalOutputValue;
 
-export type DefaultHandler = (
-  command: string
-) => Promise<TerminalOutputValue> | TerminalOutputValue;
-
 export interface Theme extends Record<string, string> {
   '--terminal-border': string;
   '--terminal-foreground': string;
@@ -50,5 +46,5 @@ export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
   titleBar?: TitleBarProps;
   inputBox?: InputBoxProps;
   commands?: Command[];
-  defaultHandler?: DefaultHandler;
+  defaultHandler?: Command;
 }

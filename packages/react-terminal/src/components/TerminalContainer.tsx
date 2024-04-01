@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useTerminal } from '~/lib/hooks';
+import { useTerminalContext } from '~/lib/hooks';
 import { themes } from '~/lib/themes';
 import { cn } from '~/lib/utils';
 
@@ -17,7 +17,7 @@ const TerminalContainer = ({
   className,
   ...props
 }: TerminalProps) => {
-  const { isExecuting } = useTerminal();
+  const { isExecuting } = useTerminalContext();
 
   const terminalRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);

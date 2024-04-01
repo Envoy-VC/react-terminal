@@ -19,16 +19,12 @@ const Demo = () => {
       waitForExecution: false,
     },
   ];
+
   return (
     <div className='flex py-12 justify-center items-center mx-auto'>
       <Terminal
         inputBox={{
           cursor: 'underscore',
-        }}
-        defaultHandler={async () => {
-          // wait for 2 seconds
-          // await new Promise((resolve) => setTimeout(resolve, 2000));
-          return 'Command not found';
         }}
         commands={commands}
         className='!aspect-video max-w-screen-lg w-full'

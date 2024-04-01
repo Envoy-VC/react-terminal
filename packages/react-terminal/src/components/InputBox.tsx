@@ -5,7 +5,7 @@ import {
   defaultPrompt,
   getCursor,
 } from '~/lib/helpers';
-import { useCopyRef, useTerminal } from '~/lib/hooks';
+import { useCopyRef, useTerminal, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { InputBoxProps } from '~/types';
@@ -19,7 +19,8 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     const textareaRef = useCopyRef(ref);
     const mirrorRef = React.useRef<HTMLDivElement>(null);
 
-    const { text, setText, handler, isExecuting, reFocus } = useTerminal();
+    const { text, setText, isExecuting, refocus } = useTerminalContext();
+    const { handler } = useTerminal();
 
     const [beforeText, setBeforeText] = React.useState<string>('');
     const [afterText, setAfterText] = React.useState<string>('');
@@ -63,7 +64,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
       if (textareaRef.current) {
         textareaRef.current.focus();
       }
-    }, [reFocus]);
+    }, [refocus]);
 
     React.useEffect(() => {
       if (isFocused) {
