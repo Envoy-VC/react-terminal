@@ -15,8 +15,6 @@ export interface Theme extends Record<string, string> {
   '--terminal-background': string;
 }
 
-export type ThemeNames = 'poimandres';
-
 export interface TitleBarProps {
   title?: React.ReactNode;
   closeHandler?: Awaitable<void>;

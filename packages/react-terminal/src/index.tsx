@@ -1,7 +1,10 @@
-import { Terminal } from './components';
 import './global.css';
-import { useCommands, useTerminal } from './lib/hooks';
+
+export { Terminal } from './components';
+export { TerminalProvider } from './providers';
+export { db } from './lib/db';
+export { useCommands, useTerminal } from './lib/hooks';
+
+export { themes } from './lib/themes';
 
 export type * from './types';
-
-export { Terminal, useCommands, useTerminal };

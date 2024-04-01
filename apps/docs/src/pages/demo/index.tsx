@@ -1,8 +1,16 @@
 import React from 'react';
 
-import { Command, Terminal } from '@envoy1084/react-terminal';
+import {
+  Command,
+  Terminal,
+  Theme,
+  db,
+  themes,
+  useTerminal,
+} from '@envoy1084/react-terminal';
 
 const Demo = () => {
+  const { theme, setTheme } = useTerminal();
   const commands: Command[] = [
     {
       name: 'time',
@@ -28,6 +36,17 @@ const Demo = () => {
       waitForExecution: false,
     },
     {
+      name: 'error1',
+      handler: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        throw new Error('This is an error');
+      },
+      onError: async () => {
+        return 'Custom error message';
+      },
+      waitForExecution: true,
+    },
+    {
       name: 'html',
       handler: async () => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -51,11 +70,25 @@ const Demo = () => {
   ];
 
   return (
-    <div className='flex py-12 justify-center items-center mx-auto'>
+    <div className='flex py-12 justify-center items-center mx-auto flex-col gap-8'>
+      <select
+        name='theme'
+        id='theme'
+        onChange={(e) => {
+          setTheme(themes[e.target.value as keyof typeof themes]);
+        }}
+      >
+        {Object.keys(themes).map((themeName) => (
+          <option key={themeName} value={themeName}>
+            {themeName}
+          </option>
+        ))}
+      </select>
       <Terminal
         inputBox={{
-          cursor: 'bar',
+          cursor: 'block',
         }}
+        theme={theme}
         commands={commands}
         className='!aspect-video max-w-screen-lg w-full'
       />

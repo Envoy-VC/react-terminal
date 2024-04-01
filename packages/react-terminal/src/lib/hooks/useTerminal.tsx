@@ -1,7 +1,7 @@
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 
 const useTerminal = () => {
-  const { text } = useTerminalContext();
+  const { text, setTheme, theme } = useTerminalContext();
   const { getCommand, executeCommand } = useCommands();
 
   const handler = async () => {
@@ -10,7 +10,7 @@ const useTerminal = () => {
     await executeCommand(text, command);
   };
 
-  return { handler };
+  return { handler, setTheme, theme };
 };
 
 export default useTerminal;

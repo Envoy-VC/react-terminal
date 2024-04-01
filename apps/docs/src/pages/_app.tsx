@@ -1,6 +1,6 @@
+import { TerminalProvider } from '@envoy1084/react-terminal';
 import { type AppType } from 'next/app';
 import { Inter } from 'next/font/google';
-
 import '~/styles/globals.css';
 
 const inter = Inter({
@@ -11,7 +11,9 @@ const inter = Inter({
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <main className={`font-sans ${inter.variable}`}>
-      <Component {...pageProps} />
+      <TerminalProvider>
+        <Component {...pageProps} />
+      </TerminalProvider>
     </main>
   );
 };

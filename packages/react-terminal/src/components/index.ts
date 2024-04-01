@@ -4,4 +4,4 @@ import Output from './Output';
 import Terminal from './Terminal';
 import TitleBar from './TitleBar';
 
-export { Terminal, TitleBar, InputBox, ExecutingLoader, Output };
+export { TitleBar, InputBox, ExecutingLoader, Output, Terminal };
