@@ -30,6 +30,8 @@ const Demo = () => {
     {
       name: 'html',
       handler: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         return {
           html: (
             <div className='text-base font-medium text-orange-400'>
@@ -44,7 +46,7 @@ const Demo = () => {
           ),
         };
       },
-      waitForExecution: false,
+      waitForExecution: true,
     },
   ];
 

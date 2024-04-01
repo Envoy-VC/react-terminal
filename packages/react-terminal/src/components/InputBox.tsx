@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { db } from '~/lib/db';
 import {
   calculateTextAreaHeight,
   defaultPrompt,
@@ -19,7 +20,14 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
     const textareaRef = useCopyRef(ref);
     const mirrorRef = React.useRef<HTMLDivElement>(null);
 
-    const { text, setText, isExecuting, refocus } = useTerminalContext();
+    const {
+      text,
+      commandIndex,
+      isExecuting,
+      refocus,
+      setText,
+      setCommandIndex,
+    } = useTerminalContext();
     const { handler } = useTerminal();
 
     const [beforeText, setBeforeText] = React.useState<string>('');
@@ -84,15 +92,37 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, InputBoxProps>(
       ) {
         event.preventDefault();
         textareaRef.current?.blur();
+        setCommandIndex(-1);
         await handler();
       } else if (event.key === 'Enter' && event.shiftKey) {
         const newText = text + '\n';
         setText(newText);
         event.preventDefault();
-        // now handle arrow up and down events
       } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
         event.preventDefault();
-        // TODO: handle arrow up and down events
+        const commands = await db.history
+          .where({ type: 'command' })
+          .reverse()
+          .toArray();
+
+        if (commands.length === 0) return;
+
+        let newIndex: number;
+
+        if (event.key === 'ArrowUp') {
+          newIndex = commandIndex + 1;
+        } else {
+          newIndex = commandIndex - 1;
+        }
+
+        if (newIndex >= commands.length || newIndex < 0) return;
+
+        setCommandIndex(newIndex);
+
+        const command = commands[newIndex];
+        if (command && command.type === 'command') {
+          setText(command.value);
+        }
       }
     };
 
