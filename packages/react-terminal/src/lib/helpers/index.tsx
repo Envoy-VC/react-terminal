@@ -1,6 +1,4 @@
-import { Command, InputBoxProps } from '~/types';
-
-import { db } from '../db';
+import { InputBoxProps } from '~/types';
 
 export const defaultPrompt = (
   <span className='text-sky-500 font-medium'>$</span>

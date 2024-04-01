@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useEffect, useRef } from 'react';
+import { ForwardedRef, useEffect, useRef } from 'react';
 
 const useCopyRef = <T,>(ref: ForwardedRef<T>, initialValue: any = null) => {
   const targetRef = useRef<T>(initialValue);
