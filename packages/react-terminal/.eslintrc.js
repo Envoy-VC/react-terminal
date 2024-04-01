@@ -7,9 +7,8 @@ const project = resolve(process.cwd(), 'tsconfig.json');
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-
   extends: ['eslint:recommended', 'prettier', 'eslint-config-turbo'],
-  plugins: ['only-warn'],
+  plugins: ['only-warn', 'eslint-plugin-tsdoc'],
   globals: {
     React: true,
     JSX: true,
@@ -37,5 +36,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
+  },
+  rules: {
+    'tsdoc/syntax': 'error',
   },
 };

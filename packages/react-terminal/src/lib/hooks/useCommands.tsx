@@ -5,6 +5,30 @@ import { useTerminalContext } from '~/lib/hooks';
 import { useLocalStorage } from 'usehooks-ts';
 import { Command } from '~/types';
 
+/**
+ * Custom hook that provides functionality for handling commands in a terminal.
+ *
+ * @remarks
+ * This hook is used to manage commands, execute them, and handle their results in a terminal-like environment.
+ *
+ * @returns An object containing various functions and data related to command handling.
+ *
+ * @example
+ * ```tsx
+ * const {
+ *   lastCursor,
+ *   defaultCommands,
+ *   setLastCursor,
+ *   clearTerminal,
+ *   executeCommand,
+ *   getCommand,
+ *   addCommand,
+ *   setCommands,
+ * } = useCommands();
+ * ```
+ *
+ * @see {@link Command}
+ */
 const useCommands = () => {
   const {
     commands,
@@ -19,6 +43,22 @@ const useCommands = () => {
 
   const [lastCursor, setLastCursor] = useLocalStorage('lastCursor', 0);
 
+  /**
+   * Clears the terminal by updating the last cursor position and returning undefined.
+   *
+   * @remarks
+   * This function is used to clear the terminal by updating the last cursor position in the database.
+   *
+   *
+   * @example
+   * ```tsx
+   * const clear = async () => {
+   *   await clearTerminal();
+   * };
+   * ```
+   *
+   * @see {@link db.history.count}
+   */
   const clearTerminal = async () => {
     const last = await db.history.count();
     setLastCursor(last);
@@ -33,6 +73,24 @@ const useCommands = () => {
     },
   ];
 
+  /**
+   * Retrieves the appropriate command handler based on the provided text.
+   *
+   * @param text - The input text representing the command.
+   * @returns The command handler function.
+   *
+   * @remarks
+   * This function searches for a command that matches the provided text and returns its corresponding handler function.
+   * If no matching command is found, it falls back to the default handler or the fallback handler.
+   *
+   * @example
+   * ```tsx
+   * const commandText = 'run';
+   * const commandHandler = getCommand(commandText);
+   * ```
+   *
+   * @see {@link Command}
+   */
   const getCommand = (text: string) => {
     const commandValue = text.trim();
     const command = [...commands, ...defaultCommands]
@@ -52,7 +110,35 @@ const useCommands = () => {
     },
   };
 
-  const executeCommand = async (text: string, command: Command) => {
+  /**
+   * Executes a command with the given text and command object.
+   *
+   * @param text - The input text for the command.
+   * @param command - The command object containing the handler and other properties.
+   * @returns A Promise that resolves when the command execution is complete.
+   *
+   * @remarks
+   * This function executes a command by calling its handler function with the provided arguments.
+   * It also updates the execution history and handles the output of the command.
+   *
+   * @example
+   * ```tsx
+   * const command: Command = {
+   *   name: 'example',
+   *   handler: async (args, commandValue) => {
+   *     // Command handler logic
+   *   },
+   * };
+   *
+   * await executeCommand('example arg1 arg2', command);
+   * ```
+   *
+   * @see Command
+   */
+  const executeCommand = async (
+    text: string,
+    command: Command
+  ): Promise<void> => {
     const commandValue = text.trim();
     const waitForExecution = command.waitForExecution ?? true;
     const args = commandValue.replace(command.name, '').split(' ').splice(1);
@@ -117,6 +203,7 @@ const useCommands = () => {
       setRefocus(!refocus);
     }
   };
+
   return {
     lastCursor,
     defaultCommands,

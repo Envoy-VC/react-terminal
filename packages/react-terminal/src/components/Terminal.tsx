@@ -12,8 +12,28 @@ import { TerminalProps } from '~/types';
 
 import { themes } from '..';
 
-type Props = TerminalProps & React.ComponentPropsWithoutRef<'div'>;
-
+/**
+ * Terminal component for displaying a command-line interface.
+ *
+ * @remarks
+ * The `Terminal` component is used to create a command-line interface with customizable themes, font size, and various features such as executing commands, displaying output, and accepting user input.
+ *
+ * @example
+ * ```tsx
+ * <Terminal
+ *   theme={customTheme}
+ *   fontSize={18}
+ *   showTitleBar={true}
+ *   titleBar={titleBarContent}
+ *   inputBox={inputBoxContent}
+ *   executingLoader={loaderComponent}
+ *   defaultHandler={defaultCommandHandler}
+ *   commands={commandList}
+ *   htmlRenderer={customHtmlRenderer}
+ *   className="custom-terminal"
+ * />
+ * ```
+ */
 const Terminal = ({
   theme: userTheme,
   fontSize,
@@ -26,7 +46,7 @@ const Terminal = ({
   htmlRenderer,
   className,
   ...props
-}: Props) => {
+}: TerminalProps) => {
   const { isExecuting, theme, init } = useTerminalContext();
   const { lastCursor } = useCommands();
 
