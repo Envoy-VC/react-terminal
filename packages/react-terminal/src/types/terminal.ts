@@ -38,6 +38,12 @@ export interface Command {
   onError?: CommandHandler;
 }
 
+export type HTMLRenderer = ({
+  htmlString,
+}: {
+  htmlString: string;
+}) => JSX.Element;
+
 export interface TerminalProps {
   theme?: Theme;
   fontSize?: number;
@@ -47,4 +53,5 @@ export interface TerminalProps {
   executingLoader?: React.ReactNode;
   commands?: Command[];
   defaultHandler?: Command;
+  htmlRenderer?: HTMLRenderer;
 }

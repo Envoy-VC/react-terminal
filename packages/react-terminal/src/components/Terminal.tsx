@@ -23,6 +23,7 @@ const Terminal = ({
   executingLoader,
   defaultHandler,
   commands,
+  htmlRenderer,
   className,
   ...props
 }: Props) => {
@@ -48,6 +49,7 @@ const Terminal = ({
       prompt: inputBox?.prompt ?? defaultPrompt,
       refocus: false,
       commandIndex: -1,
+      htmlRenderer,
     });
     const terminalContainer = terminalRef.current;
     Object.entries(theme).forEach(([key, value]) => {

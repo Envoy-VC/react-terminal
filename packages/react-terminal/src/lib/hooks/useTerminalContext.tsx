@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { useStore } from 'zustand';
 import { createStore } from 'zustand';
-import { Command, Theme } from '~/types';
+import { Command, HTMLRenderer, Theme } from '~/types';
 
 import { TerminalContext } from '../../providers/TerminalProvider';
 import { defaultPrompt } from '../helpers';
@@ -19,6 +19,7 @@ type TerminalState = {
   prompt: React.ReactNode;
   refocus: boolean;
   commandIndex: number;
+  htmlRenderer?: HTMLRenderer;
 };
 
 type TerminalActions = {
