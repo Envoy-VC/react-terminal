@@ -14,6 +14,8 @@ export default defineConfig({
   target: 'es2019',
   clean: true,
   format: ['cjs', 'esm'],
+  cjsInterop: true,
   external: ['react'],
+  shims: true,
   dts: true,
 });

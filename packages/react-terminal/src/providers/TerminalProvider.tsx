@@ -14,6 +14,7 @@ export const TerminalContext = createContext<TerminalStore | null>(null);
  * The `TerminalProvider` component wraps its children with a context provider,
  * allowing access to the terminal store throughout the component tree.
  *
+ * @group Providers
  * @param children - The child components to be wrapped by the provider.
  * @returns The `TerminalProvider` component.
  *

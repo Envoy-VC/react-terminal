@@ -114,6 +114,11 @@ const tokyo_night: Theme = {
   '--terminal-foreground': '#787c99',
 };
 
+/**
+ * Represents a collection of themes for the React Terminal component.
+ *
+ * @group Modules
+ */
 export const themes = {
   poimandres,
   andromeda,

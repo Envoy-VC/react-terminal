@@ -3,6 +3,8 @@ import { useCommands, useTerminalContext } from '~/lib/hooks';
 /**
  * Custom hook for managing terminal functionality.
  *
+ * @group Hooks
+ *
  * @remarks
  * This hook provides access to the terminal context and commands, allowing you to handle user input and execute commands.
  *
@@ -31,7 +33,8 @@ import { useCommands, useTerminalContext } from '~/lib/hooks';
  * @see {@link useCommands} for accessing the available commands and executing them.
  */
 const useTerminal = () => {
-  const { text, setTheme, theme } = useTerminalContext();
+  const { text, theme, fontSize, prompt, setTheme, setFontSize, setPrompt } =
+    useTerminalContext();
   const { getCommand, executeCommand } = useCommands();
 
   const handler = async () => {
@@ -40,7 +43,7 @@ const useTerminal = () => {
     await executeCommand(text, command);
   };
 
-  return { handler, setTheme, theme };
+  return { theme, fontSize, prompt, handler, setTheme, setFontSize, setPrompt };
 };
 
 export default useTerminal;

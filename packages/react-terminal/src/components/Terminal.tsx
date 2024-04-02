@@ -15,6 +15,8 @@ import { themes } from '..';
 /**
  * Terminal component for displaying a command-line interface.
  *
+ * @group Components
+ *
  * @remarks
  * The `Terminal` component is used to create a command-line interface with customizable themes, font size, and various features such as executing commands, displaying output, and accepting user input.
  *

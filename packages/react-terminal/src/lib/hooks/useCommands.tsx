@@ -8,6 +8,8 @@ import { Command } from '~/types';
 /**
  * Custom hook that provides functionality for handling commands in a terminal.
  *
+ * @group Hooks
+ *
  * @remarks
  * This hook is used to manage commands, execute them, and handle their results in a terminal-like environment.
  *

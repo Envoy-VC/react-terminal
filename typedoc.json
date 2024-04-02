@@ -4,13 +4,16 @@
 	"entryPointStrategy": "packages",
 	"name": "React Terminal Reference",
 	"out": "docs",
-	"readme": "none",
-	"plugin": [],
+	"readme": "./README.md",
+	"customCss": "assets/docs.css",
+	"plugin": ["typedoc-material-theme", "typedoc-plugin-extras"],
+	"themeColor": "#c3e4cd",
 	"navigation": {
-		"includeCategories": false,
+		"includeCategories": true,
 		"includeGroups": true,
-		"includeFolders": false
+		"includeFolders": false,
+		"fullTree": true
 	},
 	"categorizeByGroup": true,
-	"hideGenerator": true
+	"hideGenerator": false
 }

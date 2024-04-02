@@ -41,7 +41,7 @@ export type CommandHandler = (
 /**
  * Represents the theme configuration for the terminal.
  */
-export interface Theme extends Record<string, string> {
+export type Theme = Record<string, string> & {
   /**
    * The CSS variable for the terminal border color.
    * Example: '--terminal-border'
@@ -59,7 +59,7 @@ export interface Theme extends Record<string, string> {
    * Example: '--terminal-background'
    */
   '--terminal-background': string;
-}
+};
 
 /**
  * Represents the props for the title bar component.
@@ -166,7 +166,7 @@ export interface InputBoxProps {
  *
  * @public
  */
-export interface Command {
+export type Command = {
   /**
    * The name of the command.
    */
@@ -206,6 +206,13 @@ export interface Command {
    * @param command - The command being executed.
    */
   onError?: CommandHandler;
+};
+
+/**
+ * Represents the props for the HTMLRenderer component.
+ */
+export interface HTMLRendererProps {
+  htmlString: string;
 }
 
 /**
@@ -229,11 +236,7 @@ export interface Command {
  *
  * @see {@link JSX.Element}
  */
-export type HTMLRenderer = ({
-  htmlString,
-}: {
-  htmlString: string;
-}) => JSX.Element;
+export type HTMLRenderer = (props: HTMLRendererProps) => JSX.Element;
 
 /**
  * Represents the props for the Terminal component.

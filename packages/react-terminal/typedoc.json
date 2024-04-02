@@ -2,6 +2,26 @@
   "tsconfig": "./tsconfig.json",
   "extends": ["../../typedoc.base.json"],
   "entryPoints": ["src/index.tsx"],
-  "readme": "./README.md",
-  "categorizeByGroup": true
+  "name": "React Terminal Reference",
+  "categorizeByGroup": true,
+  "groupOrder": [
+    "Providers",
+    "Components",
+    "Hooks",
+    "Helpers",
+    "References",
+    "Modules",
+    "Namespaces",
+    "Enumerations",
+    "Enumeration Members",
+    "Classes",
+    "Interfaces",
+    "Type Aliases",
+    "Constructors",
+    "Properties",
+    "Variables",
+    "Functions",
+    "Accessors",
+    "Methods"
+  ]
 }

@@ -16,6 +16,8 @@ export class Database extends Dexie {
 /**
  * The database instance used for storing data.
  *
+ * @group Classes
+ *
  * @remarks
  * This instance is created using the `Database` class from the `dexie` package.
  * It can be used to perform various database operations such as querying, inserting, updating, and deleting data.
