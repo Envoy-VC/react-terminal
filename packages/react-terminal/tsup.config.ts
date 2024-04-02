@@ -7,15 +7,12 @@ export default defineConfig({
   banner: {
     js: "'use client';",
   },
-  sourcemap: true,
   splitting: true,
   injectStyle: true,
   treeshake: true,
-  target: 'es2019',
+  target: 'es2022',
   clean: true,
   format: ['cjs', 'esm'],
-  cjsInterop: true,
   external: ['react'],
-  shims: true,
   dts: true,
 });

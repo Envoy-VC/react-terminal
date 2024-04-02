@@ -1,0 +1,25 @@
+# Installation
+
+To install `react-terminal` in your project, run:
+
+```sh npm2yarn
+npm install @envoy1084/react-terminal
+```
+
+import { Callout } from 'nextra/components'
+ 
+<Callout type="info" emoji="⚠️">
+  For Next.js users, you might get an error saying `ESM packages (rehype-format) need to be imported. Use 'import' to reference the package instead.`. Add the following to your `next.config.js` to fix the issue:
+  ```js {3,4,5} filename="next.config.js"
+const config = {
+    // other configuration
+    experimental: {
+        esmExternals: 'loose',
+    },
+};
+
+export default config;
+```
+</Callout
+
+>

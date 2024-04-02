@@ -1,0 +1,48 @@
+# Terminal
+
+The Terminal component is used to render the terminal.
+
+It takes the following props:
+
+- **[theme](/theme)**: `Theme` : The theme for the terminal.
+- **[fontSize](/terminal)**: `number` : The font size for the terminal. _defaults to 16_
+- **[showTitleBar](/terminal)**: `boolean` : Determines whether to show the title bar or not. _defaults to true_
+- **[titleBar](/title-bar)**: `TitleBarProps` : The props for the title bar component. _defaults to "React Terminal"_
+- **[inputBox](/input-box)**: `InputBoxProps` : The props for the input box component.
+- **[executingLoader](/terminal)**: `React.ReactNode` : The React node to be rendered while a command is executing.
+- **[commands](/commands)**: `Command[]` : An array of commands available in the terminal. _defaults to []_
+- **[defaultHandler](/commands)**: `Command` : The default command handler.
+- **[htmlRenderer](/html-renderer)**: `HTMLRenderer` : The HTML renderer for the terminal.
+
+Example:
+
+```tsx
+import { Terminal } from '@envoy1084/react-terminal';
+
+const App = () => {
+  return (
+    <Terminal
+      theme={theme}
+      fontSize={16}
+      showTitleBar={true}
+      titleBar={{
+        title: 'Terminal',
+        style: {
+          backgroundColor: 'black',
+          color: 'white',
+        },
+      }}
+      inputBox={{
+        style: {
+          backgroundColor: 'black',
+          color: 'white',
+        },
+      }}
+      executingLoader={<div>Loading...</div>}
+      commands={commands}
+      defaultHandler={defaultHandler}
+      htmlRenderer={htmlRenderer}
+    />
+  );
+};
+```

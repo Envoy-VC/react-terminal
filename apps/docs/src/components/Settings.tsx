@@ -16,7 +16,7 @@ type ThemeValue = keyof typeof themes;
 const Settings = () => {
   const { fontSize, setTheme, setFontSize, setPrompt } = useTerminal();
   return (
-    <div className='flex flex-row w-full gap-2 items-center bg-[#c3c8e4]'>
+    <div className='flex flex-row w-full gap-2 items-center'>
       <div className='flex flex-row items-center gap-2'>
         <div>Theme: </div>
         <Select

@@ -1,5 +1,14 @@
 {
   "index": "Introduction",
+  "installation": "Installation",
+  "--- Usage": {
+    "type": "separator",
+    "title": "Usage"
+  },
+  "getting-started": "Getting Started",
+  "terminal": "Terminal",
+  "theme": "Themes",
+  "title-bar": "Title Bar",
   "playground": {
     "title": "Playground",
     "type": "page",
@@ -12,5 +21,11 @@
       "pagination": false,
       "navbar": true
     }
+  },
+  "references": {
+    "title": "Reference",
+    "type": "page",
+    "newWindow": true,
+    "href": "http://envoy1084.me/react-terminal/"
   }
 }

@@ -1,13 +1,26 @@
 import React from 'react';
 
-import { SquareTerminal } from 'lucide-react';
+import Image from 'next/image';
+
+import LogoSmall from './../assets/icon.svg';
+import LogoText from './../assets/logo.svg';
 
 const Logo = () => {
   return (
-    <div className='flex flex-row items-center gap-2'>
-      <SquareTerminal size={36} />
-      <div className='text-2xl font-medium md:block hidden'>React Terminal</div>
-    </div>
+    <>
+      <Image
+        src={LogoText}
+        alt='React Terminal Logo'
+        height={24}
+        className='sm:block hidden'
+      />
+      <Image
+        src={LogoSmall}
+        alt='React Terminal Logo'
+        height={24}
+        className='sm:!hidden block'
+      />
+    </>
   );
 };
 
