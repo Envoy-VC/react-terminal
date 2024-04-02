@@ -7,7 +7,7 @@
 	"readme": "./README.md",
 	"customCss": "assets/docs.css",
 	"plugin": ["typedoc-material-theme", "typedoc-plugin-extras"],
-	"themeColor": "#c3e4cd",
+	"themeColor": "#c3c8e4",
 	"navigation": {
 		"includeCategories": true,
 		"includeGroups": true,
