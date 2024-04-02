@@ -13,6 +13,7 @@ const config: DocsThemeConfig = {
       <meta charSet='utf-8' />
     </>
   ),
+
   useNextSeoProps: (): NextSeoProps => {
     const { asPath } = useRouter();
     const config: {
@@ -48,8 +49,8 @@ const config: DocsThemeConfig = {
     };
   },
   logo: <Logo />,
-  primaryHue: 215,
-  primarySaturation: 75,
+  primaryHue: 199,
+  primarySaturation: 100,
   project: {
     link: 'https://github.com/Envoy-VC/react-terminal',
     icon: <GitHubIcon />,
