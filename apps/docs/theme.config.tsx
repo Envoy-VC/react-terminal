@@ -24,8 +24,11 @@ const config: DocsThemeConfig = {
     } = useConfig();
 
     const {
-      frontMatter: { title, defaultTitle, description },
+      frontMatter: { title, defaultTitle },
     } = config;
+
+    const description =
+      'React Terminal is a simple, customizable terminal component for your React applications.';
 
     return {
       titleTemplate: defaultTitle ?? '%s | React Terminal',
