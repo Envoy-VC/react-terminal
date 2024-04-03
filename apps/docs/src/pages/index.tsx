@@ -35,6 +35,7 @@ const Home = () => {
               '--terminal-border': '#ffffff10',
               '--terminal-foreground': '#a6accd',
             }}
+            enableDefaultCommands={false}
           />
         </div>
       </div>

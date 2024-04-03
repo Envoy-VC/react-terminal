@@ -37,6 +37,7 @@ const Terminal = ({
   fontSize,
   executingLoader,
   commands,
+  enableDefaultCommands,
   defaultHandler,
   htmlRenderer,
   className,
@@ -59,6 +60,7 @@ const Terminal = ({
       fontSize,
       executingLoader,
       commands,
+      enableDefaultCommands,
       defaultHandler,
     });
 
