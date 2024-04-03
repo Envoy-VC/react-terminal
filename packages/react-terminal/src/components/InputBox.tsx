@@ -132,7 +132,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
       >
         {prompt}
         <div
-          className='relative w-full'
+          className='relative w-full bg-transparent'
           style={{ height: textAreaHeight }}
           ref={containerRef}
         >
@@ -157,7 +157,7 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
             onChange={handleTextChange}
             spellCheck={false}
             className={cn(
-              'bg-background border-none outline-none resize-none w-full hide-scrollbar h-full caret-transparent',
+              'border-none outline-none resize-none w-full hide-scrollbar h-full caret-transparent bg-transparent',
               className
             )}
             {...props}
