@@ -7,11 +7,11 @@ const config = {
     return [
       {
         source: '/docs',
-        destination: 'https://react-terminal-docs.vercel.app',
+        destination: 'https://react-terminal-docs.vercel.app/docs',
       },
       {
         source: '/docs/:slug*',
-        destination: 'https://react-terminal-docs.vercel.app/:slug*',
+        destination: 'https://react-terminal-docs.vercel.app/docs/:slug*',
       },
     ];
   },

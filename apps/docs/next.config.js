@@ -11,6 +11,7 @@ const withNextra = nextra({
 
 /** @type {import("next").NextConfig} */
 const config = {
+  basePath: '/docs',
   reactStrictMode: true,
   transpilePackages: ['geist'],
   experimental: {
