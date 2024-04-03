@@ -7,6 +7,8 @@ module.exports = {
         background: 'var(--terminal-background)',
         foreground: 'var(--terminal-foreground)',
         border: 'var(--terminal-border)',
+        selectionBackground: 'var(--terminal-selectionBackground)',
+        selectionForeground: 'var(--terminal-selectionForeground)',
       },
       animation: {
         blink: 'blink 0.95s steps(1) infinite',

@@ -36,7 +36,7 @@ const useCommands = () => {
     text,
     commands,
     defaultHandler,
-    enableDefaultCommands,
+    disableDefaultCommands,
     setIsExecuting,
     setText,
   } = useTerminalContext();
@@ -90,7 +90,7 @@ const useCommands = () => {
     const commandValue = text.trim();
     const terminalCommands = [
       ...commands,
-      ...(enableDefaultCommands ? defaultCommands : []),
+      ...(disableDefaultCommands ? [] : defaultCommands),
     ];
     const command = terminalCommands
       .filter((c) => {

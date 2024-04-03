@@ -9,3 +9,100 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+/* Ansi Classes */
+.ansi-black-fg {
+  color: var(--terminal-ansiBlack);
+}
+
+.ansi-red-fg {
+  color: var(--terminal-ansiRed);
+}
+
+.ansi-green-fg {
+  color: var(--terminal-ansiGreen);
+}
+
+.ansi-yellow-fg {
+  color: var(--terminal-ansiYellow);
+}
+
+.ansi-blue-fg {
+  color: var(--terminal-ansiBlue);
+}
+
+.ansi-magenta-fg {
+  color: var(--terminal-ansiMagenta);
+}
+
+.ansi-cyan-fg {
+  color: var(--terminal-ansiCyan);
+}
+
+.ansi-white-fg {
+  color: var(--terminal-ansiWhite);
+}
+
+.ansi-bright-black-fg {
+  color: var(--terminal-ansiBrightBlack);
+}
+
+.ansi-bright-red-fg {
+  color: var(--terminal-ansiBrightRed);
+}
+
+.ansi-bright-green-fg {
+  color: var(--terminal-ansiBrightGreen);
+}
+
+.ansi-bright-yellow-fg {
+  color: var(--terminal-ansiBrightYellow);
+}
+
+.ansi-bright-blue-fg {
+  color: var(--terminal-ansiBrightBlue);
+}
+
+.ansi-bright-magenta-fg {
+  color: var(--terminal-ansiBrightMagenta);
+}
+
+.ansi-bright-cyan-fg {
+  color: var(--terminal-ansiBrightCyan);
+}
+
+.ansi-bright-white-fg {
+  color: var(--terminal-ansiBrightWhite);
+}
+
+.ansi-black-bg {
+  background-color: var(--terminal-ansiBlackBg);
+}
+
+.ansi-red-bg {
+  background-color: var(--terminal-ansiRedBg);
+}
+
+.ansi-green-bg {
+  background-color: var(--terminal-ansiGreenBg);
+}
+
+.ansi-yellow-bg {
+  background-color: var(--terminal-ansiYellowBg);
+}
+
+.ansi-blue-bg {
+  background-color: var(--terminal-ansiBlueBg);
+}
+
+.ansi-magenta-bg {
+  background-color: var(--terminal-ansiMagentaBg);
+}
+
+.ansi-cyan-bg {
+  background-color: var(--terminal-ansiCyanBg);
+}
+
+.ansi-white-bg {
+  background-color: var(--terminal-ansiWhiteBg);
+}

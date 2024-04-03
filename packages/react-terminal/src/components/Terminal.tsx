@@ -37,7 +37,8 @@ const Terminal = ({
   fontSize,
   executingLoader,
   commands,
-  enableDefaultCommands,
+  disableDefaultCommands,
+  disableAnsi,
   defaultHandler,
   htmlRenderer,
   className,
@@ -60,7 +61,8 @@ const Terminal = ({
       fontSize,
       executingLoader,
       commands,
-      enableDefaultCommands,
+      disableDefaultCommands,
+      disableAnsi,
       defaultHandler,
     });
 
@@ -76,7 +78,8 @@ const Terminal = ({
 
   React.useEffect(() => {
     Object.entries(storeTheme).forEach(([key, value]) => {
-      terminalRef?.current?.style.setProperty(key, value);
+      const k = '--terminal-' + key;
+      terminalRef?.current?.style.setProperty(k, value);
     });
   }, [storeTheme]);
 
@@ -110,7 +113,7 @@ const Terminal = ({
     <div
       ref={terminalRef}
       className={cn(
-        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar border',
+        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar border selection:bg-selectionBackground selection:text-selectionForeground',
         className
       )}
       {...props}

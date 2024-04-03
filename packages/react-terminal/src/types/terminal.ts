@@ -56,24 +56,46 @@ export type CommandErrorHandler = (
 /**
  * Represents the theme configuration for the terminal.
  */
-export type Theme = Record<string, string> & {
-  /**
-   * The CSS variable for the terminal border color.
-   * Example: '--terminal-border'
-   */
-  '--terminal-border': string;
 
-  /**
-   * The CSS variable for the terminal foreground color.
-   * Example: '--terminal-foreground'
-   */
-  '--terminal-foreground': string;
-
-  /**
-   * The CSS variable for the terminal background color.
-   * Example: '--terminal-background'
-   */
-  '--terminal-background': string;
+/**
+ * ansi-red-bg
+ansi-green-bg
+ansi-yellow-bg
+ansi-blue-bg
+ansi-magenta-bg
+ansi-cyan-bg
+ansi-white-bg
+ */
+export type Theme = {
+  background: string;
+  foreground: string;
+  border: string;
+  selectionBackground: string;
+  selectionForeground: string;
+  ansiBlue?: string;
+  ansiBlack?: string;
+  ansiBrightBlue?: string;
+  ansiBrightBlack?: string;
+  ansiBrightCyan?: string;
+  ansiBrightGreen?: string;
+  ansiBrightMagenta?: string;
+  ansiBrightRed?: string;
+  ansiBrightWhite?: string;
+  ansiBrightYellow?: string;
+  ansiCyan?: string;
+  ansiGreen?: string;
+  ansiMagenta?: string;
+  ansiRed?: string;
+  ansiWhite?: string;
+  ansiYellow?: string;
+  ansiBlackBg?: string;
+  ansiRedBg?: string;
+  ansiGreenBg?: string;
+  ansiYellowBg?: string;
+  ansiBlueBg?: string;
+  ansiMagentaBg?: string;
+  ansiCyanBg?: string;
+  ansiWhiteBg?: string;
 };
 
 /**
@@ -299,9 +321,13 @@ export interface TerminalProps {
    */
   commands?: Command[];
   /**
-   * Whether to enable the default commands or not.
+   * Whether to disable the default commands or not.
    */
-  enableDefaultCommands?: boolean;
+  disableDefaultCommands?: boolean;
+  /**
+   * Whether to disable Ansi conversion of strings.
+   */
+  disableAnsi?: boolean;
   /**
    * The default command handler.
    */
