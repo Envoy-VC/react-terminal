@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  Command,
-  Terminal,
-  themes,
-  useTerminal,
-} from '@envoy1084/react-terminal';
+import { Command, Terminal, useTerminal } from '@envoy1084/react-terminal';
 
 import Settings from './Settings';
 
