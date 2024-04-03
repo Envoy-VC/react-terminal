@@ -1,5 +1,6 @@
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 
+
 /**
  * Custom hook for managing terminal functionality.
  *
@@ -70,8 +71,8 @@ const useTerminal = () => {
   /**
    * Scrolls the terminal into view.
    */
-  const scrollInView = () => {
-    terminalRef.current?.scrollIntoView();
+  const scrollInView = (arg: boolean | ScrollIntoViewOptions) => {
+    terminalRef.current?.scrollIntoView(arg);
   };
 
   return {

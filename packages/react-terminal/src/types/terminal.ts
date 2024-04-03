@@ -1,9 +1,6 @@
 import React from 'react';
 
-
-
 import { TerminalOutputValue } from './db';
-
 
 /**
  * Represents a function that returns a promise or a value.
@@ -301,7 +298,10 @@ export interface TerminalProps {
    * An array of commands available in the terminal.
    */
   commands?: Command[];
-
+  /**
+   * Whether to enable the default commands or not.
+   */
+  enableDefaultCommands?: boolean;
   /**
    * The default command handler.
    */

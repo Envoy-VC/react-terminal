@@ -13,37 +13,28 @@ It takes the following props:
 - **[inputBoxProps](/terminal)**: `React.ComponentPropsWithoutRef<'textarea'>` - The props for the textarea container.
 - **[executingLoader](/terminal)**: `React.ReactNode` - The React node to be rendered while a command is executing.
 - **[commands](/commands)**: `Command[]` - An array of commands available in the terminal. _defaults to []_
+- **[enableDefaultCommands](/terminal)**: `boolean` - Determines whether to enable the default commands or not. _defaults to true_
 - **[defaultHandler](/commands)**: `Command` - The default command handler.
 - **[htmlRenderer](/html-renderer)**: `HTMLRenderer` - The HTML renderer for the terminal.
 
 Example:
 
 ```tsx
-import { Terminal } from '@envoy1084/react-terminal';
+import { Terminal, themes } from '@envoy1084/react-terminal';
 
 const App = () => {
   return (
     <Terminal
-      theme={theme}
+      theme={themes.aurora_x}
       fontSize={16}
       showTitleBar={true}
       titleBar={{
-        title: 'Terminal',
-        style: {
-          backgroundColor: 'black',
-          color: 'white',
-        },
+        header: 'Terminal',
       }}
       inputBox={{
-        style: {
-          backgroundColor: 'black',
-          color: 'white',
-        },
+        cursor: 'block',
       }}
       executingLoader={<div>Loading...</div>}
-      commands={commands}
-      defaultHandler={defaultHandler}
-      htmlRenderer={htmlRenderer}
     />
   );
 };

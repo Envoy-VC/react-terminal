@@ -66,6 +66,7 @@ export const constructTerminalProps = (
     titleBarProps: { ...props.titleBarProps },
     executingLoader: props.executingLoader ?? <DefaultLoader />,
     commands: props.commands ?? [],
+    enableDefaultCommands: props.enableDefaultCommands ?? true,
     inputBox: {
       prompt: defaultPrompt,
       cursor: 'underscore',
