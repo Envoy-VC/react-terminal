@@ -7,8 +7,18 @@
   },
   "getting-started": "Getting Started",
   "terminal": "Terminal",
+  "use-terminal": "useTerminal Hook",
   "theme": "Themes",
   "title-bar": "Title Bar",
+  "input-box": "Input Box",
+  "commands": "Commands",
+  "html-renderer": "HTML Renderer",
+  "--- Helpers": {
+    "type": "separator",
+    "title": "Helpers"
+  },
+  "utilities": "Utilities",
+
   "playground": {
     "title": "Playground",
     "type": "page",

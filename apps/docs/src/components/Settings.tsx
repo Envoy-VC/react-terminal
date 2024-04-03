@@ -14,7 +14,7 @@ import { themes, useTerminal } from '@envoy1084/react-terminal';
 type ThemeValue = keyof typeof themes;
 
 const Settings = () => {
-  const { fontSize, setTheme, setFontSize, setPrompt } = useTerminal();
+  const { fontSize, setFontSize, setTheme } = useTerminal();
   return (
     <div className='flex flex-row w-full gap-2 items-center'>
       <div className='flex flex-row items-center gap-2'>
@@ -40,14 +40,6 @@ const Settings = () => {
           value={fontSize}
           onChange={(e) => setFontSize(parseInt(e.target.value))}
           className='w-[4rem]'
-        />
-      </div>
-      <div className='flex flex-row items-center gap-2'>
-        <div>Prompt: </div>
-        <Input
-          defaultValue={'$'}
-          onChange={(e) => setPrompt(e.target.value)}
-          className='w-[10rem]'
         />
       </div>
     </div>

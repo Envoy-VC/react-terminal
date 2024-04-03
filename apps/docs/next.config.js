@@ -11,7 +11,7 @@ const withNextra = nextra({
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   transpilePackages: ['geist'],
   experimental: {
     esmExternals: 'loose',
