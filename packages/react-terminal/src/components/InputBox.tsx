@@ -1,37 +1,31 @@
 import React from 'react';
+import { useImperativeHandle } from 'react';
 
 import { db } from '~/lib/db';
-import {
-  calculateTextAreaHeight,
-  defaultPrompt,
-  getCursor,
-} from '~/lib/helpers';
-import { useCopyRef, useTerminal, useTerminalContext } from '~/lib/hooks';
+import { calculateTextAreaHeight, getCursor } from '~/lib/helpers';
+import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
-import { InputBoxProps } from '~/types';
-
-type Props = InputBoxProps & React.ComponentPropsWithoutRef<'textarea'>;
+type Props = React.ComponentPropsWithoutRef<'textarea'>;
 
 const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
-  (
-    { prompt = defaultPrompt, cursor = 'underscore', className, ...props },
-    ref
-  ) => {
+  ({ className, ...props }, ref) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const textareaRef = useCopyRef(ref);
+    const textareaRef = React.useRef<HTMLTextAreaElement>(null);
     const mirrorRef = React.useRef<HTMLDivElement>(null);
 
     const {
       text,
       commandIndex,
       isExecuting,
-      refocus,
+      fontSize,
+      inputBox: { prompt, cursor },
       setText,
       setCommandIndex,
-      fontSize,
     } = useTerminalContext();
-    const { handler } = useTerminal();
+    const { handler } = useCommands();
+
+    useImperativeHandle(ref, () => textareaRef.current!, []);
 
     const [beforeText, setBeforeText] = React.useState<string>('');
     const [afterText, setAfterText] = React.useState<string>('');
@@ -55,9 +49,9 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
       if (!mirrorEle) {
         return;
       }
-      const cursorPos = textarea.selectionStart ?? 0;
-      const textBeforeCursor = textarea.value.substring(0, cursorPos);
-      const textAfterCursor = textarea.value.substring(cursorPos);
+      const cursorPos = textarea?.selectionStart ?? 0;
+      const textBeforeCursor = textarea?.value.substring(0, cursorPos) ?? '';
+      const textAfterCursor = textarea?.value.substring(cursorPos) ?? '';
 
       setAfterText(textAfterCursor);
       setBeforeText(textBeforeCursor);
@@ -72,16 +66,16 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
     };
 
     React.useEffect(() => {
-      if (textareaRef.current) {
-        textareaRef.current.focus();
-      }
-    }, [refocus]);
-
-    React.useEffect(() => {
       if (isFocused) {
         handleSelectionChange();
       }
     }, [isFocused]);
+
+    React.useEffect(() => {
+      if (isExecuting === false && text === '') {
+        textareaRef.current?.focus();
+      }
+    }, [isExecuting, text]);
 
     const handleKeyPress = async (
       event: React.KeyboardEvent<HTMLTextAreaElement>
@@ -142,16 +136,14 @@ const InputBox = React.forwardRef<HTMLTextAreaElement, Props>(
           style={{ height: textAreaHeight }}
           ref={containerRef}
         >
-          {isFocused && (
-            <div
-              ref={mirrorRef}
-              className='absolute top-0 left-0 h-full w-full overflow-hidden text-transparent whitespace-pre'
-            >
-              {beforeText}
-              {getCursor(cursor)}
-              {afterText}
-            </div>
-          )}
+          <div
+            ref={mirrorRef}
+            className='absolute top-0 left-0 h-full w-full overflow-hidden text-transparent whitespace-pre'
+          >
+            {beforeText}
+            {isFocused && getCursor(cursor)}
+            {afterText}
+          </div>
           <textarea
             disabled={isExecuting}
             onFocus={handleFocus}

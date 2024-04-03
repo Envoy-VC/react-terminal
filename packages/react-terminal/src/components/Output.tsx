@@ -1,7 +1,5 @@
 import { useTerminalContext } from '~/lib/hooks';
 
-import JSXRenderer from './JSXRenderer';
-
 import { TerminalHistory } from '~/types/db';
 
 interface Props {
@@ -9,7 +7,11 @@ interface Props {
 }
 
 const Output = ({ output }: Props) => {
-  const { prompt, fontSize, htmlRenderer: HTMLRenderer } = useTerminalContext();
+  const {
+    fontSize,
+    htmlRenderer: HTMLRenderer,
+    inputBox: { prompt },
+  } = useTerminalContext();
 
   return (
     <div className='flex flex-col px-2 gap-0'>
@@ -18,7 +20,7 @@ const Output = ({ output }: Props) => {
         if (type === 'command') {
           return (
             <div
-              key={index}
+              key={message.id}
               className='flex flex-row gap-1'
               style={{
                 fontSize: fontSize,
@@ -33,6 +35,8 @@ const Output = ({ output }: Props) => {
           if (typeof content === 'string') {
             return (
               <div
+                key={message.id}
+                className='whitespace-pre'
                 style={{
                   fontSize: fontSize,
                 }}
@@ -42,11 +46,7 @@ const Output = ({ output }: Props) => {
             );
           } else if (typeof content === 'object') {
             const htmlString = content.html;
-            if (HTMLRenderer) {
-              return <HTMLRenderer htmlString={htmlString} />;
-            } else {
-              return <JSXRenderer key={index} htmlString={htmlString} />;
-            }
+            return <HTMLRenderer key={message.id} htmlString={htmlString} />;
           }
         }
       })}

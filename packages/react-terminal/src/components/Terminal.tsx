@@ -1,16 +1,14 @@
 import React from 'react';
 
 import { db } from '~/lib/db';
-import { defaultPrompt } from '~/lib/helpers';
+import { constructTerminalProps } from '~/lib/helpers';
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useEventListener } from 'usehooks-ts';
 import { ExecutingLoader, InputBox, Output, TitleBar } from '~/components';
-import { TerminalProps } from '~/types';
-
-import { themes } from '..';
+import { TerminalPropsDetailed } from '~/types';
 
 /**
  * Terminal component for displaying a command-line interface.
@@ -25,59 +23,65 @@ import { themes } from '..';
  * <Terminal
  *   theme={customTheme}
  *   fontSize={18}
- *   showTitleBar={true}
- *   titleBar={titleBarContent}
- *   inputBox={inputBoxContent}
- *   executingLoader={loaderComponent}
- *   defaultHandler={defaultCommandHandler}
- *   commands={commandList}
- *   htmlRenderer={customHtmlRenderer}
- *   className="custom-terminal"
+ *   commands={commands}
  * />
  * ```
  */
 const Terminal = ({
-  theme: userTheme,
-  fontSize,
+  theme,
   showTitleBar = true,
   titleBar,
+  titleBarProps,
   inputBox,
+  inputBoxProps,
+  fontSize,
   executingLoader,
-  defaultHandler,
   commands,
+  defaultHandler,
   htmlRenderer,
   className,
   ...props
-}: TerminalProps) => {
-  const { isExecuting, theme, init } = useTerminalContext();
+}: TerminalPropsDetailed) => {
+  const { isExecuting, init, theme: storeTheme } = useTerminalContext();
   const { lastCursor } = useCommands();
+
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
+  const terminalRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const terminalProps = constructTerminalProps({
+      theme,
+      showTitleBar,
+      titleBar,
+      titleBarProps,
+      inputBox,
+      inputBoxProps,
+      fontSize,
+      executingLoader,
+      commands,
+      defaultHandler,
+    });
+
+    init({
+      text: '',
+      isExecuting: false,
+      commandIndex: -1,
+      terminalRef,
+      inputRef,
+      ...terminalProps,
+    });
+  }, [theme]);
+
+  React.useEffect(() => {
+    Object.entries(storeTheme).forEach(([key, value]) => {
+      terminalRef?.current?.style.setProperty(key, value);
+    });
+  }, [storeTheme]);
 
   const messages = useLiveQuery(async () => {
     const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
     return res;
   }, [lastCursor]);
-
-  const terminalRef = React.useRef<HTMLDivElement>(null);
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
-
-  React.useEffect(() => {
-    init({
-      theme: userTheme ?? themes.poimandres,
-      text: '',
-      fontSize: fontSize ?? 16,
-      commands: commands ?? [],
-      isExecuting: false,
-      executingLoader: executingLoader,
-      prompt: inputBox?.prompt ?? defaultPrompt,
-      refocus: false,
-      commandIndex: -1,
-      htmlRenderer,
-    });
-    const terminalContainer = terminalRef.current;
-    Object.entries(theme).forEach(([key, value]) => {
-      terminalContainer?.style.setProperty(key, value);
-    });
-  }, [theme]);
 
   useEventListener(
     'click',
@@ -104,14 +108,14 @@ const Terminal = ({
     <div
       ref={terminalRef}
       className={cn(
-        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar border border-border',
+        'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar border',
         className
       )}
       {...props}
     >
-      {showTitleBar && <TitleBar {...titleBar} />}
+      {showTitleBar && <TitleBar {...titleBarProps} />}
       <Output output={messages ?? []} />
-      <InputBox ref={inputRef} {...inputBox} />
+      <InputBox ref={inputRef} {...inputBoxProps} />
       <ExecutingLoader />
     </div>
   );

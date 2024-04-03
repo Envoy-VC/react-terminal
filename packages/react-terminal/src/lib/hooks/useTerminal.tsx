@@ -11,14 +11,8 @@ import { useCommands, useTerminalContext } from '~/lib/hooks';
  * @example
  * ```tsx
  * import { Theme } from "@envoy1084/react-terminal";
- * const { handler, setTheme, theme } = useTerminal();
+ * const { setTheme, theme } = useTerminal();
  *
- * // Handle user input
- * const handleInput = () => {
- *   // ...
- *   handler();
- *   // ...
- * };
  *
  * // Set terminal theme
  * const changeTheme = (newTheme: Theme) => {
@@ -33,17 +27,70 @@ import { useCommands, useTerminalContext } from '~/lib/hooks';
  * @see {@link useCommands} for accessing the available commands and executing them.
  */
 const useTerminal = () => {
-  const { text, theme, fontSize, prompt, setTheme, setFontSize, setPrompt } =
-    useTerminalContext();
-  const { getCommand, executeCommand } = useCommands();
+  const {
+    inputRef,
+    terminalRef,
+    theme,
+    text,
+    fontSize,
+    setFontSize,
+    setTheme,
+    setText,
+  } = useTerminalContext();
+  const { clearTerminal, writeToTerminal } = useCommands();
 
-  const handler = async () => {
-    if (text === '') return;
-    const command = getCommand(text);
-    await executeCommand(text, command);
+  /**
+   * Focuses the terminal input box.
+   */
+  const focus = () => {
+    inputRef.current?.focus();
   };
 
-  return { theme, fontSize, prompt, handler, setTheme, setFontSize, setPrompt };
+  /**
+   * Blurs the terminal input box.
+   */
+  const blur = () => {
+    inputRef.current?.blur();
+  };
+
+  /**
+   * Scrolls the terminal to the top.
+   */
+  const scrollToTop = () => {
+    terminalRef.current?.scrollTo(0, 0);
+  };
+
+  /**
+   * Scrolls the terminal to the bottom.
+   */
+  const scrollToBottom = () => {
+    terminalRef.current?.scrollTo(0, terminalRef.current.scrollHeight);
+  };
+
+  /**
+   * Scrolls the terminal into view.
+   */
+  const scrollInView = () => {
+    terminalRef.current?.scrollIntoView();
+  };
+
+  return {
+    inputRef,
+    terminalRef,
+    theme,
+    fontSize,
+    inputBoxValue: text,
+    focus,
+    blur,
+    scrollToTop,
+    scrollToBottom,
+    scrollInView,
+    writeToTerminal,
+    clearTerminal,
+    setFontSize,
+    setTheme,
+    setInputBoxValue: setText,
+  };
 };
 
 export default useTerminal;

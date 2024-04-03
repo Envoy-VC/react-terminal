@@ -1,6 +1,9 @@
 import React from 'react';
 
+
+
 import { TerminalOutputValue } from './db';
+
 
 /**
  * Represents a function that returns a promise or a value.
@@ -34,6 +37,21 @@ export type Awaitable<T> = () => Promise<T> | T;
  * ```
  */
 export type CommandHandler = (
+  args: string[],
+  command: string
+) => Promise<TerminalOutputValue> | TerminalOutputValue;
+
+/**
+ * Represents a command error handler function.
+ *
+ * @param error - An error object that occurred during command execution.
+ * @param args - An array of string arguments passed to the command.
+ * @param command - The command being executed.
+ *
+ * @returns A `Promise` or a value of type `TerminalOutputValue`.
+ */
+export type CommandErrorHandler = (
+  error: unknown,
   args: string[],
   command: string
 ) => Promise<TerminalOutputValue> | TerminalOutputValue;
@@ -205,7 +223,7 @@ export type Command = {
    * @param args - The command arguments
    * @param command - The command being executed.
    */
-  onError?: CommandHandler;
+  onError?: CommandErrorHandler;
 };
 
 /**
@@ -241,11 +259,8 @@ export type HTMLRenderer = (props: HTMLRendererProps) => JSX.Element;
 /**
  * Represents the props for the Terminal component.
  *
- * // ignore react types while generating docs
- *
- * @extends {React.ComponentPropsWithoutRef<'div'>}
  */
-export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface TerminalProps {
   /**
    * The theme for the terminal.
    */
@@ -265,12 +280,18 @@ export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
    * The props for the title bar component.
    */
   titleBar?: TitleBarProps;
-
+  /**
+   * The props for the title bar component.
+   */
+  titleBarProps?: React.ComponentPropsWithoutRef<'div'>;
   /**
    * The props for the input box component.
    */
   inputBox?: InputBoxProps;
-
+  /**
+   * The props for the input box component.
+   */
+  inputBoxProps?: React.ComponentPropsWithoutRef<'textarea'>;
   /**
    * The React node to be rendered while a command is executing.
    */
@@ -291,3 +312,10 @@ export interface TerminalProps extends React.ComponentPropsWithoutRef<'div'> {
    */
   htmlRenderer?: HTMLRenderer;
 }
+
+/**
+ * The detailed props for the Terminal component. These props include the props for the `div` element.
+ */
+export interface TerminalPropsDetailed
+  extends TerminalProps,
+    React.ComponentPropsWithoutRef<'div'> {}

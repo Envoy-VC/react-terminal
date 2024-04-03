@@ -1,9 +1,9 @@
 import { db } from '~/lib/db';
-import { safeRenderToString } from '~/lib/helpers/rehype';
+import { fallbackHandler, safeRenderToString } from '~/lib/helpers';
 import { useTerminalContext } from '~/lib/hooks';
 
 import { useLocalStorage } from 'usehooks-ts';
-import { Command } from '~/types';
+import { Command, TerminalOutputValue } from '~/types';
 
 /**
  * Custom hook that provides functionality for handling commands in a terminal.
@@ -32,25 +32,13 @@ import { Command } from '~/types';
  * @see {@link Command}
  */
 const useCommands = () => {
-  const {
-    commands,
-    defaultHandler,
-    refocus,
-    setIsExecuting,
-    setText,
-    setRefocus,
-    addCommand,
-    setCommands,
-  } = useTerminalContext();
+  const { text, commands, defaultHandler, setIsExecuting, setText } =
+    useTerminalContext();
 
   const [lastCursor, setLastCursor] = useLocalStorage('lastCursor', 0);
 
   /**
    * Clears the terminal by updating the last cursor position and returning undefined.
-   *
-   * @remarks
-   * This function is used to clear the terminal by updating the last cursor position in the database.
-   *
    *
    * @example
    * ```tsx
@@ -77,13 +65,12 @@ const useCommands = () => {
 
   /**
    * Retrieves the appropriate command handler based on the provided text.
+   * If no matching command is found, it falls back to the default handler or the fallback handler.
+
    *
    * @param text - The input text representing the command.
    * @returns The command handler function.
    *
-   * @remarks
-   * This function searches for a command that matches the provided text and returns its corresponding handler function.
-   * If no matching command is found, it falls back to the default handler or the fallback handler.
    *
    * @example
    * ```tsx
@@ -105,11 +92,10 @@ const useCommands = () => {
     return command ?? defaultHandler ?? fallbackHandler;
   };
 
-  const fallbackHandler: Command = {
-    name: 'fallback',
-    handler: (_args, text) => {
-      return `Command not found: ${text}`;
-    },
+  const handler = async () => {
+    if (text === '') return;
+    const command = getCommand(text);
+    await executeCommand(text, command);
   };
 
   /**
@@ -118,10 +104,6 @@ const useCommands = () => {
    * @param text - The input text for the command.
    * @param command - The command object containing the handler and other properties.
    * @returns A Promise that resolves when the command execution is complete.
-   *
-   * @remarks
-   * This function executes a command by calling its handler function with the provided arguments.
-   * It also updates the execution history and handles the output of the command.
    *
    * @example
    * ```tsx
@@ -142,7 +124,7 @@ const useCommands = () => {
     command: Command
   ): Promise<void> => {
     const commandValue = text.trim();
-    const waitForExecution = command.waitForExecution ?? true;
+    const waitForExecution = command.waitForExecution ?? false;
     const args = commandValue.replace(command.name, '').split(' ').splice(1);
 
     try {
@@ -151,12 +133,12 @@ const useCommands = () => {
       }
 
       if (!waitForExecution) {
+        setIsExecuting(false);
         await db.history.add({
           type: 'command',
           value: commandValue,
         });
         setText('');
-        setRefocus(!refocus);
       }
 
       const result = await command.handler(args, commandValue);
@@ -168,32 +150,15 @@ const useCommands = () => {
         });
       }
 
-      // handle output
-      if (typeof result === 'string') {
-        await db.history.add({
-          type: 'output',
-          value: result,
-        });
-      } else if (typeof result === 'object') {
-        const jsx = result.html;
-        const htmlString = safeRenderToString(jsx);
-        await db.history.add({
-          type: 'output',
-          value: {
-            html: htmlString,
-          },
-        });
-      }
+      await writeToTerminal(result);
 
       if (waitForExecution) {
         setIsExecuting(false);
         setText('');
-        setRefocus(!refocus);
-        setText('');
       }
     } catch (error) {
       if (command.onError) {
-        await command.onError(args, commandValue);
+        await command.onError(error, args, commandValue);
       } else {
         await db.history.add({
           type: 'output',
@@ -202,19 +167,54 @@ const useCommands = () => {
       }
       setIsExecuting(false);
       setText('');
-      setRefocus(!refocus);
+    }
+  };
+
+  /**
+   * This function adds the provided value to the terminal history. If the value is a string, it is added directly. If the value is an object, the `html` property of the object is converted to a string using `safeRenderToString` function before adding it to the history.
+   *
+   * @param value - The value to be written to the terminal.
+   *
+   * @example
+   * // Writing a string value
+   * const outputValue = 'Hello, world!';
+   * await writeToTerminal(outputValue);
+   *
+   * // Writing an object value
+   * const outputValue = {
+   *   html: <div>Hello, world!</div>,
+   * };
+   * await writeToTerminal(outputValue);
+   *
+   * @returns A promise that resolves once the value is added to the terminal history.
+   */
+  const writeToTerminal = async (value: TerminalOutputValue) => {
+    if (typeof value === 'string') {
+      await db.history.add({
+        type: 'output',
+        value: value,
+      });
+    } else if (typeof value === 'object') {
+      const jsx = value.html;
+      const htmlString = safeRenderToString(jsx);
+      await db.history.add({
+        type: 'output',
+        value: {
+          html: htmlString,
+        },
+      });
     }
   };
 
   return {
     lastCursor,
     defaultCommands,
+    handler,
     setLastCursor,
     clearTerminal,
+    writeToTerminal,
     executeCommand,
     getCommand,
-    addCommand,
-    setCommands,
   };
 };
 

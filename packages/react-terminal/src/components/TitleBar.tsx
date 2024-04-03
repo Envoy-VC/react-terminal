@@ -1,19 +1,21 @@
+import { useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { ChevronsUpDown, Minus, X } from 'lucide-react';
-import { Awaitable, TitleBarProps } from '~/types';
+import { Awaitable } from '~/types';
 
-type Props = TitleBarProps & React.ComponentPropsWithoutRef<'div'>;
+type Props = React.ComponentPropsWithoutRef<'div'>;
 
-const TitleBar = ({
-  header,
-  closeHandler = () => {},
-  minimizeHandler = () => {},
-  maximizeHandler = () => {},
-  extraContent,
-  className,
-  ...props
-}: Props) => {
+const TitleBar = ({ className, ...props }: Props) => {
+  const {
+    titleBar: {
+      closeHandler,
+      maximizeHandler,
+      minimizeHandler,
+      header,
+      extraContent,
+    },
+  } = useTerminalContext();
   return (
     <div
       className={cn(
@@ -26,9 +28,9 @@ const TitleBar = ({
         {actionButtons.map((action) => {
           const { Icon, color, name } = action;
           let handler: Awaitable<void>;
-          if (name === 'close') handler = closeHandler;
-          else if (name === 'minimize') handler = minimizeHandler;
-          else handler = maximizeHandler;
+          if (name === 'close') handler = closeHandler!;
+          else if (name === 'minimize') handler = minimizeHandler!;
+          else handler = maximizeHandler!;
 
           return (
             <button
@@ -48,8 +50,8 @@ const TitleBar = ({
           );
         })}
       </div>
-      {header ? header : <div className='text-sm'>React Terminal</div>}
-      {extraContent ? extraContent : <div className='invisible'>a</div>}
+      {header}
+      {extraContent}
     </div>
   );
 };
