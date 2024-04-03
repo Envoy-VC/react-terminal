@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/docs/",
+      "destination": "https://react-terminal-docs.vercel.app/"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://react-terminal-docs.vercel.app/:match*"
+    }
+    {
+        "source": "/",
+        "destination": "https://react-terminal-docs.vercel.app/"
+    },
+    {
+        "source": "/:match*",
+        "destination": "https://react-terminal-docs.vercel.app/:match*"
+    }
+  ]
+}
