@@ -30,12 +30,12 @@ const Home = () => {
         <div className='flex py-32 justify-center h-full w-full'>
           <Terminal
             className='aspect-video max-w-5xl border-none w-full h-fit'
-            theme={{
-              '--terminal-background': '#1b1e28f7',
-              '--terminal-border': '#ffffff10',
-              '--terminal-foreground': '#a6accd',
-            }}
-            enableDefaultCommands={false}
+            // theme={{
+            //   '--terminal-background': '#1b1e28f7',
+            //   '--terminal-border': '#ffffff10',
+            //   '--terminal-foreground': '#a6accd',
+            // }}
+            disableDefaultCommands={false}
           />
         </div>
       </div>

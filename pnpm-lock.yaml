@@ -138,6 +138,9 @@ importers:
 
   packages/react-terminal:
     dependencies:
+      ansi_up:
+        specifier: ^6.0.2
+        version: 6.0.2
       clsx:
         specifier: ^2.1.0
         version: 2.1.0
@@ -214,6 +217,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
+      tm-themes:
+        specifier: ^1.3.2
+        version: 1.3.2
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.3.3)
@@ -2319,6 +2325,10 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
     dev: true
+
+  /ansi_up@6.0.2:
+    resolution: {integrity: sha512-3G3vKvl1ilEp7J1u6BmULpMA0xVoW/f4Ekqhl8RTrJrhEBkonKn5k3bUc5Xt+qDayA6iDX0jyUh3AbZjB/l0tw==}
+    dev: false
 
   /any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
@@ -8473,6 +8483,10 @@ packages:
     resolution: {integrity: sha512-TARUb7z1pGvlLxgPk++7wJ6aycXF3GJ0sNSBTAsTuJrQG5QuZlkUQP+zl+nbjAh4gMX9yDw9ZYklMd7vAfJKEw==}
     engines: {node: '>=0.10.0'}
     dev: false
+
+  /tm-themes@1.3.2:
+    resolution: {integrity: sha512-FDHLKK0ybFnpc3875ufwWP06WjGefzLAKBspDbO2KxIZb8nVb3dTvg6r7t39tP+G1FvbPOg341mFRH+6CR000g==}
+    dev: true
 
   /tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}

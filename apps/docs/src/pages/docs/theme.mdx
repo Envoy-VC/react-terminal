@@ -13,7 +13,7 @@ import { themes, Terminal } from '@envoy1084/react-terminal';
 
 const Page = {
     return (
-        <Terminal theme={themes.dracula} />
+        <Terminal theme={themes.poimandres} />
     );
 }
 ```
@@ -27,10 +27,28 @@ Example:
 ```tsx
 import { Terminal, Theme} from '@envoy1084/react-terminal';
 
-const customTheme: Theme = {
-  '--terminal-background': '#1b1e28',
-  '--terminal-border': '#ffffff10',
-  '--terminal-foreground': '#a6accd',
+const poimandres: Theme = {
+  background: '#1b1e28',
+  border: '#ffffff10',
+  foreground: '#a6accd',
+  selectionBackground: '#717cb425',
+  selectionForeground: '#a6accd',
+  ansiBlack: '#1b1e28',
+  ansiBlue: '#89ddff',
+  ansiBrightBlack: '#a6accd',
+  ansiBrightBlue: '#ADD7FF',
+  ansiBrightCyan: '#ADD7FF',
+  ansiBrightGreen: '#5DE4c7',
+  ansiBrightMagenta: '#f087bd',
+  ansiBrightRed: '#d0679d',
+  ansiBrightWhite: '#ffffff',
+  ansiBrightYellow: '#fffac2',
+  ansiCyan: '#89ddff',
+  ansiGreen: '#5DE4c7',
+  ansiMagenta: '#f087bd',
+  ansiRed: '#d0679d',
+  ansiWhite: '#ffffff',
+  ansiYellow: '#fffac2',
 };
 
 const Page = {
@@ -43,21 +61,5 @@ const Page = {
 ## Available Themes
 
 - poimandres
-- andromeda
 - aurora_x
-- github_dark
 - github_light
-- houston
-- catppuccin_frappe
-- catppuccin_latte
-- catppuccin_macchiato
-- catppuccin_mocha
-- dracula
-- material
-- monokai
-- nord
-- slack_dark
-- slack_ochin
-- solarized_light
-- solarized_dark
-- tokyo_night
