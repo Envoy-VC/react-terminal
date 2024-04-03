@@ -32,8 +32,14 @@ import { Command, TerminalOutputValue } from '~/types';
  * @see {@link Command}
  */
 const useCommands = () => {
-  const { text, commands, defaultHandler, setIsExecuting, setText } =
-    useTerminalContext();
+  const {
+    text,
+    commands,
+    defaultHandler,
+    enableDefaultCommands,
+    setIsExecuting,
+    setText,
+  } = useTerminalContext();
 
   const [lastCursor, setLastCursor] = useLocalStorage('lastCursor', 0);
 
@@ -82,7 +88,11 @@ const useCommands = () => {
    */
   const getCommand = (text: string) => {
     const commandValue = text.trim();
-    const command = [...commands, ...defaultCommands]
+    const terminalCommands = [
+      ...commands,
+      ...(enableDefaultCommands ? defaultCommands : []),
+    ];
+    const command = terminalCommands
       .filter((c) => {
         const regex = new RegExp(`^${c.name}( |$)`);
         return regex.test(commandValue);
