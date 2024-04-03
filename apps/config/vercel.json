@@ -10,11 +10,11 @@
     },
     {
       "source": "/",
-      "destination": "https://react-terminal-docs.vercel.app/"
+      "destination": "https://react-terminal-demo-pcin.vercel.app/"
     },
     {
       "source": "/:match*",
-      "destination": "https://react-terminal-docs.vercel.app/:match*"
+      "destination": "https://react-terminal-demo-pcin.vercel.app/:match*"
     }
   ]
 }
