@@ -1,0 +1,45 @@
+---
+title: Title Bar
+---
+
+# Title Bar
+
+You can customize the title bar by setting the `titleBar` prop. The title bar is a area that contains the title of the window and the minimize, maximize, and close buttons. The title bar is displayed at the top of the window.
+
+It accepts the following props:
+
+- **header**: `React.ReactNode` - The header content to be displayed in the title bar.
+- **closeHandler**: `() => Promise<void> | void` - The handler function to be called when the close button is clicked.
+- **minimizeHandler**: `() => Promise<void> | void` - The handler function to be called when the minimize button is clicked.
+- **maximizeHandler**: `() => Promise<void> | void` - The handler function to be called when the maximize button is clicked.
+- **extraContent**: `React.ReactNode` - Additional content to be displayed in the title bar.
+
+Example usage:
+
+```tsx
+import { Terminal } from '@envoy1084/react-terminal';
+
+const titleBar = <div className='title-bar'>My Custom Titlebar</div>;
+
+const App = () => {
+  return (
+    <Terminal
+      titleBar={{
+        header: titleBar,
+        closeHandler: () => {
+          console.log('Close button clicked');
+        },
+        minimizeHandler: () => {
+          console.log('Minimize button clicked');
+        },
+        maximizeHandler: () => {
+          console.log('Maximize button clicked');
+        },
+        extraContent: <div>Extra Content</div>,
+      }}
+    />
+  );
+};
+
+export default App;
+```

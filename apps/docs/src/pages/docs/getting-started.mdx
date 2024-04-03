@@ -1,0 +1,37 @@
+---
+title: Getting Started
+---
+
+# Getting Started
+
+The Project follows a Provider Structure, where the store is passed down to the components using the Provider pattern.
+
+First you need to wrap your application in a `TerminalProvider` component.
+
+```tsx filename="src/_app.tsx" {5,7}
+import { TerminalProvider } from '@envoy1084/react-terminal';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <TerminalProvider>
+      <Component {...pageProps} />
+    </TerminalProvider>
+  );
+}
+
+export default MyApp;
+```
+
+Then you can use the `Terminal` Component to render the terminal.
+
+```tsx filename="src/pages/index.tsx"
+import { Terminal } from '@envoy1084/react-terminal';
+
+export default function Home() {
+  return (
+    <div>
+      <Terminal />
+    </div>
+  );
+}
+```

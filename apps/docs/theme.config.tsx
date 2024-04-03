@@ -1,5 +1,6 @@
-import type { NextSeoProps } from 'next-seo';
 import { useRouter } from 'next/router';
+
+import type { NextSeoProps } from 'next-seo';
 import { type DocsThemeConfig, useConfig } from 'nextra-theme-docs';
 import { GitHubIcon } from 'nextra/icons';
 import { Logo } from '~/components';

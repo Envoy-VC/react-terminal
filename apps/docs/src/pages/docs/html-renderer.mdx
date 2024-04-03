@@ -1,0 +1,23 @@
+---
+title: HTML Renderer
+---
+
+# HTML Renderer
+
+The terminal supports custom HTML Renderer implementations. This allows you to render HTML content in the terminal. The terminal comes with a default HTML Renderer implementation that uses the `Rehype` and `Rehype-React` libraries to render HTML content. You can provide your own HTML Renderer implementation by passing a custom `HTMLRenderer` implementation to the `Terminal` component.
+
+The Renderer implementation takes in an object with the following properties:
+
+- **htmlString**: `string` - The string to render as HTML.
+
+Output is a `JSX.Element`.
+
+Example:
+
+```tsx
+import { Terminal } from '@envoy1084/react-terminal';
+
+const customHTMLRenderer = ({ htmlString }) => {
+  return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
+};
+```

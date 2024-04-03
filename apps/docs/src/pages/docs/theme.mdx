@@ -1,0 +1,63 @@
+---
+title: Terminal Themes
+---
+
+# Terminal Themes
+
+The terminal contains various in-built themes that you can use to customize the look of your terminal. You can access these themes by importing the `themes` module from the library.
+
+Default Theme is `poimandres`
+
+```tsx
+import { themes, Terminal } from '@envoy1084/react-terminal';
+
+const Page = {
+    return (
+        <Terminal theme={themes.dracula} />
+    );
+}
+```
+
+## Custom Theme
+
+You can also create your own custom theme by passing an object with the required properties.
+
+Example:
+
+```tsx
+import { Terminal, Theme} from '@envoy1084/react-terminal';
+
+const customTheme: Theme = {
+  '--terminal-background': '#1b1e28',
+  '--terminal-border': '#ffffff10',
+  '--terminal-foreground': '#a6accd',
+};
+
+const Page = {
+    return (
+        <Terminal theme={customTheme} />
+    );
+}
+```
+
+## Available Themes
+
+- poimandres
+- andromeda
+- aurora_x
+- github_dark
+- github_light
+- houston
+- catppuccin_frappe
+- catppuccin_latte
+- catppuccin_macchiato
+- catppuccin_mocha
+- dracula
+- material
+- monokai
+- nord
+- slack_dark
+- slack_ochin
+- solarized_light
+- solarized_dark
+- tokyo_night

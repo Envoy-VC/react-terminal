@@ -1,0 +1,27 @@
+{
+  "index": "Introduction",
+  "installation": "Installation",
+  "--- Usage": {
+    "type": "separator",
+    "title": "Usage"
+  },
+  "getting-started": "Getting Started",
+  "terminal": "Terminal",
+  "use-terminal": "useTerminal Hook",
+  "theme": "Themes",
+  "title-bar": "Title Bar",
+  "input-box": "Input Box",
+  "commands": "Commands",
+  "html-renderer": "HTML Renderer",
+  "--- Helpers": {
+    "type": "separator",
+    "title": "Helpers"
+  },
+  "utilities": "Utilities",
+  "references": {
+    "title": "Reference",
+    "type": "page",
+    "newWindow": true,
+    "href": "http://envoy1084.me/react-terminal/"
+  }
+}

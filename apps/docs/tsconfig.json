@@ -37,7 +37,7 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts",
-    "src/pages/index.mdx",
+    "src/pages/docs/index.mdx",
     "src/pages/playground/index.mdx"
   ],
   "exclude": ["node_modules"]

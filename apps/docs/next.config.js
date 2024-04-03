@@ -11,9 +11,20 @@ const withNextra = nextra({
 
 /** @type {import("next").NextConfig} */
 const config = {
-  basePath: '/docs',
   reactStrictMode: true,
   transpilePackages: ['geist'],
+  async rewrites() {
+    return [
+      {
+        source: '/types',
+        destination: 'http://envoy1084.me/react-terminal/',
+      },
+      {
+        source: '/types/:slug*',
+        destination: 'http://envoy1084.me/react-terminal/:slug*',
+      },
+    ];
+  },
   experimental: {
     esmExternals: 'loose',
   },

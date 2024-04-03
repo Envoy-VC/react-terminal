@@ -12,6 +12,7 @@ const config = {
   jsxSingleQuote: true,
   importOrder: [
     '^react',
+    '^next/(.*)$',
     '^~/lib/(.*)$',
     '^~/components/(.*)$',
     '<THIRD_PARTY_MODULES>',
