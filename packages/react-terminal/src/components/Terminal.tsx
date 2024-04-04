@@ -44,7 +44,13 @@ const Terminal = ({
   className,
   ...props
 }: TerminalPropsDetailed) => {
-  const { isExecuting, init, theme: storeTheme } = useTerminalContext();
+  const {
+    isExecuting,
+    init,
+    theme: storeTheme,
+    welcomeMessage,
+    showWelcomeMessage,
+  } = useTerminalContext();
   const { lastCursor } = useCommands();
 
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
@@ -119,6 +125,7 @@ const Terminal = ({
       {...props}
     >
       {showTitleBar && <TitleBar {...titleBarProps} />}
+      {showWelcomeMessage && welcomeMessage}
       <Output output={messages ?? []} />
       <InputBox ref={inputRef} {...inputBoxProps} />
       <ExecutingLoader />

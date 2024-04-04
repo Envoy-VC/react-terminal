@@ -284,7 +284,16 @@ export interface TerminalProps {
    * The theme for the terminal.
    */
   theme?: Theme;
-
+  /**
+   * Whether to show the welcome message or not.
+   *
+   * @default true
+   */
+  showWelcomeMessage?: boolean;
+  /**
+   * The welcome message to be displayed in the terminal.
+   */
+  welcomeMessage?: React.ReactNode;
   /**
    * The font size for the terminal.
    */

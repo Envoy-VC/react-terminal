@@ -1,11 +1,18 @@
 import React from 'react';
 
-import { Command, Terminal, useTerminal } from '@envoy1084/react-terminal';
+import {
+  Command,
+  Terminal,
+  Theme,
+  themes,
+  useTerminal,
+} from '@envoy1084/react-terminal';
 
 import Settings from './Settings';
 
 const ReactTerminal = () => {
   const { focus } = useTerminal();
+  const theme: Theme = { ...themes.poimandres, background: '#1b1e28f7' };
   const commands: Command[] = [
     {
       name: 'time',
@@ -33,6 +40,7 @@ const ReactTerminal = () => {
       <Settings />
       <Terminal
         commands={commands}
+        theme={theme}
         className='!aspect-video max-w-screen-lg w-full border-none'
       />
       <button

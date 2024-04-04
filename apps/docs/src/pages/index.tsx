@@ -5,12 +5,13 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
-import { Terminal } from '@envoy1084/react-terminal';
+import { Terminal, Theme, themes } from '@envoy1084/react-terminal';
 import { ArrowUpRight } from 'lucide-react';
 
 import BackgroundImage from '~/assets/background.jpeg';
 
 const Home = () => {
+  const theme: Theme = { ...themes.poimandres, background: '#1b1e28f7' };
   return (
     <div className='relative h-screen w-full flex justify-center items-center'>
       <Image
@@ -30,11 +31,7 @@ const Home = () => {
         <div className='flex py-32 justify-center h-full w-full'>
           <Terminal
             className='aspect-video max-w-5xl border-none w-full h-fit'
-            // theme={{
-            //   '--terminal-background': '#1b1e28f7',
-            //   '--terminal-border': '#ffffff10',
-            //   '--terminal-foreground': '#a6accd',
-            // }}
+            theme={theme}
             disableDefaultCommands={false}
           />
         </div>

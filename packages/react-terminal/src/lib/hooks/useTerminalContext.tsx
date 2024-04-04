@@ -22,6 +22,7 @@ type TerminalActions = {
   setIsExecuting: (isExecuting: boolean) => void;
   setCommandIndex: (commandIndex: number) => void;
   setTheme: (theme: Theme) => void;
+  setShowWelcomeMessage: (show: boolean) => void;
   setFontSize: (fontSize: number) => void;
 };
 
@@ -45,6 +46,8 @@ export const createTerminalStore = () => {
     setIsExecuting: (isExecuting) => set({ isExecuting }),
     setCommandIndex: (commandIndex) => set({ commandIndex }),
     setTheme: (theme) => set({ theme }),
+    setShowWelcomeMessage: (showWelcomeMessage: boolean) =>
+      set({ showWelcomeMessage }),
     setFontSize: (fontSize) => set({ fontSize }),
   }));
 };

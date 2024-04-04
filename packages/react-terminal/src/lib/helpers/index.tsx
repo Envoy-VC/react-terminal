@@ -45,6 +45,15 @@ export const fallbackHandler: Command = {
   },
 };
 
+const msg = `Welcome to React Terminal!
+
+Type 'help' to see the list of available commands.
+`;
+
+const defaultWelcomeMessage = (
+  <div className='whitespace-pre-wrap px-2'>{msg}</div>
+);
+
 export const constructTerminalProps = (
   props: TerminalProps
 ): AllRequired<TerminalProps> => {
@@ -53,6 +62,8 @@ export const constructTerminalProps = (
 
   const terminalProps: AllRequired<TerminalProps> = {
     theme: props.theme ?? themes.poimandres,
+    showWelcomeMessage: props.showWelcomeMessage ?? true,
+    welcomeMessage: props.welcomeMessage ?? defaultWelcomeMessage,
     fontSize: props.fontSize ?? 16,
     showTitleBar: props.showTitleBar ?? true,
     titleBar: {

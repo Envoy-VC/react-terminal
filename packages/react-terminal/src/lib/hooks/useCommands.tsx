@@ -39,6 +39,7 @@ const useCommands = () => {
     disableDefaultCommands,
     setIsExecuting,
     setText,
+    setShowWelcomeMessage,
   } = useTerminalContext();
 
   const [lastCursor, setLastCursor] = useLocalStorage('lastCursor', 0);
@@ -56,6 +57,7 @@ const useCommands = () => {
    * @see {@link db.history.count}
    */
   const clearTerminal = async () => {
+    setShowWelcomeMessage(false);
     const last = await db.history.count();
     setLastCursor(last);
     return undefined;
