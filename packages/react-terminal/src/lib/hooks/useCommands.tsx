@@ -81,8 +81,8 @@ const useCommands = () => {
       usage: 'help',
       handler: () => {
         const terminalCommands = [
-          ...commands,
           ...(disableDefaultCommands ? [] : defaultCommands),
+          ...commands,
         ];
         return {
           html: <HelpCommand commands={terminalCommands} />,
