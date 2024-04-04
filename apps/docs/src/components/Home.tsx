@@ -5,7 +5,13 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
-import { Command, Terminal, Theme, themes } from '@envoy1084/react-terminal';
+import {
+  Command,
+  Terminal,
+  Theme,
+  resetTerminal,
+  themes,
+} from '@envoy1084/react-terminal';
 import { ArrowUpRight } from 'lucide-react';
 
 import BackgroundImage from '~/assets/background.jpeg';
@@ -70,7 +76,17 @@ const Home = () => {
       },
       waitForExecution: true,
     },
+    {
+      name: 'reset',
+      description: 'Reset the terminal',
+      handler: async () => {
+        resetTerminal();
+        return undefined;
+      },
+      waitForExecution: true,
+    },
   ];
+
   const theme: Theme = { ...themes.poimandres, background: '#1b1e28f7' };
   return (
     <div className='relative h-screen w-full flex justify-center items-center'>

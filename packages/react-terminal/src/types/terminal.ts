@@ -247,6 +247,10 @@ export type Command = {
    * @param command - The command being executed.
    */
   onError?: CommandErrorHandler;
+  /**
+   * A callback function that is called when execution of the command is complete.
+   */
+  callback?: Awaitable<void>;
 };
 
 /**
@@ -307,7 +311,10 @@ export interface TerminalProps {
    * Determines whether to show the title bar or not.
    */
   showTitleBar?: boolean;
-
+  /**
+   * Whether to auto scroll to bottom of the screen
+   */
+  autoScroll?: boolean;
   /**
    * The props for the title bar component.
    */

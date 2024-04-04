@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { db } from '~/lib/db';
-import { constructTerminalProps } from '~/lib/helpers';
+import { constructTerminalProps } from '~/lib/helpers/terminal';
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
@@ -33,6 +33,7 @@ const Terminal = ({
   titleBar,
   welcomeMessage,
   showWelcomeMessage,
+  autoScroll = true,
   titleBarProps,
   inputBox,
   inputBoxProps,
@@ -67,6 +68,7 @@ const Terminal = ({
       inputBox,
       inputBoxProps,
       fontSize,
+      autoScroll,
       executingLoader,
       commands,
       disableDefaultCommands,
@@ -117,6 +119,25 @@ const Terminal = ({
     if (isNearBottom) {
       container.scrollTop = container.scrollHeight;
     }
+  }, [messages]);
+
+  // every three seconds check if near the bottom of the screen and scroll down
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const container = terminalRef.current;
+      if (!container) return;
+
+      const scrollDifference = container.scrollHeight - container.clientHeight;
+      // Check if the user is near the bottom about 40% of the screen
+      const isNearBottom = container.scrollTop > scrollDifference * 0.6;
+
+      if (isNearBottom && autoScroll) {
+        container.scrollTop = container.scrollHeight;
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [messages]);
 
   return (

@@ -1,6 +1,5 @@
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 
-
 /**
  * Custom hook for managing terminal functionality.
  *
@@ -38,7 +37,6 @@ const useTerminal = () => {
     setTheme,
     setText,
   } = useTerminalContext();
-  const { clearTerminal, writeToTerminal } = useCommands();
 
   /**
    * Focuses the terminal input box.
@@ -86,8 +84,6 @@ const useTerminal = () => {
     scrollToTop,
     scrollToBottom,
     scrollInView,
-    writeToTerminal,
-    clearTerminal,
     setFontSize,
     setTheme,
     setInputBoxValue: setText,

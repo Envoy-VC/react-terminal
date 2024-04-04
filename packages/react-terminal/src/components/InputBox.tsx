@@ -2,7 +2,7 @@ import React from 'react';
 import { useImperativeHandle } from 'react';
 
 import { db } from '~/lib/db';
-import { calculateTextAreaHeight, getCursor } from '~/lib/helpers';
+import { calculateTextAreaHeight, getCursor } from '~/lib/helpers/terminal';
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 

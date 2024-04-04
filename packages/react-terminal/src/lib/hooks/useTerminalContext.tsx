@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 
-import { constructTerminalProps } from '~/lib/helpers';
+import { constructTerminalProps } from '~/lib/helpers/terminal';
 
 import { useStore } from 'zustand';
 import { createStore } from 'zustand';
