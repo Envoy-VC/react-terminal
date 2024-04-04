@@ -125,10 +125,6 @@ const useCommands = () => {
         setIsExecuting(false);
         setText('');
       }
-
-      if (callback) {
-        await callback();
-      }
     } catch (error) {
       if (command.onError) {
         await command.onError(error, args, commandValue, command);
@@ -140,6 +136,10 @@ const useCommands = () => {
       }
       setIsExecuting(false);
       setText('');
+    } finally {
+      if (callback) {
+        await callback();
+      }
     }
   };
 
