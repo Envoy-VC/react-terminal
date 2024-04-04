@@ -53,7 +53,8 @@ Each command object has the following properties:
 The `CommandHandler` function is called with the following arguments:
 
 - **args**: `string[]` - The command arguments.
-- **command**: `string` - The command being executed.
+- **text**: `string` - The value of the terminal input.
+- **command**: `Command` - The command being executed
 
 The `CommandHandler` function should return a `TerminalOutputValue` object. The `TerminalOutputValue` object can be one of the following:
 
@@ -67,7 +68,8 @@ The `CommandErrorHandler` function is called with the following arguments:
 
 - **error**: `unknown` - The error that occurred during command execution.
 - **args**: `string[]` - The command arguments.
-- **command**: `string` - The command being executed.
+- **text**: `string` - The value of the terminal input.
+- **command**: `Command` - The command being executed
 
 The `CommandErrorHandler` function should return a `TerminalOutputValue` object. The `TerminalOutputValue` object can be one of the following:
 

@@ -31,6 +31,8 @@ const Terminal = ({
   theme,
   showTitleBar = true,
   titleBar,
+  welcomeMessage,
+  showWelcomeMessage,
   titleBarProps,
   inputBox,
   inputBoxProps,
@@ -48,8 +50,8 @@ const Terminal = ({
     isExecuting,
     init,
     theme: storeTheme,
-    welcomeMessage,
-    showWelcomeMessage,
+    welcomeMessage: welcome,
+    showWelcomeMessage: showWelcome,
   } = useTerminalContext();
   const { lastCursor } = useCommands();
 
@@ -70,6 +72,8 @@ const Terminal = ({
       disableDefaultCommands,
       disableAnsi,
       defaultHandler,
+      welcomeMessage,
+      showWelcomeMessage,
     });
 
     init({
@@ -125,7 +129,7 @@ const Terminal = ({
       {...props}
     >
       {showTitleBar && <TitleBar {...titleBarProps} />}
-      {showWelcomeMessage && welcomeMessage}
+      {showWelcome && welcome}
       <Output output={messages ?? []} />
       <InputBox ref={inputRef} {...inputBoxProps} />
       <ExecutingLoader />

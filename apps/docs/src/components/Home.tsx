@@ -5,12 +5,13 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
-import { Terminal, Theme, themes } from '@envoy1084/react-terminal';
+import { Command, Terminal, Theme, themes } from '@envoy1084/react-terminal';
 import { ArrowUpRight } from 'lucide-react';
 
 import BackgroundImage from '~/assets/background.jpeg';
 
 const Home = () => {
+  const commands: Command[] = [];
   const theme: Theme = { ...themes.poimandres, background: '#1b1e28f7' };
   return (
     <div className='relative h-screen w-full flex justify-center items-center'>
@@ -32,7 +33,7 @@ const Home = () => {
           <Terminal
             className='aspect-video max-w-5xl border-none w-full h-fit'
             theme={theme}
-            disableDefaultCommands={false}
+            commands={commands}
           />
         </div>
       </div>

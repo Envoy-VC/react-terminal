@@ -23,7 +23,8 @@ export type Awaitable<T> = () => Promise<T> | T;
  * Represents a command handler function.
  *
  * @param args - An array of string arguments passed to the command.
- * @param command - The command being executed.
+ * @param text - The value of terminal input box
+ * @param command - The command being executed
  * @returns A `Promise` or a value of type `TerminalOutputValue`.
  *
  * @example
@@ -35,7 +36,8 @@ export type Awaitable<T> = () => Promise<T> | T;
  */
 export type CommandHandler = (
   args: string[],
-  command: string
+  text: string,
+  command: Command
 ) => Promise<TerminalOutputValue> | TerminalOutputValue;
 
 /**
@@ -43,14 +45,16 @@ export type CommandHandler = (
  *
  * @param error - An error object that occurred during command execution.
  * @param args - An array of string arguments passed to the command.
- * @param command - The command being executed.
+ * @param text - The value of terminal input box
+ * @param command - The command being executed
  *
  * @returns A `Promise` or a value of type `TerminalOutputValue`.
  */
 export type CommandErrorHandler = (
   error: unknown,
   args: string[],
-  command: string
+  text: string,
+  command: Command
 ) => Promise<TerminalOutputValue> | TerminalOutputValue;
 
 /**

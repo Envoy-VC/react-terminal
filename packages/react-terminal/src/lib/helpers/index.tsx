@@ -2,6 +2,7 @@ import { ThreeDotsMoving } from 'react-svg-spinners';
 
 import { useTerminalContext } from '~/lib/hooks';
 
+import { JSXRenderer } from '~/components';
 import {
   AllRequired,
   Command,
@@ -57,9 +58,6 @@ const defaultWelcomeMessage = (
 export const constructTerminalProps = (
   props: TerminalProps
 ): AllRequired<TerminalProps> => {
-  const renderer: HTMLRenderer = (a) => <>{a.htmlString}</>;
-  const titleBar = props.titleBar;
-
   const terminalProps: AllRequired<TerminalProps> = {
     theme: props.theme ?? themes.poimandres,
     showWelcomeMessage: props.showWelcomeMessage ?? true,
@@ -72,7 +70,7 @@ export const constructTerminalProps = (
       minimizeHandler: () => {},
       maximizeHandler: () => {},
       extraContent: <div className='invisible'>a</div>,
-      ...titleBar,
+      ...props.titleBar,
     },
     titleBarProps: { ...props.titleBarProps },
     executingLoader: props.executingLoader ?? <DefaultLoader />,
@@ -91,7 +89,7 @@ export const constructTerminalProps = (
         return `${command}: command not found`;
       },
     },
-    htmlRenderer: props.htmlRenderer ?? renderer,
+    htmlRenderer: props.htmlRenderer ?? JSXRenderer,
   };
 
   return terminalProps;
@@ -115,6 +113,32 @@ export const DefaultLoader = () => {
       <span className='font-medium text-foreground leading-5'>
         Executing Command...
       </span>
+    </div>
+  );
+};
+
+export const HelpCommand = ({ commands }: { commands: Command[] }) => {
+  return (
+    <div className='flex flex-col'>
+      <div className='py-2 font-semibold'>Available Commands: </div>
+      <div className='flex flex-col'>
+        {commands.map((command) => {
+          const { name, description, args } = command;
+          const hasArgs = args && args.length > 0;
+          return (
+            <div className='flex flex-row items-start gap-1'>
+              <div className='basis-2/6 w-full'>
+                <div className='flex flex-row items-start gap-2'>
+                  <div>{name}</div>
+                  {hasArgs && <div className='ansi-blue-fg'>|</div>}
+                  <div>{args?.join(', ')}</div>
+                </div>
+              </div>
+              <div className='w-full basis-4/6'>{description}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

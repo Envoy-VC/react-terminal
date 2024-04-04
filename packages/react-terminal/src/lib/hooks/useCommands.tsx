@@ -1,5 +1,9 @@
 import { db } from '~/lib/db';
-import { fallbackHandler, safeRenderToString } from '~/lib/helpers';
+import {
+  HelpCommand,
+  fallbackHandler,
+  safeRenderToString,
+} from '~/lib/helpers';
 import { useTerminalContext } from '~/lib/hooks';
 
 import { useLocalStorage } from 'usehooks-ts';
@@ -66,7 +70,24 @@ const useCommands = () => {
   const defaultCommands: Command[] = [
     {
       name: 'clear',
+      description: 'Clears the terminal',
+      usage: 'clear',
       handler: clearTerminal,
+      waitForExecution: false,
+    },
+    {
+      name: 'help',
+      description: 'Displays all the terminal commands',
+      usage: 'help',
+      handler: () => {
+        const terminalCommands = [
+          ...commands,
+          ...(disableDefaultCommands ? [] : defaultCommands),
+        ];
+        return {
+          html: <HelpCommand commands={terminalCommands} />,
+        };
+      },
       waitForExecution: false,
     },
   ];
@@ -121,7 +142,7 @@ const useCommands = () => {
    * ```tsx
    * const command: Command = {
    *   name: 'example',
-   *   handler: async (args, commandValue) => {
+   *   handler: async (args, commandValue, command) => {
    *     // Command handler logic
    *   },
    * };
@@ -153,7 +174,7 @@ const useCommands = () => {
         setText('');
       }
 
-      const result = await command.handler(args, commandValue);
+      const result = await command.handler(args, commandValue, command);
 
       if (waitForExecution) {
         await db.history.add({
@@ -170,7 +191,7 @@ const useCommands = () => {
       }
     } catch (error) {
       if (command.onError) {
-        await command.onError(error, args, commandValue);
+        await command.onError(error, args, commandValue, command);
       } else {
         await db.history.add({
           type: 'output',
