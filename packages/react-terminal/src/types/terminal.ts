@@ -1,6 +1,9 @@
 import React from 'react';
 
+
+
 import { TerminalOutputValue } from './db';
+
 
 /**
  * Represents a function that returns a promise or a value.
@@ -306,15 +309,14 @@ export interface TerminalProps {
    * The font size for the terminal.
    */
   fontSize?: number;
-
-  /**
-   * Determines whether to show the title bar or not.
-   */
-  showTitleBar?: boolean;
   /**
    * Whether to auto scroll to bottom of the screen
    */
   autoScroll?: boolean;
+  /**
+   * Determines whether to show the title bar or not.
+   */
+  showTitleBar?: boolean;
   /**
    * The props for the title bar component.
    */

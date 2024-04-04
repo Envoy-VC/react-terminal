@@ -4,7 +4,7 @@ import { HelpCommand, fallbackHandler } from '~/lib/helpers/terminal';
 import { useTerminalContext } from '~/lib/hooks';
 
 import { useLocalStorage } from 'usehooks-ts';
-import { Command, TerminalOutputValue } from '~/types';
+import { Command } from '~/types';
 
 const useCommands = () => {
   const {

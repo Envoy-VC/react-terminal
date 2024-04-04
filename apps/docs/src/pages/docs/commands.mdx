@@ -47,6 +47,7 @@ Each command object has the following properties:
 - **waitForExecution**: `boolean?` - Specifies whether the command should wait for execution to complete before returning. **Defaults to `false`**.
 - **handler**: `CommandHandler` - The handler function that is called when the command is executed.
 - **onError**: `CommandHandler?` - The error handler function that is called when an error occurs during command execution. If not provided, the error will be logged to the Terminal.
+- **callback**: `() => void | Promise<void>?` - The callback function that is called after the command is executed. This function is called regardless of whether the command was successful or not.
 
 ## Command Handler
 
