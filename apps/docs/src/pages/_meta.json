@@ -1,4 +1,16 @@
 {
+  "index": {
+    "type": "hidden",
+    "theme": {
+      "layout": "raw",
+      "breadcrumb": false,
+      "footer": false,
+      "sidebar": false,
+      "toc": false,
+      "pagination": false,
+      "navbar": false
+    }
+  },
   "docs": {
     "title": "Documentation",
     "type": "page"
@@ -6,6 +18,7 @@
   "playground": {
     "title": "Playground",
     "type": "page",
+    "href": "/",
     "theme": {
       "layout": "raw",
       "breadcrumb": false,

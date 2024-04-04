@@ -39,6 +39,6 @@
     ".next/types/**/*.ts",
     "src/pages/docs/index.mdx",
     "src/pages/playground/index.mdx"
-  ],
+, "src/pages/index.mdx"  ],
   "exclude": ["node_modules"]
 }
