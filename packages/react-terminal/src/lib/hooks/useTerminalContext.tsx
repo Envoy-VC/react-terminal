@@ -7,22 +7,20 @@ import { useStore } from 'zustand';
 import { createStore } from 'zustand';
 import { TerminalContext } from '~/providers/TerminalProvider';
 import { AllRequired, Theme } from '~/types';
-import { TerminalProps, TitleBarProps } from '~/types';
+import { TerminalProps } from '~/types';
 
 import { constructTitlebarProps } from '../helpers/titlebar';
 
-export type TerminalState = AllRequired<TerminalProps> &
-  AllRequired<TitleBarProps> & {
-    terminalRef: React.RefObject<HTMLDivElement>;
-    inputRef: React.RefObject<HTMLTextAreaElement>;
-    text: string;
-    isExecuting: boolean;
-    commandIndex: number;
-  };
+export type TerminalState = AllRequired<TerminalProps> & {
+  terminalRef: React.RefObject<HTMLDivElement>;
+  inputRef: React.RefObject<HTMLTextAreaElement>;
+  text: string;
+  isExecuting: boolean;
+  commandIndex: number;
+};
 
 type TerminalActions = {
   setTerminalProps: (props: TerminalProps) => void;
-  setTitleBarProps: (props: TitleBarProps) => void;
   setText: (text: string) => void;
   setIsExecuting: (isExecuting: boolean) => void;
   setCommandIndex: (commandIndex: number) => void;
@@ -41,13 +39,11 @@ export const createTerminalStore = () => {
     isExecuting: false,
     commandIndex: -1,
     ...constructTerminalProps({}),
-    ...constructTitlebarProps({}),
   };
 
   return createStore<TerminalStoreProps>()((set) => ({
     ...defaultProps,
     setTerminalProps: (props) => set(props),
-    setTitleBarProps: (props) => set(props),
     setText: (text) => set({ text }),
     setIsExecuting: (isExecuting) => set({ isExecuting }),
     setCommandIndex: (commandIndex) => set({ commandIndex }),
