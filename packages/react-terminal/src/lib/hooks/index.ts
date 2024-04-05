@@ -1,5 +1,5 @@
-import useCommands from './useCommands';
+// import useCommands from './useCommands';
 import useTerminal from './useTerminal';
 import { useTerminalContext } from './useTerminalContext';
 
-export { useTerminalContext, useTerminal, useCommands };
+export { useTerminalContext, useTerminal };

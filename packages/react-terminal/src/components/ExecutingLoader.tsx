@@ -1,12 +1,12 @@
-import { useTerminalContext } from '~/lib/hooks';
+// import { useTerminalContext } from '~/lib/hooks';
 
-const ExecutingLoader = () => {
-  const { isExecuting, executingLoader } = useTerminalContext();
-  if (isExecuting) {
-    return <>{executingLoader}</>;
-  } else {
-    return <></>;
-  }
-};
+// const ExecutingLoader = () => {
+//   const { isExecuting, executingLoader } = useTerminalContext();
+//   if (isExecuting) {
+//     return <>{executingLoader}</>;
+//   } else {
+//     return <></>;
+//   }
+// };
 
-export default ExecutingLoader;
+// export default ExecutingLoader;

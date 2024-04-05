@@ -1,4 +1,4 @@
-import { useCommands, useTerminalContext } from '~/lib/hooks';
+import { useTerminalContext } from '~/lib/hooks';
 
 /**
  * Custom hook for managing terminal functionality.

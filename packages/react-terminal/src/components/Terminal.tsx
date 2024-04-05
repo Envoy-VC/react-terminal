@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 
 import { db } from '~/lib/db';
 import { constructTerminalProps } from '~/lib/helpers/terminal';
@@ -7,85 +7,44 @@ import { cn } from '~/lib/utils';
 
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useEventListener } from 'usehooks-ts';
-import { ExecutingLoader, InputBox, Output, TitleBar } from '~/components';
-import { TerminalPropsDetailed } from '~/types';
 
-/**
- * Terminal component for displaying a command-line interface.
- *
- * @group Components
- *
- * @remarks
- * The `Terminal` component is used to create a command-line interface with customizable themes, font size, and various features such as executing commands, displaying output, and accepting user input.
- *
- * @example
- * ```tsx
- * <Terminal
- *   theme={customTheme}
- *   fontSize={18}
- *   commands={commands}
- * />
- * ```
- */
-const Terminal = ({
-  theme,
-  showTitleBar = true,
-  titleBar,
-  welcomeMessage,
-  showWelcomeMessage,
-  autoScroll = true,
-  titleBarProps,
-  inputBox,
-  inputBoxProps,
-  fontSize,
-  executingLoader,
-  commands,
-  disableDefaultCommands,
-  disableAnsi,
-  defaultHandler,
-  htmlRenderer,
-  className,
-  ...props
-}: TerminalPropsDetailed) => {
+import { TerminalProps } from '~/types/terminal';
+
+type Props = TerminalProps & React.ComponentProps<'div'>;
+
+const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const {
+    theme,
+    fontSize,
+    autoScroll,
+    commands,
+    disableDefaultCommands,
+    className,
+    children,
+    ...rest
+  } = props;
   const {
     isExecuting,
-    init,
     theme: storeTheme,
-    welcomeMessage: welcome,
-    showWelcomeMessage: showWelcome,
+    setTerminalProps,
   } = useTerminalContext();
   const { lastCursor } = useCommands();
 
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
   const terminalRef = React.useRef<HTMLDivElement>(null);
 
+  useImperativeHandle(ref, () => terminalRef.current!, []);
+
   React.useEffect(() => {
     const terminalProps = constructTerminalProps({
       theme,
-      showTitleBar,
-      titleBar,
-      titleBarProps,
-      inputBox,
-      inputBoxProps,
       fontSize,
       autoScroll,
-      executingLoader,
       commands,
       disableDefaultCommands,
-      disableAnsi,
-      defaultHandler,
-      welcomeMessage,
-      showWelcomeMessage,
     });
 
-    init({
-      text: '',
-      isExecuting: false,
-      commandIndex: -1,
-      terminalRef,
-      inputRef,
-      ...terminalProps,
-    });
+    setTerminalProps(terminalProps);
   }, [theme]);
 
   React.useEffect(() => {
@@ -147,15 +106,16 @@ const Terminal = ({
         'font-mono relative flex rounded-[10px] w-full bg-background text-foreground flex-col overflow-scroll hide-scrollbar border selection:bg-selectionBackground selection:text-selectionForeground',
         className
       )}
-      {...props}
+      {...rest}
     >
-      {showTitleBar && <TitleBar {...titleBarProps} />}
+      {children}
+      {/* {showTitleBar && <TitleBar {...titleBarProps} />}
       {showWelcome && welcome}
       <Output output={messages ?? []} />
       <InputBox ref={inputRef} {...inputBoxProps} />
-      <ExecutingLoader />
+      <ExecutingLoader /> */}
     </div>
   );
-};
+});
 
 export default Terminal;
