@@ -1,6 +1,6 @@
 import './global.css';
 
-export { Terminal } from './components';
+export * from './components';
 export { TerminalProvider } from './providers';
 export { db } from './lib/db';
 export { useTerminal } from './lib/hooks';

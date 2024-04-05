@@ -22,7 +22,7 @@ const TerminalActionGroup = React.forwardRef<HTMLDivElement, Props>(
     if (children) return children;
 
     return (
-      <div className='flex flex-row gap-[6px] items-center group' ref={ref} {...rest}>
+      <div className='absolute flex flex-row gap-[6px] items-center group' ref={ref} {...rest}>
         {actionButtons.map((action) => {
           const { Icon, color, name } = action;
           let handler: Awaitable<void>;
