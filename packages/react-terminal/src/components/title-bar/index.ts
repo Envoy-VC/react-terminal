@@ -1,5 +1,3 @@
-import TerminalActionGroup from './TerminalActionGroup';
-import TerminalTitle from './TerminalTitle';
-import TerminalTitleBar from './TerminalTitleBar';
+import TitleBar from './TitleBar';
 
-export { TerminalActionGroup, TerminalTitleBar, TerminalTitle };
+export { TitleBar };

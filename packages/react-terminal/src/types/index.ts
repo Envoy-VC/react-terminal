@@ -1,3 +1,5 @@
+import React from 'react';
+
 export * from './terminal';
 export * from './commands';
 export * from './inputbox';
@@ -21,6 +23,10 @@ export * from './db';
  * ```
  */
 export type Awaitable<T> = () => Promise<T> | T;
+
+export type WithoutRef<
+  T extends React.ElementType<any, keyof React.JSX.IntrinsicElements>,
+> = React.ComponentPropsWithoutRef<T>;
 
 export type Complete<T> = {
   [P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>>
