@@ -50,8 +50,8 @@ export default MyComponent;
 
 ## Contributing
 
-If you have any ideas on how to improve the project, feel free to contribute! Please read the [contributing guidelines](https://github.com/envoy1084/react-terminal) before submitting a pull request.
+If you have any ideas on how to improve the project, feel free to contribute! Please read the [contributing guidelines](https://github.com/Envoy-VC/react-terminal/blob/main/CODE_OF_CONDUCT.md) before submitting a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE]()
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Envoy-VC/react-terminal/blob/main/LICENSE.md)
