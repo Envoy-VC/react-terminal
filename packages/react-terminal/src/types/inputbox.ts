@@ -17,3 +17,7 @@ export interface InputBoxProps {
    */
   cursor?: 'underscore' | 'block' | 'bar' | React.ReactNode;
 }
+
+export interface TextareaProps {
+  cursor?: 'underscore' | 'block' | 'bar' | React.ReactNode;
+}

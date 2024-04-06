@@ -2,7 +2,6 @@ import { ThreeDotsMoving } from 'react-svg-spinners';
 
 import { useTerminalContext } from '~/lib/hooks';
 
-import { JSXRenderer } from '~/components';
 import { AllRequired, Command, InputBoxProps } from '~/types';
 
 import { themes } from '../themes';

@@ -3,7 +3,7 @@ import { Awaitable } from '.';
 /**
  * Represents the props for the title bar component.
  */
-export interface TerminalActionGroupProps {
+export interface ActionGroupProps {
   /**
    * The handler function to be called when the close button is clicked.
    * It should return a promise or be an async function.

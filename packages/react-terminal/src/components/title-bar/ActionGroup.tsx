@@ -1,9 +1,9 @@
 import React, { useImperativeHandle } from 'react';
 
 import { ChevronsUpDown, Minus, X } from 'lucide-react';
-import { Awaitable, TerminalActionGroupProps, WithoutRef } from '~/types';
+import { ActionGroupProps, Awaitable, WithoutRef } from '~/types';
 
-type Props = TerminalActionGroupProps & WithoutRef<'div'>;
+type Props = ActionGroupProps & WithoutRef<'div'>;
 
 const ActionGroup = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {

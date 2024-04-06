@@ -1,3 +1,3 @@
-import WelcomeMessage from './WelcomeMessage';
+import TerminalWelcomeMessage from './WelcomeMessage';
 
-export { WelcomeMessage };
+export { TerminalWelcomeMessage };

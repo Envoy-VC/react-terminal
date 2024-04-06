@@ -5,7 +5,12 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
-import { Terminal, TitleBar, WelcomeMessage } from '@envoy1084/react-terminal';
+import {
+  Terminal,
+  TerminalInputBox,
+  TerminalTitleBar,
+  TerminalWelcomeMessage,
+} from '@envoy1084/react-terminal';
 import {
   Command,
   Theme,
@@ -111,15 +116,19 @@ const Home = () => {
             theme={theme}
             commands={commands}
           >
-            <TitleBar>
-              <TitleBar.ActionGroup
+            <TerminalTitleBar>
+              <TerminalTitleBar.ActionGroup
                 closeHandler={() => console.log('close')}
                 minimizeHandler={() => console.log('minimize')}
                 maximizeHandler={() => console.log('maximize')}
               />
-              <TitleBar.Title />
-            </TitleBar>
-            <WelcomeMessage />
+              <TerminalTitleBar.Title />
+            </TerminalTitleBar>
+            <TerminalWelcomeMessage />
+            <TerminalInputBox>
+              <TerminalInputBox.Prompt />
+              <TerminalInputBox.TextArea cursor='underscore' />
+            </TerminalInputBox>
           </Terminal>
         </div>
       </div>

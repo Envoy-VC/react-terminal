@@ -6,18 +6,20 @@ import { constructTerminalProps } from '~/lib/helpers/terminal';
 import { useStore } from 'zustand';
 import { createStore } from 'zustand';
 import { TerminalContext } from '~/providers/TerminalProvider';
-import { AllRequired, Theme } from '~/types';
+import { AllRequired, TextareaProps, Theme } from '~/types';
 import { TerminalProps } from '~/types';
 
+import { constructTextareaProps } from '../helpers/inputbox';
 import { constructTitlebarProps } from '../helpers/titlebar';
 
-export type TerminalState = AllRequired<TerminalProps> & {
+export type TerminalState = {
   terminalRef: React.RefObject<HTMLDivElement>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   text: string;
   isExecuting: boolean;
   commandIndex: number;
-};
+} & AllRequired<TerminalProps> &
+  AllRequired<TextareaProps>;
 
 type TerminalActions = {
   setTerminalProps: (props: TerminalProps) => void;
@@ -35,10 +37,11 @@ export const createTerminalStore = () => {
   const defaultProps: TerminalState = {
     terminalRef: React.createRef<HTMLDivElement>(),
     inputRef: React.createRef<HTMLTextAreaElement>(),
-    text: '',
     isExecuting: false,
     commandIndex: -1,
+    text: '',
     ...constructTerminalProps({}),
+    ...constructTextareaProps({}),
   };
 
   return createStore<TerminalStoreProps>()((set) => ({

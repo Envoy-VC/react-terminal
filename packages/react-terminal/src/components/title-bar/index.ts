@@ -1,3 +1,3 @@
-import TitleBar from './TitleBar';
+import TerminalTitleBar from './TitleBar';
 
-export { TitleBar };
+export { TerminalTitleBar };
