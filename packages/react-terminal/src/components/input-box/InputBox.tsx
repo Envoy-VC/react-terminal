@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, useImperativeHandle, useRef } from 'react';
+import { FC, forwardRef, useImperativeHandle, useRef } from 'react';
 
 import { cn } from '~/lib/utils';
 
@@ -28,6 +28,7 @@ const InputBox: InputBoxComponent = Object.assign(
           className
         )}
         ref={boxRef}
+        {...rest}
       >
         {children}
       </div>

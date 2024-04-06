@@ -26,7 +26,7 @@ export const TerminalContext = createContext<TerminalStore | null>(null);
  * ```
  *
  */
-const TerminalProvider = ({ children }: React.PropsWithChildren) => {
+export const TerminalProvider = ({ children }: React.PropsWithChildren) => {
   const store = React.useRef(createTerminalStore()).current;
 
   return (

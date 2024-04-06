@@ -1,11 +1,11 @@
-import React, { useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import { ChevronsUpDown, Minus, X } from 'lucide-react';
 import { ActionGroupProps, Awaitable, WithoutRef } from '~/types';
 
 type Props = ActionGroupProps & WithoutRef<'div'>;
 
-const ActionGroup = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+const ActionGroup = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {
     maximizeHandler,
     closeHandler,
@@ -15,7 +15,7 @@ const ActionGroup = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     ...rest
   } = props;
 
-  const actionGroupRef = React.useRef<HTMLDivElement>(null);
+  const actionGroupRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => actionGroupRef.current!, []);
 
   if (children) return children;
@@ -23,7 +23,7 @@ const ActionGroup = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   return (
     <div
       className='absolute flex flex-row gap-[6px] items-center group'
-      ref={ref}
+      ref={actionGroupRef}
       {...rest}
     >
       {actionButtons.map((action) => {

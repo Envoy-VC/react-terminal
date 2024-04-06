@@ -1,6 +1,6 @@
 import { db } from '~/lib/db';
 import { writeToTerminal } from '~/lib/helpers';
-import { HelpCommand, fallbackHandler } from '~/lib/helpers/terminal';
+import { HelpCommand, fallbackHandler } from '~/lib/helpers';
 import { useTerminalContext } from '~/lib/hooks';
 
 import { useLocalStorage } from 'usehooks-ts';

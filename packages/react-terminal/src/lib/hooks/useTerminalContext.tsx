@@ -1,15 +1,10 @@
-import React from 'react';
 import { useContext } from 'react';
 
-import { constructTerminalProps } from '~/lib/helpers/terminal';
+import { constructInputBoxProps, constructTerminalProps } from '~/lib/helpers';
 
-import { useStore } from 'zustand';
-import { createStore } from 'zustand';
-import { TerminalContext } from '~/providers/TerminalProvider';
-import { AllRequired, PromptProps, Theme } from '~/types';
-import { TerminalProps } from '~/types';
-
-import { constructInputBoxProps } from '../helpers/inputbox';
+import { createStore, useStore } from 'zustand';
+import { TerminalContext } from '~/providers';
+import { AllRequired, PromptProps, TerminalProps, Theme } from '~/types';
 
 export type TerminalState = {
   text: string;

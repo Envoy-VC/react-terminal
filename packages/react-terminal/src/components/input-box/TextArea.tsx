@@ -1,8 +1,14 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { db } from '~/lib/db';
-import { getCursor } from '~/lib/helpers/terminal';
-import { calculateTextAreaHeight } from '~/lib/helpers/terminal';
+import { calculateTextAreaHeight, getCursor } from '~/lib/helpers';
 import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
@@ -10,7 +16,7 @@ import { TextareaProps, WithoutRef } from '~/types';
 
 type Props = TextareaProps & WithoutRef<'textarea'>;
 
-const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
+const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   const { cursor, children, className, ...rest } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,9 +34,9 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   } = useTerminalContext();
   const { handler } = useCommands();
 
-  const [beforeText, setBeforeText] = React.useState<string>('');
-  const [afterText, setAfterText] = React.useState<string>('');
-  const [isFocused, setIsFocussed] = React.useState<boolean>(false);
+  const [beforeText, setBeforeText] = useState<string>('');
+  const [afterText, setAfterText] = useState<string>('');
+  const [isFocused, setIsFocussed] = useState<boolean>(false);
 
   const handleFocus = () => {
     setIsFocussed(true);
@@ -40,7 +46,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
     setIsFocussed(false);
   };
 
-  const textAreaHeight = React.useMemo(
+  const textAreaHeight = useMemo(
     () => calculateTextAreaHeight(text, fontSize),
     [text]
   );
@@ -64,13 +70,13 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
     setBeforeText(textBeforeCursor);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isFocused) {
       handleSelectionChange();
     }
   }, [isFocused]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isExecuting === false && text === '') {
       textareaRef.current?.focus();
     }

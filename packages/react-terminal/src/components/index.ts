@@ -1,5 +1,6 @@
-import Terminal from './Terminal';
+import Terminal from './terminal/Terminal';
 
+export * from './terminal';
 export * from './title-bar';
 export * from './welcome';
 export * from './input-box';

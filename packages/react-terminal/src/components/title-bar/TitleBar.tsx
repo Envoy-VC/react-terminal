@@ -1,4 +1,4 @@
-import React, { FC, useImperativeHandle } from 'react';
+import { FC, forwardRef, useImperativeHandle, useRef } from 'react';
 
 import { cn } from '~/lib/utils';
 
@@ -15,14 +15,15 @@ interface TitleBarComponent extends FC<Props> {
 }
 
 const TitleBar: TitleBarComponent = Object.assign(
-  React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-    const titlebarRef = React.useRef<HTMLDivElement>(null);
+  forwardRef<HTMLDivElement, Props>((props, ref) => {
+    const titlebarRef = useRef<HTMLDivElement>(null);
     useImperativeHandle(ref, () => titlebarRef.current!, []);
 
     const { className, children, ...rest } = props;
 
     return (
       <div
+        ref={titlebarRef}
         className={cn(
           'sticky top-0 border-b w-full border-border h-fit px-4 py-1 bg-background flex flex-row items-center',
           className

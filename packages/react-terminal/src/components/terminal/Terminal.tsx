@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 import { db } from '~/lib/db';
 import { constructTerminalProps } from '~/lib/helpers/terminal';
@@ -7,18 +7,35 @@ import { cn } from '~/lib/utils';
 
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useEventListener } from 'usehooks-ts';
+import { TerminalProps, WithoutRef } from '~/types';
 
-import { TerminalProps } from '~/types/terminal';
+type Props = TerminalProps & WithoutRef<'div'>;
 
-type Props = TerminalProps & React.ComponentProps<'div'>;
+/**
+ * Represents a terminal component.
+ *
+ * @group Component
+ * @example
+ * ```tsx
+ * <Terminal
+ *   fontSize={14}
+ *   autoScroll={true}
+ *   commands={[]}
+ *   disableDefaultCommands={false}
+ *   defaultHandler={handleCommand}
+ * >
+ * //Terminal Content goes here
+ * </Terminal>
+ **/
 
-const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+const Terminal = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {
     theme,
     fontSize,
     autoScroll,
     commands,
     disableDefaultCommands,
+    defaultHandler,
     className,
     children,
     ...rest
@@ -30,23 +47,24 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   } = useTerminalContext();
   const { lastCursor } = useCommands();
 
-  const terminalRef = React.useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
 
   useImperativeHandle(ref, () => terminalRef.current!, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const terminalProps = constructTerminalProps({
       theme,
       fontSize,
       autoScroll,
       commands,
       disableDefaultCommands,
+      defaultHandler,
     });
 
     setTerminalProps(terminalProps);
   }, [theme]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Object.entries(storeTheme).forEach(([key, value]) => {
       const k = '--terminal-' + key;
       terminalRef?.current?.style.setProperty(k, value);
@@ -71,21 +89,8 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     terminalRef
   );
 
-  React.useEffect(() => {
-    const container = terminalRef.current;
-    if (!container) return;
-
-    const scrollDifference = container.scrollHeight - container.clientHeight;
-    // Check if the user is near the bottom about 40% of the screen
-    const isNearBottom = container.scrollTop > scrollDifference * 0.6;
-
-    if (isNearBottom) {
-      container.scrollTop = container.scrollHeight;
-    }
-  }, [messages]);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
+  useEffect(() => {
+    const scrollToBottom = () => {
       const container = terminalRef.current;
       if (!container) return;
 
@@ -93,11 +98,12 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
       // Check if the user is near the bottom about 40% of the screen
       const isNearBottom = container.scrollTop > scrollDifference * 0.6;
 
-      if (isNearBottom && autoScroll) {
+      if (isNearBottom) {
         container.scrollTop = container.scrollHeight;
       }
-    }, 3000);
-
+    };
+    const interval = setInterval(() => scrollToBottom(), 3000);
+    scrollToBottom();
     return () => clearInterval(interval);
   }, [messages]);
 

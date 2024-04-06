@@ -1,3 +1,3 @@
-import TerminalProvider from './TerminalProvider';
+import { TerminalContext, TerminalProvider } from './TerminalProvider';
 
-export { TerminalProvider };
+export { TerminalProvider, TerminalContext };

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import * as prod from 'react/jsx-runtime';
 
 import rehypeParse from 'rehype-parse';
@@ -16,9 +16,7 @@ interface Props {
 }
 
 const JSXRenderer = ({ htmlString }: Props) => {
-  const [Content, setContent] = React.useState<JSX.Element | string | null>(
-    null
-  );
+  const [Content, setContent] = useState<JSX.Element | string | null>(null);
 
   const renderJSX = async () => {
     try {
@@ -34,7 +32,7 @@ const JSXRenderer = ({ htmlString }: Props) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     renderJSX();
   }, [htmlString]);
 

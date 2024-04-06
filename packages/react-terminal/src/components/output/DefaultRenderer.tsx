@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useTerminalContext } from '~/lib/hooks';
 
 import { TerminalHistory } from '~/types';
