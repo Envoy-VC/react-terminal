@@ -1,8 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
+import { db } from '~/lib/db';
+import { useCommands } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
-import { OutputProps, TerminalHistory, WithoutRef } from '~/types';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { OutputProps, WithoutRef } from '~/types';
 
 import DefaultRenderer from './DefaultRenderer';
 
@@ -16,11 +19,16 @@ const Output = forwardRef<HTMLDivElement, Props>((props, ref) => {
     className,
     ...rest
   } = props;
-  const outputRef = useRef<HTMLDivElement>(null);
 
+  const { lastCursor } = useCommands();
+
+  const outputRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => outputRef.current!, []);
 
-  const messages: TerminalHistory[] = [];
+  const messages = useLiveQuery(async () => {
+    const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
+    return res;
+  }, [lastCursor]);
 
   return (
     <div
@@ -28,7 +36,7 @@ const Output = forwardRef<HTMLDivElement, Props>((props, ref) => {
       className={cn('flex flex-col px-2 gap-0', className)}
       {...rest}
     >
-      {messages.map((message) => {
+      {(messages ?? []).map((message) => {
         const { id } = message;
         if (CustomRenderer) {
           return <CustomRenderer key={id} message={message} />;

@@ -60,4 +60,8 @@ export interface TerminalProps {
    * Whether to disable the default commands or not.
    */
   disableDefaultCommands?: boolean;
+  /**
+   * The default handler for the terminal.
+   */
+  defaultHandler?: Command;
 }

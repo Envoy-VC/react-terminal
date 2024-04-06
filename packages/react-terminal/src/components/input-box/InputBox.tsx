@@ -39,4 +39,7 @@ const InputBox: InputBoxComponent = Object.assign(
   }
 );
 
+InputBox.Prompt = Prompt;
+InputBox.TextArea = TextArea;
+
 export default InputBox;

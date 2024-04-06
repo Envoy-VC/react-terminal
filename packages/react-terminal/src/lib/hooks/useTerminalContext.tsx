@@ -12,8 +12,6 @@ import { TerminalProps } from '~/types';
 import { constructInputBoxProps } from '../helpers/inputbox';
 
 export type TerminalState = {
-  terminalRef: React.RefObject<HTMLDivElement>;
-  inputRef: React.RefObject<HTMLTextAreaElement>;
   text: string;
   isExecuting: boolean;
   commandIndex: number;
@@ -35,8 +33,6 @@ export type TerminalStore = ReturnType<typeof createTerminalStore>;
 
 export const createTerminalStore = () => {
   const defaultProps: TerminalState = {
-    terminalRef: React.createRef<HTMLDivElement>(),
-    inputRef: React.createRef<HTMLTextAreaElement>(),
     isExecuting: false,
     commandIndex: -1,
     text: '',

@@ -53,37 +53,18 @@ export const constructTerminalProps = (
 ): AllRequired<TerminalProps> => {
   const terminalProps: AllRequired<TerminalProps> = {
     theme: props.theme ?? themes.poimandres,
-    //showWelcomeMessage: props.showWelcomeMessage ?? true,
-    //welcomeMessage: props.welcomeMessage ?? defaultWelcomeMessage,
+
     fontSize: props.fontSize ?? 16,
     autoScroll: props.autoScroll ?? true,
-    // showTitleBar: props.showTitleBar ?? true,
-    // titleBar: {
-    //   header: <div className='text-sm'>React Terminal</div>,
-    //   closeHandler: () => {},
-    //   minimizeHandler: () => {},
-    //   maximizeHandler: () => {},
-    //   extraContent: <div className='invisible'>a</div>,
-    //   ...props.titleBar,
-    // },
-    // titleBarProps: { ...props.titleBarProps },
-    // executingLoader: props.executingLoader ?? <DefaultLoader />,
+
     commands: props.commands ?? [],
     disableDefaultCommands: props.disableDefaultCommands ?? false,
-    // disableAnsi: props.disableAnsi ?? false,
-    // inputBox: {
-    //   prompt: defaultPrompt,
-    //   cursor: 'underscore',
-    //   ...props.inputBox,
-    // },
-    // inputBoxProps: { ...props.inputBoxProps },
-    // defaultHandler: props.defaultHandler ?? {
-    //   name: 'default',
-    //   handler: (_, command) => {
-    //     return `${command}: command not found`;
-    //   },
-    // },
-    // htmlRenderer: props.htmlRenderer ?? JSXRenderer,
+    defaultHandler: props.defaultHandler ?? {
+      name: 'default',
+      handler: (_, command) => {
+        return `${command}: command not found`;
+      },
+    },
   };
 
   return terminalProps;

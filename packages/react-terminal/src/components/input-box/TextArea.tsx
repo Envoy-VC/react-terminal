@@ -1,8 +1,9 @@
 import React, { useImperativeHandle, useRef } from 'react';
 
+import { db } from '~/lib/db';
 import { getCursor } from '~/lib/helpers/terminal';
 import { calculateTextAreaHeight } from '~/lib/helpers/terminal';
-import { useEffectOnce, useTerminalContext } from '~/lib/hooks';
+import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { TextareaProps, WithoutRef } from '~/types';
@@ -17,7 +18,15 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useImperativeHandle(ref, () => textareaRef.current!, []);
-  const { text, fontSize, setText } = useTerminalContext();
+  const {
+    text,
+    fontSize,
+    commandIndex,
+    isExecuting,
+    setText,
+    setCommandIndex,
+  } = useTerminalContext();
+  const { handler } = useCommands();
 
   const [beforeText, setBeforeText] = React.useState<string>('');
   const [afterText, setAfterText] = React.useState<string>('');
@@ -61,6 +70,58 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
     }
   }, [isFocused]);
 
+  React.useEffect(() => {
+    if (isExecuting === false && text === '') {
+      textareaRef.current?.focus();
+    }
+  }, [isExecuting, text]);
+
+  const handleKeyPress = async (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (
+      event.key === 'Enter' &&
+      !event.shiftKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey
+    ) {
+      event.preventDefault();
+      textareaRef.current?.blur();
+      setCommandIndex(-1);
+      await handler();
+    } else if (event.key === 'Enter' && event.shiftKey) {
+      const newText = text + '\n';
+      setText(newText);
+      event.preventDefault();
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      const commands = await db.history
+        .where({ type: 'command' })
+        .reverse()
+        .toArray();
+
+      if (commands.length === 0) return;
+
+      let newIndex: number;
+
+      if (event.key === 'ArrowUp') {
+        newIndex = commandIndex + 1;
+      } else {
+        newIndex = commandIndex - 1;
+      }
+
+      if (newIndex >= commands.length || newIndex < 0) return;
+
+      setCommandIndex(newIndex);
+
+      const command = commands[newIndex];
+      if (command && command.type === 'command') {
+        setText(command.value);
+      }
+    }
+  };
+
   return (
     <div
       className='relative w-full bg-transparent'
@@ -76,14 +137,15 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
         {afterText}
       </div>
       <textarea
-        // disabled={isExecuting}
+        id='terminal-input-textarea'
+        disabled={isExecuting}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onSeeking={handleSelectionChange}
         onSelect={handleSelectionChange}
         ref={textareaRef}
         autoFocus
-        // onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyPress}
         value={text}
         onChange={handleTextChange}
         spellCheck={false}

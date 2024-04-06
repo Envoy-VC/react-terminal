@@ -1,5 +1,6 @@
 import { Awaitable } from '.';
-import { TerminalOutputValue } from './db';
+
+export type TerminalOutputValue = string | { html: JSX.Element } | undefined;
 
 /**
  * Represents a command handler function.

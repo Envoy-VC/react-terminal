@@ -2,7 +2,7 @@ import React, { useImperativeHandle } from 'react';
 
 import { db } from '~/lib/db';
 import { constructTerminalProps } from '~/lib/helpers/terminal';
-import { useTerminalContext } from '~/lib/hooks';
+import { useCommands, useTerminalContext } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -28,9 +28,8 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     theme: storeTheme,
     setTerminalProps,
   } = useTerminalContext();
-  // const { lastCursor } = useCommands();
+  const { lastCursor } = useCommands();
 
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
   const terminalRef = React.useRef<HTMLDivElement>(null);
 
   useImperativeHandle(ref, () => terminalRef.current!, []);
@@ -54,50 +53,53 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     });
   }, [storeTheme]);
 
-  // const messages = useLiveQuery(async () => {
-  //   const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
-  //   return res;
-  // }, [lastCursor]);
+  const messages = useLiveQuery(async () => {
+    const res = await db.history.filter((x) => x.id! > lastCursor).toArray();
+    return res;
+  }, [lastCursor]);
 
   useEventListener(
     'click',
     () => {
-      if (!isExecuting) inputRef.current?.focus();
+      if (!isExecuting) {
+        const textarea = document.getElementById(
+          'terminal-input-textarea'
+        ) as HTMLTextAreaElement;
+        textarea?.focus();
+      }
     },
     terminalRef
   );
 
-  // React.useEffect(() => {
-  //   const container = terminalRef.current;
-  //   if (!container) return;
+  React.useEffect(() => {
+    const container = terminalRef.current;
+    if (!container) return;
 
-  //   const scrollDifference = container.scrollHeight - container.clientHeight;
-  //   // Check if the user is near the bottom about 40% of the screen
-  //   const isNearBottom = container.scrollTop > scrollDifference * 0.6;
+    const scrollDifference = container.scrollHeight - container.clientHeight;
+    // Check if the user is near the bottom about 40% of the screen
+    const isNearBottom = container.scrollTop > scrollDifference * 0.6;
 
-  //   if (isNearBottom) {
-  //     container.scrollTop = container.scrollHeight;
-  //   }
-  // }, [messages]);
+    if (isNearBottom) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
 
-  // every three seconds check if near the bottom of the screen and scroll down
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const container = terminalRef.current;
+      if (!container) return;
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const container = terminalRef.current;
-  //     if (!container) return;
+      const scrollDifference = container.scrollHeight - container.clientHeight;
+      // Check if the user is near the bottom about 40% of the screen
+      const isNearBottom = container.scrollTop > scrollDifference * 0.6;
 
-  //     const scrollDifference = container.scrollHeight - container.clientHeight;
-  //     // Check if the user is near the bottom about 40% of the screen
-  //     const isNearBottom = container.scrollTop > scrollDifference * 0.6;
+      if (isNearBottom && autoScroll) {
+        container.scrollTop = container.scrollHeight;
+      }
+    }, 3000);
 
-  //     if (isNearBottom && autoScroll) {
-  //       container.scrollTop = container.scrollHeight;
-  //     }
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, [messages]);
+    return () => clearInterval(interval);
+  }, [messages]);
 
   return (
     <div
@@ -109,11 +111,6 @@ const Terminal = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
       {...rest}
     >
       {children}
-      {/* {showTitleBar && <TitleBar {...titleBarProps} />}
-      {showWelcome && welcome}
-      <Output output={messages ?? []} />
-      <InputBox ref={inputRef} {...inputBoxProps} />
-      <ExecutingLoader /> */}
     </div>
   );
 });

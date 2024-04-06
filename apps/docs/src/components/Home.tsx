@@ -8,6 +8,8 @@ import { Button } from '~/components/ui/button';
 import {
   Terminal,
   TerminalInputBox,
+  TerminalLoader,
+  TerminalOutput,
   TerminalTitleBar,
   TerminalWelcomeMessage,
 } from '@envoy1084/react-terminal';
@@ -125,10 +127,12 @@ const Home = () => {
               <TerminalTitleBar.Title />
             </TerminalTitleBar>
             <TerminalWelcomeMessage />
+            <TerminalOutput />
             <TerminalInputBox>
               <TerminalInputBox.Prompt />
               <TerminalInputBox.TextArea cursor='underscore' />
             </TerminalInputBox>
+            <TerminalLoader />
           </Terminal>
         </div>
       </div>
