@@ -1,5 +1,12 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 
+import { useCommands } from '~/lib/hooks';
 import { cn } from '~/lib/utils';
 
 import { WelcomeMessageProps } from '~/types';
@@ -29,13 +36,30 @@ const WelcomeMessage = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const welcomeMessageRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => welcomeMessageRef.current!, []);
 
+  const { lastCursor } = useCommands();
+  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+  const [isCleared, setIsCleared] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    } else {
+      if (showOnClear) {
+        setIsCleared(false);
+      } else {
+        setIsCleared(true);
+      }
+    }
+  }, [lastCursor]);
+
   return (
     <div
       ref={welcomeMessageRef}
       className={cn('px-2 whitespace-pre-wrap', className)}
       {...rest}
     >
-      {children ?? defaultMessage}
+      {!isCleared && (children ?? defaultMessage)}
     </div>
   );
 });
