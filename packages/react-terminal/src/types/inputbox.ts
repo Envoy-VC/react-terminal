@@ -21,3 +21,7 @@ export interface InputBoxProps {
 export interface TextareaProps {
   cursor?: 'underscore' | 'block' | 'bar' | React.ReactNode;
 }
+
+export interface PromptProps {
+  prompt?: React.ReactNode;
+}

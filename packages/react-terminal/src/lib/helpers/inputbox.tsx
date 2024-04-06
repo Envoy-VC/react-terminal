@@ -1,12 +1,12 @@
-import { AllRequired, TextareaProps } from '~/types';
+import { AllRequired, PromptProps } from '~/types';
 
-export const constructTextareaProps = (
-  props: TextareaProps
-): AllRequired<TextareaProps> => {
-  const textareaProps: AllRequired<TextareaProps> = {
-    cursor: 'underscore',
+export const constructInputBoxProps = (
+  props: PromptProps
+): AllRequired<PromptProps> => {
+  const inputBoxProps: AllRequired<PromptProps> = {
+    prompt: <span className='!text-blue-500'>$</span>,
     ...props,
   };
 
-  return textareaProps;
+  return inputBoxProps;
 };
