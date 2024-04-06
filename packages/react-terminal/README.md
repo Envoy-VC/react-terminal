@@ -17,6 +17,20 @@ Here's what it provides:
 
 The Project follows a Compound component pattern. You can use the components to build your own terminal. Each Components extends from Either a `div` or `textarea` (in case of input textarea) element so you can pass the element props to the components.
 
+Install the package:
+
+```bash
+npm install @envoy1084/react-terminal
+# or
+yarn add @envoy1084/react-terminal
+# or
+pnpm add @envoy1084/react-terminal
+# or
+bun add @envoy1084/react-terminal
+```
+
+Usage:
+
 ```tsx
 import {
   Terminal,
