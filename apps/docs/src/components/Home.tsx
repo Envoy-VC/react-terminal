@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
+import { Terminal, TitleBar, WelcomeMessage } from '@envoy1084/react-terminal';
 import {
   Command,
-  Terminal,
   Theme,
   resetTerminal,
   themes,
@@ -17,6 +17,7 @@ import { ArrowUpRight } from 'lucide-react';
 import BackgroundImage from '~/assets/background.jpeg';
 
 const Home = () => {
+  const ref = React.useRef<HTMLDivElement>(null);
   const commands: Command[] = [
     {
       name: 'whoami',
@@ -109,7 +110,17 @@ const Home = () => {
             className='aspect-video max-w-5xl border-none w-full h-fit'
             theme={theme}
             commands={commands}
-          />
+          >
+            <TitleBar>
+              <TitleBar.ActionGroup
+                closeHandler={() => console.log('close')}
+                minimizeHandler={() => console.log('minimize')}
+                maximizeHandler={() => console.log('maximize')}
+              />
+              <TitleBar.Title />
+            </TitleBar>
+            <WelcomeMessage />
+          </Terminal>
         </div>
       </div>
     </div>

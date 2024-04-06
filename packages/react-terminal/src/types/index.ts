@@ -4,6 +4,7 @@ export * from './terminal';
 export * from './commands';
 export * from './inputbox';
 export * from './titlebar';
+export * from './welcome';
 export * from './output';
 export * from './db';
 

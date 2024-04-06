@@ -5,7 +5,7 @@ import { cn } from '~/lib/utils';
 import { WithoutRef } from '~/types';
 
 import ActionGroup from './ActionGroup';
-import { Title } from './Title';
+import Title from './Title';
 
 type Props = WithoutRef<'div'>;
 
