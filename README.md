@@ -1,4 +1,8 @@
-![React Terminal](assets/logo-full.svg)
+<p>
+  <picture>
+    <img alt="Lens SDK logo" src="./assets/logo-full.svg" width="100%">
+  </picture>
+</p>
 
 **Introducing React Terminal: A customizable terminal component for your React applications.**
 
