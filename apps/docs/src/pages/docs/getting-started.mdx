@@ -4,34 +4,46 @@ title: Getting Started
 
 # Getting Started
 
-The Project follows a Provider Structure, where the store is passed down to the components using the Provider pattern.
+The Project follows a Compound component pattern. You can use the components to build your own terminal. Each Components extends from Either a `div` or `textarea` (in case of input textarea) element so you can pass the element props to the components.
 
-First you need to wrap your application in a `TerminalProvider` component.
+The components are:
 
-```tsx filename="src/_app.tsx" {5,7}
-import { TerminalProvider } from '@envoy1084/react-terminal';
+- `Terminal`: The main component that wraps all the other components.
+- `TerminalTitleBar`: The Title bar of the terminal.
+- `TerminalWelcomeMessage`: The Welcome message of the terminal.
+- `TerminalOutput`: The Output area of the terminal.
+- `TerminalInputBox`: The Input area of the terminal.
+- `TerminalLoader`: The Loader component that shows when the terminal is loading.
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <TerminalProvider>
-      <Component {...pageProps} />
-    </TerminalProvider>
-  );
-}
-
-export default MyApp;
-```
-
-Then you can use the `Terminal` Component to render the terminal.
+It is recommended to follow the component order for proper functioning of the terminal.
 
 ```tsx filename="src/pages/index.tsx"
-import { Terminal } from '@envoy1084/react-terminal';
+import {
+  Terminal,
+  TerminalInputBox,
+  TerminalLoader,
+  TerminalOutput,
+  TerminalTitleBar,
+  TerminalWelcomeMessage,
+} from '@envoy1084/react-terminal';
 
-export default function Home() {
+const MyComponent = () => {
   return (
-    <div>
-      <Terminal />
-    </div>
+    <Terminal>
+      <TerminalTitleBar>
+        <TerminalTitleBar.ActionGroup />
+        <TerminalTitleBar.Title />
+      </TerminalTitleBar>
+      <TerminalWelcomeMessage />
+      <TerminalOutput />
+      <TerminalInputBox>
+        <TerminalInputBox.Prompt />
+        <TerminalInputBox.TextArea />
+      </TerminalInputBox>
+      <TerminalLoader />
+    </Terminal>
   );
-}
+};
+
+export default MyComponent;
 ```

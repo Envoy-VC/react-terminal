@@ -7,9 +7,17 @@ title: Commands
 The Terminal component supports customized commands for the user to interact with the terminal. The commands are defined in the `commands` property of the Terminal component. The `commands` property is an array of `Commands`, where each object represents a command.
 
 ```tsx
-import { Command, Terminal } from '@envoy1084/react-terminal';
+import {
+  Command,
+  Terminal,
+  TerminalInputBox,
+  TerminalLoader,
+  TerminalOutput,
+  TerminalTitleBar,
+  TerminalWelcomeMessage,
+} from '@envoy1084/react-terminal';
 
-const App = () => {
+const MyComponent = () => {
   const commands: Command[] = [
     {
       name: 'time',
@@ -30,10 +38,24 @@ const App = () => {
       },
     },
   ];
-  return <Terminal commands={commands} />;
+  return (
+    <Terminal commands={commands}>
+      <TerminalTitleBar>
+        <TerminalTitleBar.ActionGroup />
+        <TerminalTitleBar.Title />
+      </TerminalTitleBar>
+      <TerminalWelcomeMessage />
+      <TerminalOutput />
+      <TerminalInputBox>
+        <TerminalInputBox.Prompt />
+        <TerminalInputBox.TextArea />
+      </TerminalInputBox>
+      <TerminalLoader />
+    </Terminal>
+  );
 };
 
-export default App;
+export default MyComponent;
 ```
 
 ## Command

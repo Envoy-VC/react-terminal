@@ -9,13 +9,35 @@ The terminal contains various in-built themes that you can use to customize the 
 Default Theme is `poimandres`
 
 ```tsx
-import { themes, Terminal } from '@envoy1084/react-terminal';
+import {
+  Terminal,
+  TerminalInputBox,
+  TerminalLoader,
+  TerminalOutput,
+  TerminalTitleBar,
+  TerminalWelcomeMessage,
+  themes,
+} from '@envoy1084/react-terminal';
 
-const Page = {
-    return (
-        <Terminal theme={themes.poimandres} />
-    );
-}
+const MyComponent = () => {
+  return (
+    <Terminal theme={themes.aurora_x}>
+      <TerminalTitleBar>
+        <TerminalTitleBar.ActionGroup />
+        <TerminalTitleBar.Title />
+      </TerminalTitleBar>
+      <TerminalWelcomeMessage />
+      <TerminalOutput />
+      <TerminalInputBox>
+        <TerminalInputBox.Prompt />
+        <TerminalInputBox.TextArea />
+      </TerminalInputBox>
+      <TerminalLoader />
+    </Terminal>
+  );
+};
+
+export default MyComponent;
 ```
 
 ## Custom Theme
@@ -25,9 +47,9 @@ You can also create your own custom theme by passing an object with the required
 Example:
 
 ```tsx
-import { Terminal, Theme} from '@envoy1084/react-terminal';
+import { Terminal, Theme } from '@envoy1084/react-terminal';
 
-const poimandres: Theme = {
+const customTheme: Theme = {
   background: '#1b1e28',
   border: '#ffffff10',
   foreground: '#a6accd',
@@ -51,11 +73,11 @@ const poimandres: Theme = {
   ansiYellow: '#fffac2',
 };
 
-const Page = {
-    return (
-        <Terminal theme={customTheme} />
-    );
-}
+const Page = () => {
+  return <Terminal theme={customTheme}>{/** Other components */}</Terminal>;
+};
+
+export default Page;
 ```
 
 ## Available Themes

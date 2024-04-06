@@ -1,0 +1,43 @@
+---
+title: Terminal Input Box
+---
+
+# Terminal Input Box
+
+The Input Box component for the terminal. It takes two children:
+
+1. `Prompt` - The prompt to be displayed before the input box.
+2. `TextArea` - The text area to be used for input.
+
+Example:
+
+```tsx
+<TerminalInputBox>
+  <TerminalInputBox.Prompt />
+  <TerminalInputBox.TextArea />
+</TerminalInputBox>
+```
+
+## Prompt
+
+The prompt to be displayed before the input box. It is of form `React.ReactNode`.
+
+Example:
+
+```tsx
+<TerminalInputBox.Prompt>
+  <span style={{ color: 'green' }}>$&nbsp;</span>
+</TerminalInputBox.Prompt>
+```
+
+## TextArea
+
+The text area to be used for input. It extends from `HTMLTextAreaElement`. It takes the following props:
+
+- **[cursor]()**: `'underscore' | 'block' | 'bar' | React.ReactNode?` - The cursor to be displayed at the end of the input box. Default is `underscore`.
+
+Example:
+
+```tsx
+<TerminalInputBox.TextArea cursor='block' />
+```

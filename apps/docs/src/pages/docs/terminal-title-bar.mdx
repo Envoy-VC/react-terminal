@@ -1,0 +1,75 @@
+---
+title: Terminal Title Bar
+---
+
+# Terminal Title Bar
+
+The Title bar component for the terminal. It takes two children:
+
+1. `ActionGroup` - The action group for the title bar.
+2. `Title` - The title of the terminal.
+
+Example:
+
+```tsx
+<TerminalTitleBar>
+  <TerminalTitleBar.ActionGroup />
+  <TerminalTitleBar.Title />
+</TerminalTitleBar>
+```
+
+## Action Group
+
+The action group for the title bar. It takes the following props to control the action:
+
+1. `closeHandler` - The handler function to be called when the close button is clicked.
+2. `minimizeHandler` - The handler function to be called when the minimize button is clicked.
+3. `maximizeHandler` - The handler function to be called when the maximize button is clicked.
+
+Example:
+
+```tsx
+<TerminalTitleBar.ActionGroup
+  closeHandler={() => console.log('Close')}
+  minimizeHandler={() => console.log('Minimize')}
+  maximizeHandler={() => console.log('Maximize')}
+/>
+```
+
+You can also pass your custom action bar by using children. Default is three action buttons.
+
+Example:
+
+```tsx
+<TerminalTitleBar.ActionGroup>
+  <button onClick={() => console.log('Custom Action')}>Custom Action</button>
+</TerminalTitleBar.ActionGroup>
+```
+
+---
+
+## Title
+
+The title of the terminal. When no children are passed, the default value is `React Terminal`.
+
+Example:
+
+```tsx
+<TerminalTitleBar.Title>
+  <div>My Cusom Terminal</div>
+</TerminalTitleBar.Title>
+```
+
+---
+
+You can also add more children to the Title Bar anywhere you want.
+
+Example:
+
+```tsx
+<TerminalTitleBar>
+  <TerminalTitleBar.ActionGroup />
+  <TerminalTitleBar.Title />
+  <div>Extra Content</div>
+</TerminalTitleBar>
+```

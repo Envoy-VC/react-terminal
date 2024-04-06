@@ -24,7 +24,6 @@ import { ArrowUpRight } from 'lucide-react';
 import BackgroundImage from '~/assets/background.jpeg';
 
 const Home = () => {
-  const ref = React.useRef<HTMLDivElement>(null);
   const commands: Command[] = [
     {
       name: 'whoami',

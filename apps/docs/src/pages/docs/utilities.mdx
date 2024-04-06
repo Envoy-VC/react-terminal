@@ -19,3 +19,52 @@ const jsxElement = <div>Hello, World!</div>;
 
 const htmlString = safeRenderToString(jsxElement);
 ```
+
+## Clear Terminal
+
+The `clearTerminal` function clears the terminal by updating the last cursor position.
+
+Example:
+
+```tsx
+import { clearTerminal } from '@envoy1084/react-terminal';
+
+const clear = async () => {
+  await clearTerminal();
+};
+```
+
+## Reset Terminal
+
+The `resetTerminal` function resets the terminal by clearing the history from IndexedDB.
+
+Example:
+
+```tsx
+import { resetTerminal } from '@envoy1084/react-terminal';
+
+const reset = async () => {
+  await resetTerminal();
+};
+```
+
+## Write to Terminal
+
+The `writeToTerminal` function adds the provided value to the terminal history. If the value is a string, it is added directly. If the value is an object, the `html` property of the object is converted to a string using the `safeRenderToString` function before adding it to the history.
+
+Example:
+
+```tsx
+import { writeToTerminal } from '@envoy1084/react-terminal';
+
+const stringValue = 'Hello, world!';
+await writeToTerminal(stringValue);
+
+const htmlValue = {
+  html: <div>Hello, world!</div>,
+};
+
+await writeToTerminal(htmlValue);
+```
+
+---

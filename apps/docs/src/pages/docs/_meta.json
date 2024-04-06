@@ -1,23 +1,28 @@
 {
   "index": "Introduction",
   "installation": "Installation",
-  "--- Usage": {
-    "type": "separator",
-    "title": "Usage"
-  },
   "getting-started": "Getting Started",
+  "--- Components": {
+    "type": "separator",
+    "title": "Components"
+  },
   "terminal": "Terminal",
-  "use-terminal": "useTerminal Hook",
-  "theme": "Themes",
-  "title-bar": "Title Bar",
-  "input-box": "Input Box",
-  "commands": "Commands",
-  "html-renderer": "HTML Renderer",
+  "terminal-title-bar": "Terminal Title Bar",
+  "terminal-welcome-message": "Terminal Welcome Message",
+  "terminal-output": "Terminal Output",
+  "terminal-input-box": "Terminal InputBox",
+  "terminal-loader": "Terminal Loader",
   "--- Helpers": {
     "type": "separator",
     "title": "Helpers"
   },
   "utilities": "Utilities",
+  "--- Types": {
+    "type": "separator",
+    "title": "Types"
+  },
+  "theme": "Themes",
+  "commands": "Commands",
   "references": {
     "title": "Reference",
     "type": "page",

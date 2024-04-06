@@ -1,0 +1,55 @@
+---
+title: Terminal Output
+---
+
+# Terminal Output
+
+The terminal output is the output of the terminal that is displayed on the screen. It is the output of the commands that are executed in the terminal and their results. The terminal output is displayed in the terminal window.
+
+It takes the following props:
+
+- **[renderer]()**: `MessageRenderer?` - The custom renderer for rendering the output messages.
+- **[disableAnsi]()**: `boolean?` - Determines whether to disable ANSI escape sequences in the output.
+
+Example:
+
+```tsx
+<TerminalOutput disableAnsi={false} />
+```
+
+## With Custom Renderer
+
+The renderer is a custom renderer for rendering the output messages. It is a function that takes a message and returns a JSX element representing the rendered message.
+
+```ts
+// Message Type: TerminalHistory
+
+export type TerminalDBCommand = {
+  id: number;
+  type: 'command';
+  value: string;
+};
+
+export type TerminalDBOutput = {
+  id: number;
+  type: 'output';
+  value:
+    | undefined
+    | string
+    | {
+        html: string;
+      };
+};
+
+export type TerminalHistory = TerminalDBCommand | TerminalDBOutput;
+```
+
+```tsx
+<TerminalOutput
+  renderer={({ message }) => {
+    const type = message.type; // 'command' | 'output'
+    const value = message.value; // string | undefined | { html: string }
+    return <div>{String(value)}</div>;
+  }}
+/>
+```
