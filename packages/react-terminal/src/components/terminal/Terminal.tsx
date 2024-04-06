@@ -14,7 +14,7 @@ type Props = TerminalProps & WithoutRef<'div'>;
 /**
  * Represents a terminal component.
  *
- * @group Component
+ * @group Components
  * @example
  * ```tsx
  * <Terminal

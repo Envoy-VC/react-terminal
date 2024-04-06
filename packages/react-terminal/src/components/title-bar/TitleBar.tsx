@@ -9,11 +9,53 @@ import Title from './Title';
 
 type Props = WithoutRef<'div'>;
 
-interface TitleBarComponent extends FC<Props> {
+export interface TitleBarComponent extends FC<Props> {
+  /**
+   * The Action Group component.
+   *
+   * @public
+   *
+   * @example
+   * ```tsx
+   * <TerminalTitleBar.ActionGroup
+   *   closeHandler={() => console.log('close')}
+   *   minimizeHandler={() => console.log('minimize')}
+   *   maximizeHandler={() => console.log('maximize')}
+   * />
+   * ```
+   */
   ActionGroup: typeof ActionGroup;
+  /**
+   * Represents the Title component.
+   *
+   * @public
+   *
+   * @example
+   * ```tsx
+   * <TerminalTitleBar.Title>
+   *    <div>My Terminal</div>
+   * </TerminalTitleBar.Title>
+   * ```
+   */
   Title: typeof Title;
 }
 
+/**
+ * Represents the TitleBar component.
+ *
+ * @group Components
+ * @example
+ * ```tsx
+ *  <TerminalTitleBar>
+ *    <TerminalTitleBar.ActionGroup
+ *      closeHandler={() => console.log('close')}
+ *      minimizeHandler={() => console.log('minimize')}
+ *      maximizeHandler={() => console.log('maximize')}
+ *    />
+ *    <TerminalTitleBar.Title />
+ *  </TerminalTitleBar>
+ * ```
+ */
 const TitleBar: TitleBarComponent = Object.assign(
   forwardRef<HTMLDivElement, Props>((props, ref) => {
     const titlebarRef = useRef<HTMLDivElement>(null);

@@ -1,5 +1,9 @@
 import { Awaitable } from '.';
 
+/**
+ * Represents the possible values that can be outputted by a terminal command.
+ * It can be a string, an object containing HTML JSX element, or undefined.
+ */
 export type TerminalOutputValue = string | { html: JSX.Element } | undefined;
 
 /**

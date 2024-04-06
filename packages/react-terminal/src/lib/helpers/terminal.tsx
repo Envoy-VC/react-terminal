@@ -30,6 +30,7 @@ export const constructTerminalProps = (
 /**
  * Clears the terminal by updating the last cursor position and returning undefined.
  *
+ * @group Helpers
  * @example
  * ```tsx
  * const clear = async () => {
@@ -47,13 +48,14 @@ export const clearTerminal = async () => {
 };
 
 /**
- * Clears the terminal
+ * Resets the terminal by clearing the history from IndexedDB
  *
+ * @group Helpers
  * @example
  *
  * ```tsx
- * const clear = async () => {
- *    await clearTerminal();
+ * const reset = async () => {
+ *   await resetTerminal();
  * }
  * ```
  */
@@ -65,6 +67,7 @@ export const resetTerminal = async () => {
 /**
  * This function adds the provided value to the terminal history. If the value is a string, it is added directly. If the value is an object, the `html` property of the object is converted to a string using `safeRenderToString` function before adding it to the history.
  *
+ * @group Helpers
  * @param value - The value to be written to the terminal.
  *
  * @example

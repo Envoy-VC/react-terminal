@@ -11,6 +11,15 @@ import DefaultRenderer from './DefaultRenderer';
 
 type Props = OutputProps & WithoutRef<'div'>;
 
+/**
+ * Represents the output component that displays messages in the terminal.
+ *
+ * @group Components
+ * @example
+ * ```tsx
+ * <TerminalOutput disableAnsi={false} />
+ * ```
+ */
 const Output = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {
     renderer: CustomRenderer,

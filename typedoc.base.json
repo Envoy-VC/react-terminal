@@ -2,7 +2,7 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"includeVersion": true,
 	"excludeExternals": false,
-	"excludeInternal": true,
+	"excludeInternal": false,
 	"excludeNotDocumented": false,
 	"excludePrivate": true,
 	"excludeProtected": true,

@@ -10,10 +10,39 @@ import TextArea from './TextArea';
 type Props = WithoutRef<'div'>;
 
 interface InputBoxComponent extends FC<Props> {
+  /**
+   * The Prompt component.
+   *
+   * @example
+   * ```tsx
+   * <TerminalInputBox.Prompt>
+   *   <span className='text-blue-400'>{'>>>'}</span>
+   * </TerminalInputBox.Prompt>
+   * ```
+   */
   Prompt: typeof Prompt;
+  /**
+   * The TextArea component.
+   *
+   * @example
+   * ```tsx
+   * <TerminalInputBox.TextArea cursor='block' />
+   */
   TextArea: typeof TextArea;
 }
 
+/**
+ * Represents an input box component.
+ *
+ * @group Components
+ * @example
+ * ```tsx
+ * <TerminalInputBox>
+ *   <TerminalInputBox.Prompt />
+ *   <TerminalInputBox.TextArea cursor='underscore' />
+ * </TerminalInputBox>
+ * ```
+ */
 const InputBox: InputBoxComponent = Object.assign(
   forwardRef<HTMLDivElement, Props>((props, ref) => {
     const { children, className, ...rest } = props;

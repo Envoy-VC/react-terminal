@@ -7,6 +7,15 @@ import { WithoutRef } from '~/types';
 
 type Props = WithoutRef<'div'>;
 
+/**
+ * Loader component that displays a loading indicator when the terminal is executing a command.
+ *
+ * @group Components
+ * @example
+ * ```tsx
+ *  <TerminalLoader />
+ * ```
+ */
 const Loader = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { children, className, ...rest } = props;
   const loaderRef = useRef<HTMLDivElement>(null);

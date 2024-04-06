@@ -3,9 +3,9 @@ import { useImperativeHandle } from 'react';
 
 import { WithoutRef } from '~/types';
 
-export type TitleProps = WithoutRef<'div'>;
+type Props = WithoutRef<'div'>;
 
-const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
+const Title = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const titleRef = useRef<HTMLDivElement>(null);
 
   useImperativeHandle(ref, () => titleRef.current!, []);
